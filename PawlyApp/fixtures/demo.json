@@ -1,0 +1,221 @@
+[
+  {
+    "model": "SecurityApp.user",
+    "pk": 101,
+    "fields": {
+      "username": "luis",
+      "email": "luis.garcia@example.com",
+      "password": "pbkdf2_sha256$600000$7G8wmzv48wE05YKTT2OrK7$yVFk4qXB2EmzU1DDmqDn7fDGxcHLE+AAWLjMwXz8QhQ=",
+      "first_name": "Luis",
+      "last_name": "García",
+      "is_active": true,
+      "date_joined": "2026-09-01T10:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.profile",
+    "pk": 101,
+    "fields": {
+      "user": 101,
+      "full_name": "Luis García",
+      "national_id": "V-14.215.630",
+      "city": "Chacao, Caracas",
+      "gender": "m",
+      "about": "Rescato perros en Chacao y les busco hogar"
+    }
+  },
+  {
+    "model": "SecurityApp.user",
+    "pk": 102,
+    "fields": {
+      "username": "lunita",
+      "email": "lunita.rescates@example.com",
+      "password": "pbkdf2_sha256$600000$7G8wmzv48wE05YKTT2OrK7$yVFk4qXB2EmzU1DDmqDn7fDGxcHLE+AAWLjMwXz8QhQ=",
+      "first_name": "Lunita",
+      "last_name": "Rescates",
+      "is_active": true,
+      "date_joined": "2026-09-01T10:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.profile",
+    "pk": 102,
+    "fields": {
+      "user": 102,
+      "full_name": "Lunita Rescates",
+      "national_id": "V-20.118.452",
+      "city": "La Candelaria, Caracas",
+      "gender": "o",
+      "about": "Grupo de rescate de gatos y perros en Caracas"
+    }
+  },
+  {
+    "model": "SecurityApp.user",
+    "pk": 103,
+    "fields": {
+      "username": "daniela",
+      "email": "daniela.bracho@example.com",
+      "password": "pbkdf2_sha256$600000$7G8wmzv48wE05YKTT2OrK7$yVFk4qXB2EmzU1DDmqDn7fDGxcHLE+AAWLjMwXz8QhQ=",
+      "first_name": "Daniela",
+      "last_name": "Bracho",
+      "is_active": true,
+      "date_joined": "2026-09-01T10:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.profile",
+    "pk": 103,
+    "fields": {
+      "user": 103,
+      "full_name": "Daniela Bracho",
+      "national_id": "V-18.903.271",
+      "city": "Los Palos Grandes, Caracas",
+      "gender": "f",
+      "about": "Voluntaria en jornadas de adopción"
+    }
+  },
+  {
+    "model": "PawlyApp.pet",
+    "pk": 101,
+    "fields": {
+      "owner": 101,
+      "name": "Toby",
+      "species": "dog",
+      "sex": "m",
+      "birth_date": "2024-06-10",
+      "temperament": "calm",
+      "about": "Tranquilo, juguetón y muy apegado. Se lleva bien con niños y otros perros, tiene sus vacunas al día y está esterilizado. Lo rescatamos en La Candelaria hace un año y ya está listo para su hogar definitivo.",
+      "photo": "pets/d1.jpg",
+      "location": "Chacao, Caracas",
+      "for_adoption": true,
+      "family": "Tenga patio o salga a caminar a diario y esté en Caracas o los Valles del Tuy para poder hacer la visita previa.",
+      "created_at": "2026-09-10T09:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.pet",
+    "pk": 102,
+    "fields": {
+      "owner": 102,
+      "name": "Nala",
+      "species": "cat",
+      "sex": "f",
+      "birth_date": "2025-07-02",
+      "temperament": "sociable",
+      "about": "Gata atigrada de 1 año muy cariñosa. Está vacunada y esterilizada, se lleva bien con otros gatos y le encanta dormir al sol.",
+      "photo": "pets/c1.jpg",
+      "location": "La Candelaria, Caracas",
+      "for_adoption": true,
+      "family": "Un hogar tranquilo, con las ventanas protegidas, en Caracas o los Valles del Tuy.",
+      "created_at": "2026-09-12T09:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.pet",
+    "pk": 103,
+    "fields": {
+      "owner": 103,
+      "name": "Rocky",
+      "species": "dog",
+      "sex": "m",
+      "birth_date": "2022-05-20",
+      "temperament": "playful",
+      "about": "Beagle de 4 años muy alegre y curioso. Tiene sus vacunas al día y necesita paseos largos todos los días.",
+      "photo": "pets/d3.jpg",
+      "location": "Los Palos Grandes, Caracas",
+      "for_adoption": true,
+      "family": "Familia activa, con patio o cerca de un parque, en Caracas.",
+      "created_at": "2026-09-08T09:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.pet",
+    "pk": 104,
+    "fields": {
+      "owner": 102,
+      "name": "Kira",
+      "species": "dog",
+      "sex": "f",
+      "birth_date": "2026-02-01",
+      "temperament": "playful",
+      "about": "Cachorra de 8 meses, juguetona y muy dulce. Ya tiene sus primeras vacunas y está aprendiendo a pasear con correa.",
+      "photo": "pets/d4.jpg",
+      "location": "Baruta, Miranda",
+      "for_adoption": true,
+      "family": "Una familia con paciencia para enseñarle y con tiempo para jugar.",
+      "created_at": "2026-09-14T09:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.pet",
+    "pk": 105,
+    "fields": {
+      "owner": 103,
+      "name": "Bruno",
+      "species": "dog",
+      "sex": "m",
+      "birth_date": "2023-04-15",
+      "temperament": "calm",
+      "about": "Labrador de 3 años tranquilo y muy noble, se lleva bien con niños. Está esterilizado y tiene todas sus vacunas.",
+      "photo": "pets/d7.jpg",
+      "location": "El Hatillo, Miranda",
+      "for_adoption": true,
+      "family": "Una familia con espacio para que corra, en Caracas o Miranda.",
+      "created_at": "2026-09-05T09:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.pet",
+    "pk": 106,
+    "fields": {
+      "owner": 101,
+      "name": "Coco",
+      "species": "dog",
+      "sex": "m",
+      "birth_date": "2021-08-03",
+      "temperament": "calm",
+      "about": "Mestizo de 5 años, tranquilo y obediente. Fue rescatado hace dos años y está listo para un hogar definitivo.",
+      "photo": "pets/d8.jpg",
+      "location": "Petare, Miranda",
+      "for_adoption": true,
+      "family": "Una familia paciente, de preferencia sin otros perros.",
+      "created_at": "2026-09-02T09:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.pet",
+    "pk": 107,
+    "fields": {
+      "owner": 102,
+      "name": "Simón",
+      "species": "cat",
+      "sex": "m",
+      "birth_date": "2026-01-20",
+      "temperament": "playful,shy",
+      "about": "Gatito atigrado de 8 meses, curioso y juguetón. Ya está desparasitado y usa su caja de arena.",
+      "photo": "pets/c2.jpg",
+      "location": "Los Teques, Miranda",
+      "for_adoption": true,
+      "family": "Un hogar con rascadores y ventanas seguras, en los Altos Mirandinos.",
+      "created_at": "2026-09-15T09:00:00-04:00"
+    }
+  },
+  {
+    "model": "PawlyApp.pet",
+    "pk": 108,
+    "fields": {
+      "owner": 101,
+      "name": "Max",
+      "species": "dog",
+      "sex": "m",
+      "birth_date": "2020-06-30",
+      "temperament": "protective",
+      "about": "Pastor alemán de 6 años, leal y protector. Tiene sus vacunas al día y le gusta caminar por las mañanas.",
+      "photo": "pets/d9.jpg",
+      "location": "Guarenas, Miranda",
+      "for_adoption": true,
+      "family": "Una familia con experiencia con perros grandes y con patio, en Miranda.",
+      "created_at": "2026-09-01T09:00:00-04:00"
+    }
+  }
+]

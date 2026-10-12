@@ -1,19 +1,5 @@
-/* Pawly: JS general de las pantallas. Sin librerías.
-   Cada comportamiento se activa con atributos en el HTML:
-     form[data-validate]                  valida los campos [required] antes de enviar el formulario
-     form[data-next]                      pantallas de ejemplo: si todo está bien navega a data-next en vez de enviar
-     form[data-autosubmit]                se envía solo cuando cambia una de sus opciones
-     [data-confirm]                       pide confirmación antes de seguir (enlaces, o botones con data-next)
-     input[data-reveals="id"]             un interruptor muestra u oculta el bloque con ese id
-     input[data-confirm-off]              pide confirmación al apagar ese interruptor
-     button[data-toggle-password="id"]    muestra u oculta la contraseña del campo con ese id
-     button[aria-pressed]                 botones que se activan y desactivan (Me gusta, Seguir, Favorito)
-     a[data-close]                        cierre de una ventana modal: también se cierra con Escape o con un clic en el fondo
-     [data-show-when] / [data-hide-when]  muestran u ocultan según la URL, p. ej. "postulacion=enviada" */
 (function () {
-  'use strict';
-
-  /*  Validación de formularios  */
+  // Validación de formularios
   function isEmpty(field) {
     if (field.type === 'checkbox' || field.type === 'radio') return !field.checked;
     return field.value.trim() === '';
@@ -42,12 +28,12 @@
 
   function enableValidation(form) {
     form.addEventListener('submit', function (event) {
-      // Si falta algún campo no se envía
+      // Si falta un campo no se envía
       if (!validate(form)) {
         event.preventDefault();
         return;
       }
-      // Con data-next se navega a la siguiente pantalla; sin data-next el formulario va al servidor
+      // Con data-next pasa a la siguiente pantalla
       if (form.dataset.next) {
         event.preventDefault();
         window.location.href = form.dataset.next;
@@ -55,7 +41,7 @@
     });
   }
 
-  /*  Mostrar u ocultar la contraseña  */
+  // Mostrar u ocultar la contraseña
   function enablePasswordToggle(button) {
     button.addEventListener('click', function () {
       const input = document.getElementById(button.dataset.togglePassword);
@@ -68,7 +54,7 @@
   document.querySelectorAll('form[data-validate]').forEach(enableValidation);
   document.querySelectorAll('[data-toggle-password]').forEach(enablePasswordToggle);
 
-  /*  Confirmaciones y botones que se activan y desactivan  */
+  // Confirmaciones y botones que se activan
   document.addEventListener('click', function (event) {
     const confirmTrigger = event.target.closest('[data-confirm]');
     if (confirmTrigger && confirmTrigger.tagName !== 'INPUT') {
@@ -82,7 +68,7 @@
       return;
     }
 
-    // El botón de mostrar contraseña ya tiene su propio comportamiento
+    // El botón de la contraseña ya tiene su propio evento
     if (event.target.closest('[data-toggle-password]')) return;
 
     const pressable = event.target.closest('button[aria-pressed]');
@@ -92,14 +78,14 @@
     }
   });
 
-  /*  Formularios que se envían solos al cambiar una opción (por ejemplo el idioma en Ajustes)  */
+  // Formularios que se envían solos al cambiar una opción
   document.querySelectorAll('form[data-autosubmit]').forEach(function (form) {
     form.addEventListener('change', function () {
       form.submit();
     });
   });
 
-  /*  Interruptores que muestran u ocultan un bloque  */
+  // Interruptores que muestran u ocultan un bloque
   document.querySelectorAll('input[data-reveals]').forEach(function (input) {
     const target = document.getElementById(input.dataset.reveals);
 
@@ -116,7 +102,7 @@
     sync();
   });
 
-  /*  Ventanas modales: Escape o un clic en el fondo oscuro la cierran, igual que el botón X  */
+  // Cerrar las ventanas con Escape o con un clic en el fondo
   const closeLink = document.querySelector('a[data-close]');
   if (closeLink) {
     document.addEventListener('keydown', function (event) {
@@ -130,7 +116,7 @@
     }
   }
 
-  /*  Elementos que se muestran u ocultan según la URL (por ejemplo ?postulacion=enviada)  */
+  // Mostrar u ocultar según la dirección de la página
   const params = new URLSearchParams(window.location.search);
 
   function matches(rule) {

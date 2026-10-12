@@ -69,7 +69,7 @@
 
         <section class="card card--pad stack" aria-labelledby="appearance-title">
           <h2 class="card__title" id="appearance-title">{% trans "Apariencia e idioma" %}</h2>
-          <!-- Al elegir un idioma se envía a set_language y queda guardado en el usuario -->
+          <!-- Cambio de idioma -->
           <form action="{% url 'set_language' %}" method="post" data-autosubmit>
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">

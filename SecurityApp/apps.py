@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 
-# Los roles son grupos de Django. Cada rol tiene los permisos de esta lista
+# Permisos de cada rol
 ROLES = {
     'Administrator': ['view_user', 'add_user', 'change_user', 'delete_user',
                       'ban_user', 'moderate_content', 'view_auditlog'],
@@ -23,7 +23,7 @@ class SecurityappConfig(AppConfig):
     name = 'SecurityApp'
 
     def ready(self):
-        # Se importan las señales para que queden conectadas (registro de auditoría)
-        from . import signals  # noqa: F401
+        # Conecta las señales de la auditoría
+        from . import signals
 
         post_migrate.connect(create_roles, sender=self, dispatch_uid='security_create_roles')

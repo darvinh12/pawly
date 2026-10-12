@@ -1,96 +1,37 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Count
 from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
+from django.views.decorators.http import require_POST
 
-from .models import Post
+from SecurityApp.models import User
 
+from .forms import ApplicationForm, MessageForm, PetForm
+from .models import Application, Chat, Message, Pet
 
-# Datos de ejemplo para las pantallas. Los modelos de mascota, publicación y chat se construyen en el
-# siguiente reto, y entonces estas listas y las pantallas de ejemplo usan consultas a la base de datos.
-MY_PETS = [
-    {
-        'id': 1, 'name': 'Mía', 'photo': 'pets/d5.jpg', 'alt': 'Mía, pastora alemana, echada en el pasto',
-        'location': 'Ocumare del Tuy, Miranda', 'species': 'Perro · Pastor alemán', 'age': '5 años',
-        'sex': 'Hembra', 'temperament': 'Juguetona, sociable',
-        'about': 'Pastor alemán de 5 años muy cariñosa y acostumbrada a niños 🐕 le encanta el parque y dormir en el sofá',
-        'wants': 'Familia con tiempo para pasear y sin niños muy pequeños, preferiblemente en Caracas o los Valles del Tuy',
-    },
-]
-
-ADOPTION_PETS = [
-    {'id': 1, 'name': 'Toby', 'location': 'Chacao, Caracas', 'photo': 'pets/d1.jpg',
-     'alt': 'Toby, perro mestizo de pelo gris, durmiendo en una cama', 'distance': 2, 'breed': 'Mestizo',
-     'age': '2 años', 'sex': 'Macho', 'place': 'Chacao', 'owner': 'Luis García', 'species': 'Perro · Mestizo',
-     'temperament': 'Tranquilo',
-     'about': 'Tranquilo, juguetón y muy apegado. Se lleva bien con niños y otros perros, tiene sus vacunas al día y está esterilizado. Lo rescatamos en La Candelaria hace un año y ya está listo para su hogar definitivo.',
-     'wants': 'Tenga patio o salga a caminar a diario y esté en Caracas o los Valles del Tuy para poder hacer la visita previa.',
-     'published': '10 sep 2026', 'published_iso': '2026-09-10', 'owner_adoptions': '2 adopciones logradas'},
-    {'id': 2, 'name': 'Nala', 'location': 'La Candelaria, Caracas', 'photo': 'pets/c1.jpg',
-     'alt': 'Nala, gata atigrada gris, mirando a la cámara', 'distance': 3, 'breed': 'Gata', 'age': '1 año',
-     'sex': 'Hembra', 'place': 'La Candelaria', 'owner': 'Lunita Rescates', 'species': 'Gato · Atigrada',
-     'temperament': 'Cariñosa',
-     'about': 'Gata atigrada de 1 año muy cariñosa. Está vacunada y esterilizada, se lleva bien con otros gatos y le encanta dormir al sol.',
-     'wants': 'Un hogar tranquilo, con las ventanas protegidas, en Caracas o los Valles del Tuy.',
-     'published': '12 sep 2026', 'published_iso': '2026-09-12', 'owner_adoptions': '12 adopciones logradas'},
-    {'id': 3, 'name': 'Rocky', 'location': 'Los Palos Grandes, Caracas', 'photo': 'pets/d3.jpg',
-     'alt': 'Rocky, perro con collar rojo, sonriendo sobre el pasto', 'distance': 4, 'breed': 'Beagle',
-     'age': '4 años', 'sex': 'Macho', 'place': 'Los Palos Grandes', 'owner': 'Daniela Bracho',
-     'species': 'Perro · Beagle', 'temperament': 'Enérgico',
-     'about': 'Beagle de 4 años muy alegre y curioso. Tiene sus vacunas al día y necesita paseos largos todos los días.',
-     'wants': 'Familia activa, con patio o cerca de un parque, en Caracas.',
-     'published': '8 sep 2026', 'published_iso': '2026-09-08', 'owner_adoptions': '1 adopción lograda'},
-    {'id': 4, 'name': 'Kira', 'location': 'Baruta, Miranda', 'photo': 'pets/d4.jpg',
-     'alt': 'Kira, cachorra de pelo blanco, echada en la playa', 'distance': 6, 'breed': 'Mestiza',
-     'age': '8 meses', 'sex': 'Hembra', 'place': 'Baruta', 'owner': 'Luna Martínez', 'species': 'Perro · Mestiza',
-     'temperament': 'Juguetona',
-     'about': 'Cachorra de 8 meses, juguetona y muy dulce. Ya tiene sus primeras vacunas y está aprendiendo a pasear con correa.',
-     'wants': 'Una familia con paciencia para enseñarle y con tiempo para jugar.',
-     'published': '14 sep 2026', 'published_iso': '2026-09-14', 'owner_adoptions': '3 adopciones logradas'},
-    {'id': 5, 'name': 'Bruno', 'location': 'El Hatillo, Miranda', 'photo': 'pets/d7.jpg',
-     'alt': 'Bruno, perro tricolor, echado en su cama', 'distance': 7, 'breed': 'Labrador', 'age': '3 años',
-     'sex': 'Macho', 'place': 'El Hatillo', 'owner': 'Pedro Ramírez', 'species': 'Perro · Labrador',
-     'temperament': 'Noble',
-     'about': 'Labrador de 3 años tranquilo y muy noble, se lleva bien con niños. Está esterilizado y tiene todas sus vacunas.',
-     'wants': 'Una familia con espacio para que corra, en Caracas o Miranda.',
-     'published': '5 sep 2026', 'published_iso': '2026-09-05', 'owner_adoptions': '4 adopciones logradas'},
-    {'id': 6, 'name': 'Coco', 'location': 'Petare, Miranda', 'photo': 'pets/d8.jpg',
-     'alt': 'Coco, perro de pelo claro, sentado en el piso', 'distance': 9, 'breed': 'Mestizo', 'age': '5 años',
-     'sex': 'Macho', 'place': 'Petare', 'owner': 'José Gutiérrez', 'species': 'Perro · Mestizo',
-     'temperament': 'Tranquilo',
-     'about': 'Mestizo de 5 años, tranquilo y obediente. Fue rescatado hace dos años y está listo para un hogar definitivo.',
-     'wants': 'Una familia paciente, de preferencia sin otros perros.',
-     'published': '2 sep 2026', 'published_iso': '2026-09-02', 'owner_adoptions': '1 adopción lograda'},
-    {'id': 7, 'name': 'Simón', 'location': 'Los Teques, Miranda', 'photo': 'pets/c2.jpg',
-     'alt': 'Simón, gatito atigrado, asomado en un túnel de tela', 'distance': 12, 'breed': 'Gato',
-     'age': '8 meses', 'sex': 'Macho', 'place': 'Los Teques', 'owner': 'Luna Delgado', 'species': 'Gato · Atigrado',
-     'temperament': 'Curioso',
-     'about': 'Gatito atigrado de 8 meses, curioso y juguetón. Ya está desparasitado y usa su caja de arena.',
-     'wants': 'Un hogar con rascadores y ventanas seguras, en los Altos Mirandinos.',
-     'published': '15 sep 2026', 'published_iso': '2026-09-15', 'owner_adoptions': '2 adopciones logradas'},
-    {'id': 8, 'name': 'Max', 'location': 'Guarenas, Miranda', 'photo': 'pets/d9.jpg',
-     'alt': 'Max, perro de pelo marrón, echado en el pasto', 'distance': 18, 'breed': 'Pastor alemán',
-     'age': '6 años', 'sex': 'Macho', 'place': 'Guarenas', 'owner': 'Valentina Ochoa',
-     'species': 'Perro · Pastor alemán', 'temperament': 'Protector',
-     'about': 'Pastor alemán de 6 años, leal y protector. Tiene sus vacunas al día y le gusta caminar por las mañanas.',
-     'wants': 'Una familia con experiencia con perros grandes y con patio, en Miranda.',
-     'published': '1 sep 2026', 'published_iso': '2026-09-01', 'owner_adoptions': '5 adopciones logradas'},
-]
-
-
-def find_pet(pets, pet_id):
-    for pet in pets:
-        if pet['id'] == pet_id:
-            return pet
-    raise Http404
+# Opciones rápidas del formulario de postulación
+HOME_OPTIONS = {
+    'yard': gettext_lazy('Tengo patio'),
+    'no-pets': gettext_lazy('Sin otras mascotas'),
+    'kids': gettext_lazy('Tengo niños'),
+    'apartment': gettext_lazy('Vivo en apartamento'),
+}
 
 
 def find_demo(item_id):
-    # Las pantallas de ejemplo solo tienen un elemento, el número 1
+    # Las pantallas de ejemplo solo tienen el elemento 1
     if item_id != 1:
         raise Http404
+
+
+def get_chats(user):
+    chats = list(user.chats.all().order_by('-created_at'))
+    for chat in chats:
+        chat.other = chat.other_member(user)
+    return chats
 
 
 @login_required
@@ -107,56 +48,87 @@ def search(request):
 
 @login_required
 def adoption_feed(request):
-    context = {'title': _('Adopción'), 'section': 'adoption', 'pets': ADOPTION_PETS}
+    # Mascotas en adopción de los demás usuarios
+    pets = Pet.objects.filter(for_adoption=True).exclude(owner=request.user)
+    context = {'title': _('Adopción'), 'section': 'adoption', 'pets': pets}
     return render(request, 'adoption_feed.html', context)
 
 
 @login_required
 def pet_detail(request, pet_id):
-    pet = find_pet(ADOPTION_PETS, pet_id)
+    pet = get_object_or_404(Pet, id=pet_id, for_adoption=True)
+    application = Application.objects.filter(pet=pet, applicant=request.user).first()
     context = {
-        'title': f"{pet['name']} · {_('Adopción')}", 'section': 'adoption', 'pet': pet,
-        'owner_first_name': pet['owner'].split()[0],
+        'title': f"{pet.name} · {_('Adopción')}", 'section': 'adoption', 'pet': pet, 'application': application,
     }
     return render(request, 'pet_detail.html', context)
 
 
 @login_required
 def application_form(request, pet_id):
-    pet = find_pet(ADOPTION_PETS, pet_id)
-    owner_first_name = pet['owner'].split()[0]
-    message = _('Hola %(owner)s, vivo en Ocumare del Tuy tengo patio y salgo a caminar todas las mañanas, '
-                'me encantaría conocer a %(pet)s este fin de semana') % {'owner': owner_first_name, 'pet': pet['name']}
-    options = ['yard', 'no-pets']
-    error = ''
+    pet = get_object_or_404(Pet, id=pet_id, for_adoption=True)
 
-    if request.method == 'POST':
-        message = request.POST.get('message', '').strip()
-        options = request.POST.getlist('options')
-        if message:
-            # Pendiente del siguiente reto: guardar la postulación y abrir el chat con el dueño
-            return redirect(reverse('pet_detail', args=[pet_id]) + '?postulacion=enviada')
-        error = _('Escribe un mensaje para el dueño')
+    # No se puede postular a su propia mascota ni dos veces a la misma
+    if pet.owner == request.user or Application.objects.filter(pet=pet, applicant=request.user).exists():
+        return redirect('pet_detail', pet_id=pet.id)
+
+    form = ApplicationForm(request.POST or None)
+    options = request.POST.getlist('options')
+    if request.method == 'POST' and form.is_valid():
+        application = form.save(commit=False)
+        application.pet = pet
+        application.applicant = request.user
+        application.save()
+
+        # Se abre un chat con el dueño y el mensaje de la postulación va de primero
+        text = application.message
+        if options:
+            text += '\n\n' + ', '.join(str(HOME_OPTIONS[option]) for option in options if option in HOME_OPTIONS)
+        chat = Chat.objects.create(application=application)
+        chat.members.add(pet.owner, request.user)
+        Message.objects.create(chat=chat, sender=request.user, text=text)
+        return redirect(reverse('pet_detail', args=[pet.id]) + '?postulacion=enviada')
 
     context = {
-        'title': _('Postularte para adoptar a %(pet)s') % {'pet': pet['name']},
-        'section': 'adoption', 'modal': True, 'pet': pet, 'owner_first_name': owner_first_name,
-        'message': message, 'options': options, 'error': error,
+        'title': _('Postularte para adoptar a %(pet)s') % {'pet': pet.name},
+        'section': 'adoption', 'modal': True, 'pet': pet, 'form': form, 'options': options,
     }
     return render(request, 'application_form.html', context)
 
 
 @login_required
 def chat_list(request):
-    context = {'title': _('Mensajes'), 'section': 'messages'}
+    context = {'title': _('Mensajes'), 'section': 'messages', 'chats': get_chats(request.user)}
     return render(request, 'chat_list.html', context)
 
 
 @login_required
 def chat_detail(request, chat_id):
-    find_demo(chat_id)
-    context = {'title': _('Conversación con Luis García'), 'section': 'messages'}
+    chat = get_object_or_404(Chat, id=chat_id, members=request.user)
+    form = MessageForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        message = form.save(commit=False)
+        message.chat = chat
+        message.sender = request.user
+        message.save()
+        return redirect('chat_detail', chat_id=chat.id)
+
+    other = chat.other_member(request.user)
+    context = {
+        'title': _('Conversación con %(name)s') % {'name': other.display_name()}, 'section': 'messages',
+        'chat': chat, 'other': other, 'chats': get_chats(request.user), 'form': form,
+    }
     return render(request, 'chat_detail.html', context)
+
+
+@login_required
+@require_POST
+def application_cancel(request, chat_id):
+    # Solo quien se postuló puede cancelar
+    chat = get_object_or_404(Chat, id=chat_id, application__applicant=request.user)
+    chat.application.status = 'cancelled'
+    chat.application.save()
+    return redirect('chat_detail', chat_id=chat.id)
 
 
 @login_required
@@ -167,7 +139,10 @@ def notifications(request):
 
 @login_required
 def my_profile(request):
-    context = {'title': _('Mi perfil'), 'section': 'profile'}
+    context = {
+        'title': _('Mi perfil'), 'section': 'profile', 'pets': request.user.pets.all(),
+        'applications': request.user.applications.all(),
+    }
     return render(request, 'my_profile.html', context)
 
 
@@ -179,16 +154,45 @@ def account_settings(request):
 
 @login_required
 def pet_profile(request, pet_id):
-    pet = find_pet(MY_PETS, pet_id)
-    context = {'title': f"{pet['name']} · {_('Mis mascotas')}", 'section': 'profile', 'pet': pet}
+    pet = get_object_or_404(Pet, id=pet_id, owner=request.user)
+    context = {'title': f"{pet.name} · {_('Mis mascotas')}", 'section': 'profile', 'pet': pet}
     return render(request, 'pet_profile.html', context)
 
 
 @login_required
+def pet_create(request):
+    return pet_form(request, Pet(owner=request.user), _('Nueva mascota'))
+
+
+@login_required
 def pet_edit(request, pet_id):
-    pet = find_pet(MY_PETS, pet_id)
-    context = {'title': _('Editar a %(name)s') % {'name': pet['name']}, 'section': 'profile', 'pet': pet}
+    pet = get_object_or_404(Pet, id=pet_id, owner=request.user)
+    return pet_form(request, pet, _('Editar a %(name)s') % {'name': pet.name})
+
+
+def pet_form(request, pet, title):
+    # Crear y editar usan el mismo formulario
+    form = PetForm(request.POST or None, request.FILES or None, instance=pet)
+    if request.method == 'POST':
+        temperament = request.POST.getlist('temperament')
+        if form.is_valid():
+            pet = form.save(commit=False)
+            pet.temperament = ','.join(temperament)
+            pet.save()
+            return redirect('pet_profile', pet_id=pet.id)
+    else:
+        temperament = pet.temperament.split(',')
+
+    context = {'title': title, 'section': 'profile', 'pet': pet, 'form': form, 'temperament': temperament}
     return render(request, 'pet_edit.html', context)
+
+
+@login_required
+@require_POST
+def pet_delete(request, pet_id):
+    pet = get_object_or_404(Pet, id=pet_id, owner=request.user)
+    pet.delete()
+    return redirect('my_profile')
 
 
 @login_required
@@ -218,16 +222,29 @@ def report(request, post_id):
     return render(request, 'report.html', context)
 
 
-# Solo entra quien tiene el permiso del rol Administrator
+# Solo entra el rol administrador
 @login_required
 @permission_required('SecurityApp.moderate_content', raise_exception=True)
 def admin_panel(request):
-    context = {'title': _('Panel de administración')}
+    context = {
+        'title': _('Panel de administración'),
+        'users': User.objects.annotate(pets_count=Count('pets')).order_by('-date_joined')[:10],
+        'active_users': User.objects.filter(is_active=True).count(),
+        'pets_count': Pet.objects.count(),
+        'adoption_count': Pet.objects.filter(for_adoption=True).count(),
+        'applications_count': Application.objects.count(),
+    }
     return render(request, 'admin_panel.html', context)
 
 
-def post_list(request):
-    # Filtramos solo los posts publicados y los ordenamos por fecha de publicación descendente
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    # Pasamos los posts al archivo HTML mediante el contexto
-    return render(request, 'post_list.html', {'posts': posts})
+@login_required
+@permission_required('SecurityApp.ban_user', raise_exception=True)
+@require_POST
+def user_ban(request, user_id):
+    account = get_object_or_404(User, id=user_id)
+
+    # Vetar o quitar el veto, el administrador no se puede vetar a sí mismo
+    if account != request.user:
+        account.is_active = not account.is_active
+        account.save()
+    return redirect('admin_panel')

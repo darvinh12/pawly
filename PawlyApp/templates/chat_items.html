@@ -1,0 +1,18 @@
+{% load i18n %}
+<!-- Lista de conversaciones, se usa en Mensajes y en la conversación -->
+<ul>
+  {% for item in chats %}
+  <li class="convo{% if item.id == chat.id %} convo--active{% endif %}">
+    <img class="avatar avatar--lg" src="{{ item.other.avatar_url }}" alt="">
+    <div class="convo__text">
+      {% with last=item.last_message %}
+      <p class="row row--between"><a class="convo__name convo__link" href="{% url 'chat_detail' item.id %}">{{ item.other.display_name }}</a>{% if last %}<time class="convo__time" datetime="{{ last.created_at|date:'c' }}">{{ last.created_at|date:'j b, H:i' }}</time>{% endif %}</p>
+      <span class="convo__last">{{ last.text|truncatechars:60 }}</span>
+      {% endwith %}
+      {% if item.application %}<span><span class="tag tag--green">{% blocktrans with name=item.application.pet.name %}Adopción · {{ name }}{% endblocktrans %}</span></span>{% endif %}
+    </div>
+  </li>
+  {% empty %}
+  <li class="text-small text-muted">{% trans "Aún no tienes conversaciones" %}</li>
+  {% endfor %}
+</ul>

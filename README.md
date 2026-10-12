@@ -65,17 +65,16 @@ python manage.py runserver
 
 ## Usuarios, roles e idiomas
 
-La aplicación `SecurityApp` reemplaza el usuario de Django por `SecurityApp.User`, que agrega
-los campos del modelo de dominio (idioma, tema, vetado, cambio de clave y aviso por correo).
+La aplicación `SecurityApp` reemplaza el usuario de Django por `SecurityApp.User`, que pide un
+correo único y permite entrar con el usuario o con el correo.
 
 - **Roles:** son grupos de Django, `Administrator` y `Member`. Se crean solos al ejecutar `migrate`.
   Los usuarios que se registran quedan en `Member`.
 - **Permisos propios:** `ban_user` y `moderate_content`, que tiene el rol `Administrator`.
 - **Auditoría:** el modelo `AuditLog` guarda los registros, los inicios de sesión (también los
   fallidos) y los cierres de sesión. Se consulta, solo lectura, en `/admin/`.
-- **Idiomas:** el español es el idioma principal y el inglés está en `locale/en`. El idioma de
-  cada usuario se guarda en su cuenta y se cambia en Ajustes (botones Español / English), que
-  envían el formulario a `/i18n/setlang/`. Los textos nuevos se marcan con `{% trans %}` en las
+- **Idiomas:** el español es el idioma principal y el inglés está en `locale/en`. El idioma se
+  cambia en Ajustes (botones Español / English), que envían el formulario a `/i18n/setlang/`. Los textos nuevos se marcan con `{% trans %}` en las
   plantillas.
 - **Panel de administración:** `/admin-panel/` solo lo abre quien tiene el permiso
   `moderate_content`, es decir, el rol `Administrator`.
@@ -92,15 +91,40 @@ y menú) y el panel usa `base_admin.html`.
 | `/register/profile/` | Registro, paso 2 | `/notifications/` | Notificaciones |
 | `/password-reset/` | Recuperar contraseña | `/profile/` | Mi perfil |
 | `/` | Inicio | `/profile/settings/` | Ajustes |
-| `/search/` | Buscar | `/my-pets/1/` | Perfil de mascota |
-| `/adoption/` | Feed de adopción | `/my-pets/1/edit/` | Editar mascota |
-| `/adoption/<id>/` | Ficha de la mascota | `/users/1/` | Perfil de otro usuario |
-| `/pets/<id>/apply/` | Postulación | `/posts/new/` | Nueva publicación |
-| `/admin-panel/` | Panel de administración | `/posts/1/` y `/posts/1/report/` | Publicación y reporte |
+| `/search/` | Buscar | `/my-pets/new/` | Nueva mascota |
+| `/adoption/` | Feed de adopción | `/my-pets/<id>/` | Perfil de mascota |
+| `/adoption/<id>/` | Ficha de la mascota | `/my-pets/<id>/edit/` | Editar mascota |
+| `/pets/<id>/apply/` | Postulación | `/users/1/` | Perfil de otro usuario |
+| `/admin-panel/` | Panel de administración | `/posts/new/` | Nueva publicación |
+| `/messages/<id>/` | Conversación | `/posts/1/` y `/posts/1/report/` | Publicación y reporte |
 
-Por ahora las pantallas muestran datos de ejemplo. Las mascotas del feed y su ficha salen de
-listas en `PawlyApp/views.py`; el resto del contenido está en las plantillas. Se reemplazan por
-consultas a la base de datos cuando se construyan los modelos.
+## Producto mínimo viable (Reto 14)
+
+El MVP es el ciclo de adopción: una persona registra su mascota, la pone en adopción, otra la
+encuentra en el feed y se postula, y los dos coordinan por el chat que se abre con la postulación.
+
+| Caso de uso | Dónde |
+|---|---|
+| UC-05 Editar perfil humano | `/register/profile/`, se ve en `/profile/` |
+| UC-06 y UC-07 Crear y editar perfil de mascota | `/my-pets/new/` y `/my-pets/<id>/edit/` |
+| UC-16 Marcar y quitar de adopción | Interruptor "Poner en adopción" del formulario de la mascota |
+| UC-17 Navegar el feed de adopciones | `/adoption/`, muestra las mascotas en adopción de los demás |
+| UC-18 Postularse para adoptar | `/pets/<id>/apply/`, no deja postularse a una mascota propia ni dos veces |
+| UC-22, UC-23 y UC-24 Chat | La postulación abre el chat en `/messages/<id>/` |
+| UC-31 Gestionar usuarios | `/admin/` y `/admin-panel/` (vetar y quitar el veto) |
+
+Los modelos están en `PawlyApp/models.py` y siguen el modelo de dominio: `Profile`, `Pet`,
+`Application`, `Chat` y `Message`. Todos están registrados en el sitio de administración de
+Django (`/admin/`). Inicio, búsqueda, notificaciones, publicaciones y el perfil de otro usuario
+siguen con datos de ejemplo porque no son parte del MVP.
+
+Para cargar datos de ejemplo (3 usuarios y 8 mascotas en adopción):
+
+```bash
+docker compose exec web python manage.py loaddata demo
+```
+
+Los usuarios de ejemplo son `luis`, `lunita` y `daniela`, con la contraseña `Pawly-2026`.
 
 Como se cambió el modelo de usuario, la base de datos anterior no sirve. Hay que borrarla y
 volver a migrar:
@@ -112,29 +136,25 @@ docker compose exec web python manage.py migrate
 docker compose exec web python manage.py createsuperuser
 ```
 
-Para ejecutar las pruebas:
+## Despliegue en Render (solo repositorio personal)
 
-```bash
-docker compose exec web python manage.py test
-```
+Esta sección y los archivos `render.yaml`, `deploy/render.Dockerfile`, `deploy/start.sh` y
+`.gitattributes` solo existen en el repositorio personal. Sirven para ver la aplicación en
+Render y no van en el repositorio del equipo.
 
-## Despliegue de demostración en Render
-
-El archivo `render.yaml` despliega la aplicación en [Render](https://render.com) con Docker, usando
-`deploy/render.Dockerfile`. Esa imagen instala `gunicorn` y `whitenoise`, junta los archivos
-estáticos con `collectstatic` y al arrancar ejecuta `deploy/start.sh`, que aplica las migraciones,
-crea el administrador y levanta `gunicorn`.
+Render construye la imagen con `deploy/render.Dockerfile`. Al arrancar, `deploy/start.sh` aplica las
+migraciones, carga los datos de ejemplo, crea el administrador y levanta `gunicorn`. `whitenoise`
+sirve los archivos estáticos.
 
 | Variable | Para qué sirve |
 |---|---|
 | `DJANGO_SECRET_KEY` | Clave secreta de Django (Render la genera) |
-| `DJANGO_DEBUG` | `False` en producción |
-| `DJANGO_ALLOWED_HOSTS` | Dominios permitidos. En Render se agrega solo el dominio del servicio |
-| `DJANGO_SERVE_MEDIA` | `True` para que Django sirva las fotos de ejemplo de `media/` |
+| `DJANGO_DEBUG` | `False` en Render |
+| `DJANGO_SERVE_MEDIA` | `True` para que Django sirva las fotos de `media/` |
 | `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_EMAIL`, `DJANGO_SUPERUSER_PASSWORD` | Administrador que se crea al arrancar |
 
 En el plan gratuito el servicio se duerme tras 15 minutos sin visitas y la base SQLite vuelve a
-empezar vacía en cada despliegue, así que es solo para demostración.
+empezar en cada despliegue, con los datos de ejemplo cargados de nuevo.
 
 ## Arquitectura
 
@@ -200,7 +220,3 @@ repositorio.
 | `Python was not found` | Desactivar los alias de ejecución en "Manage App Execution Aliases" |
 | `Couldn't import Django` | Activar el entorno virtual con `source .venv/bin/activate` |
 | `The command 'docker' could not be found in this WSL 2 distro` | Activar la integración WSL en Docker Desktop |
-
-## Patrones de diseño de interfaz
-
-Ver [docs/PATRONES_UI.md](docs/PATRONES_UI.md)

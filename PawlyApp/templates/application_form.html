@@ -2,15 +2,15 @@
 {% load static i18n %}
 
 {% block content %}
-    <!-- La ficha de la mascota queda de fondo, oscurecida -->
+    <!-- La ficha de la mascota queda de fondo -->
     <div class="overlay-context" inert>
       <div class="pet-layout">
         <div class="pet-hero">
-          <img class="pet-hero__photo" src="{{ MEDIA_URL }}{{ pet.photo }}" alt="">
+          <img class="pet-hero__photo" src="{{ pet.photo_url }}" alt="">
         </div>
         <div class="pet-info">
           <p class="title-1">{{ pet.name }}</p>
-          <p class="text-small text-muted">{% blocktrans with location=pet.location distance=pet.distance %}{{ location }} · a {{ distance }} km de ti{% endblocktrans %}</p>
+          <p class="text-small text-muted">{{ pet.location }}</p>
         </div>
       </div>
     </div>
@@ -26,22 +26,22 @@
       </div>
 
       <div class="mini-row card card--flat card--pad">
-        <img class="mini-row__photo" src="{{ MEDIA_URL }}{{ pet.photo }}" alt="">
+        <img class="mini-row__photo" src="{{ pet.photo_url }}" alt="">
         <div class="grow">
-          <p class="text-strong text-small">{{ pet.name }} · {{ pet.breed }} · {{ pet.age }}</p>
-          <p class="text-xs text-muted">{% blocktrans with owner=pet.owner %}Publicado por {{ owner }}{% endblocktrans %}</p>
+          <p class="text-strong text-small">{{ pet.name }} · {{ pet.get_species_display }} · {{ pet.age }}</p>
+          <p class="text-xs text-muted">{% blocktrans with owner=pet.owner.display_name %}Publicado por {{ owner }}{% endblocktrans %}</p>
         </div>
       </div>
 
-      <p class="text-small text-muted">{% blocktrans with owner=pet.owner name=pet.name %}Se abrirá un chat con {{ owner }} para que coordinen la visita. Cuéntale por qué quieres adoptar a {{ name }}.{% endblocktrans %}</p>
+      <p class="text-small text-muted">{% blocktrans with owner=pet.owner.display_name name=pet.name %}Se abrirá un chat con {{ owner }} para que coordinen la visita. Cuéntale por qué quieres adoptar a {{ name }}.{% endblocktrans %}</p>
 
       <form class="form-stack" method="post" data-validate novalidate>
         {% csrf_token %}
         <div class="field">
-          <label class="field__label" for="application-message">{% blocktrans with owner=owner_first_name %}Mensaje para {{ owner }}{% endblocktrans %}</label>
+          <label class="field__label" for="application-message">{% blocktrans with owner=pet.owner.display_name %}Mensaje para {{ owner }}{% endblocktrans %}</label>
           <textarea class="input" id="application-message" name="message" required
-            data-error="{% trans 'Escribe un mensaje para el dueño' %}" aria-describedby="application-message-error">{{ message }}</textarea>
-          <p class="field__error" id="application-message-error" data-error-for="application-message" role="alert"{% if not error %} hidden{% endif %}>{{ error }}</p>
+            data-error="{% trans 'Escribe un mensaje para el dueño' %}" aria-describedby="application-message-error">{{ form.message.value|default_if_none:'' }}</textarea>
+          <p class="field__error" id="application-message-error" data-error-for="application-message" role="alert"{% if not form.message.errors %} hidden{% endif %}>{{ form.message.errors.0 }}</p>
         </div>
 
         <fieldset>

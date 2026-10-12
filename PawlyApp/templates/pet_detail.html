@@ -10,7 +10,7 @@
     <div class="pet-layout">
       <div class="pet-gallery">
         <div class="pet-hero">
-          <img class="pet-hero__photo" src="{{ MEDIA_URL }}{{ pet.photo }}" alt="{{ pet.alt }}">
+          <img class="pet-hero__photo" src="{{ pet.photo_url }}" alt="{% blocktrans with name=pet.name %}Foto de {{ name }}{% endblocktrans %}">
           <div class="pet-hero__actions">
             <a class="icon-btn icon-btn--bordered" href="{% url 'adoption_feed' %}" aria-label="{% trans 'Volver a Adopción' %}">
               <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>
@@ -21,9 +21,9 @@
           </div>
         </div>
         <div class="pet-thumbs">
-          <img src="{{ MEDIA_URL }}{{ pet.photo }}" alt="{% blocktrans with name=pet.name %}Foto 1 de {{ name }}{% endblocktrans %}">
-          <img src="{{ MEDIA_URL }}{{ pet.photo }}" alt="{% blocktrans with name=pet.name %}Foto 2 de {{ name }}{% endblocktrans %}">
-          <img src="{{ MEDIA_URL }}{{ pet.photo }}" alt="{% blocktrans with name=pet.name %}Foto 3 de {{ name }}{% endblocktrans %}">
+          <img src="{{ pet.photo_url }}" alt="{% blocktrans with name=pet.name %}Foto 1 de {{ name }}{% endblocktrans %}">
+          <img src="{{ pet.photo_url }}" alt="{% blocktrans with name=pet.name %}Foto 2 de {{ name }}{% endblocktrans %}">
+          <img src="{{ pet.photo_url }}" alt="{% blocktrans with name=pet.name %}Foto 3 de {{ name }}{% endblocktrans %}">
         </div>
       </div>
 
@@ -38,7 +38,7 @@
             <h1 class="title-1">{{ pet.name }}</h1>
             <p class="row text-muted text-small">
               <svg class="icon icon--xs" aria-hidden="true"><use href="{% static 'img/icons/pin.svg' %}#icon"/></svg>
-              {% blocktrans with location=pet.location distance=pet.distance %}{{ location }} · a {{ distance }} km de ti{% endblocktrans %}
+              {{ pet.location }}
             </p>
           </div>
           <div class="pet-info__head-end">
@@ -50,10 +50,10 @@
         </div>
 
         <dl class="kv-grid">
-          <div class="kv"><dt>{% trans "Especie" %}</dt><dd>{{ pet.species }}</dd></div>
+          <div class="kv"><dt>{% trans "Especie" %}</dt><dd>{{ pet.get_species_display }}</dd></div>
           <div class="kv"><dt>{% trans "Edad" %}</dt><dd>{{ pet.age }}</dd></div>
-          <div class="kv"><dt>{% trans "Sexo" %}</dt><dd>{{ pet.sex }}</dd></div>
-          <div class="kv"><dt>{% trans "Temperamento" %}</dt><dd>{{ pet.temperament }}</dd></div>
+          <div class="kv"><dt>{% trans "Sexo" %}</dt><dd>{{ pet.get_sex_display }}</dd></div>
+          <div class="kv"><dt>{% trans "Temperamento" %}</dt><dd>{{ pet.temperament_list }}</dd></div>
         </dl>
 
         <section class="stack stack--sm">
@@ -63,28 +63,35 @@
 
         <section class="stack stack--sm">
           <h2 class="eyebrow">{% trans "Busca una familia que" %}</h2>
-          <p>{{ pet.wants }}</p>
+          <p>{{ pet.family }}</p>
         </section>
 
         <div class="owner-card">
-          <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+          <img class="avatar avatar--lg" src="{{ pet.owner.avatar_url }}" alt="">
           <div class="grow">
-            <p class="text-strong">{{ pet.owner }}</p>
-            <p class="text-small text-muted">{% trans "Publicado el" %} <time datetime="{{ pet.published_iso }}">{{ pet.published }}</time> {% blocktrans with owner_adoptions=pet.owner_adoptions %}· {{ owner_adoptions }}{% endblocktrans %}</p>
+            <p class="text-strong">{{ pet.owner.display_name }}</p>
+            <p class="text-small text-muted">{% trans "Publicado el" %} <time datetime="{{ pet.created_at|date:'Y-m-d' }}">{{ pet.created_at|date:'j b Y' }}</time></p>
           </div>
-          <a class="btn btn--secondary btn--sm" href="{% url 'user_profile' 1 %}" aria-label="{% blocktrans with owner=pet.owner %}Ver perfil de {{ owner }}{% endblocktrans %}">{% trans "Ver perfil" %}</a>
         </div>
 
         <div class="cta-bar">
-          <a class="btn btn--primary btn--block" href="{% url 'application_form' pet.id %}" data-hide-when="postulacion=enviada">
-            <svg class="icon icon--sm icon--fill" aria-hidden="true"><use href="{% static 'img/icons/paw.svg' %}#icon"/></svg>
-            {% trans "Postularme para adoptar" %}
+          {% if pet.owner == user %}
+          <a class="btn btn--primary btn--block" href="{% url 'pet_edit' pet.id %}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg>
+            {% trans "Editar" %}
           </a>
-          <a class="btn btn--primary btn--block" href="{% url 'chat_detail' 1 %}" data-show-when="postulacion=enviada" hidden>
+          {% elif application %}
+          <a class="btn btn--primary btn--block" href="{% url 'chat_detail' application.chat.id %}">
             <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/chat.svg' %}#icon"/></svg>
             {% trans "Ir al chat" %}
           </a>
-          <p class="text-small text-muted text-center" data-hide-when="postulacion=enviada">{% blocktrans %}Se abrirá un chat con {{ owner_first_name }}.{% endblocktrans %}</p>
+          {% else %}
+          <a class="btn btn--primary btn--block" href="{% url 'application_form' pet.id %}">
+            <svg class="icon icon--sm icon--fill" aria-hidden="true"><use href="{% static 'img/icons/paw.svg' %}#icon"/></svg>
+            {% trans "Postularme para adoptar" %}
+          </a>
+          <p class="text-small text-muted text-center">{% blocktrans with owner=pet.owner.display_name %}Se abrirá un chat con {{ owner }}.{% endblocktrans %}</p>
+          {% endif %}
         </div>
       </div>
     </div>

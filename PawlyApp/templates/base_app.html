@@ -4,7 +4,7 @@
 {% block body_class %}layout-app{% endblock %}
 
 {% block body %}
-  <!-- Barra superior (escritorio). Con la ventana abierta (modal) queda detrás: inert la saca del teclado -->
+  <!-- Barra superior -->
   <header class="app-header"{% if modal %} inert{% endif %}>
     <a class="brand" href="{% url 'home' %}">
       <img class="brand__mark" src="{% static 'img/logo-mark.png' %}" alt="">
@@ -20,11 +20,11 @@
         <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/bell.svg' %}#icon"/></svg>
         <span class="badge" aria-hidden="true">3</span>
       </a>
-      <a href="{% url 'my_profile' %}"><img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="{% trans 'Mi perfil' %}"></a>
+      <a href="{% url 'my_profile' %}"><img class="avatar avatar--sm" src="{{ user.avatar_url }}" alt="{% trans 'Mi perfil' %}"></a>
     </div>
   </header>
 
-  <!-- Menú principal: barra inferior en móvil, menú lateral en escritorio -->
+  <!-- Menú principal -->
   <nav class="app-nav" aria-label="{% trans 'Principal' %}"{% if modal %} inert{% endif %}>
     <ul class="app-nav__list">
       <li><a class="app-nav__item" href="{% url 'home' %}"{% if section == 'home' %} aria-current="page"{% endif %}><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/home.svg' %}#icon"/></svg></span>{% trans "Inicio" %}</a></li>

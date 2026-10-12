@@ -21,24 +21,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# En producción la clave y el modo de depuración vienen de variables de entorno
+# Solo para el repositorio personal (Render): la clave y el modo debug vienen de variables de entorno
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-is1vnghy@6(^pbr0q0b!(bt&x94)tks^1_4cy#y78%(s*c77vd')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = [host for host in os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if host]
+ALLOWED_HOSTS = []
 
-# Render publica el dominio del servicio en esta variable
+# Solo para el repositorio personal (Render)
 if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
     ALLOWED_HOSTS.append(os.environ['RENDER_EXTERNAL_HOSTNAME'])
-
-# Render atiende por HTTPS y le pasa la petición a Django por HTTP
-CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS]
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# En Render todo va por HTTPS, así que las cookies de sesión y CSRF solo viajan cifradas
-if os.environ.get('RENDER'):
+    CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['RENDER_EXTERNAL_HOSTNAME']]
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
@@ -58,13 +53,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # Solo para el repositorio personal (Render): sirve los archivos estáticos
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'SecurityApp.middleware.UserLanguageMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -119,12 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-    {
-        'NAME': 'SecurityApp.validators.NumberValidator',
-    },
 ]
 
-# Usuarios, inicio de sesión y roles (aplicación SecurityApp)
+# Usuarios y roles
 AUTH_USER_MODEL = 'SecurityApp.User'
 AUTHENTICATION_BACKENDS = ['SecurityApp.backends.EmailOrUsernameBackend']
 LOGIN_URL = 'login'
@@ -142,7 +134,7 @@ LANGUAGES = [
     ('en', 'English'),
 ]
 
-# Carpeta con las traducciones (inglés)
+# Traducciones
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
 TIME_ZONE = 'America/Caracas'
@@ -158,18 +150,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
 
-# collectstatic junta aquí los archivos estáticos para que WhiteNoise los sirva en producción
+# Solo para el repositorio personal (Render): collectstatic copia aquí los archivos
 STATIC_ROOT = BASE_DIR / 'static_root'
-STORAGES = {
-    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
-    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
-}
 
 # Fotos que suben los usuarios
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# En el despliegue de demostración Django también sirve las fotos de ejemplo de media/
+# Solo para el repositorio personal (Render): Django también sirve las fotos
 SERVE_MEDIA = os.environ.get('DJANGO_SERVE_MEDIA', 'False') == 'True'
 
 # Default primary key field type

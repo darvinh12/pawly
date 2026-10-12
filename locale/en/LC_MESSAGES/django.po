@@ -1,5 +1,4 @@
-# English translation of the Pawly screens.
-# The Spanish text is the msgid, because Spanish is the main language of the application.
+# Traducción al inglés de Pawly
 msgid ""
 msgstr ""
 "Project-Id-Version: Pawly\n"
@@ -1724,3 +1723,148 @@ msgstr "Create account · Step 1 of 2"
 #: SecurityApp/views.py:56
 msgid "Tu perfil · Paso 2 de 2"
 msgstr "Your profile · Step 2 of 2"
+
+msgid "Mascotas en adopción"
+msgstr "Pets up for adoption"
+
+msgid "Postulaciones"
+msgstr "Applications"
+
+msgid "Vetado"
+msgstr "Banned"
+
+msgid "¿Vetar la cuenta de %(name)s?"
+msgstr "Ban %(name)s's account?"
+
+msgid "Vetar a %(name)s"
+msgstr "Ban %(name)s"
+
+msgid "¿Quitar el veto a %(name)s?"
+msgstr "Lift the ban on %(name)s?"
+
+msgid "Quitar el veto a %(name)s"
+msgstr "Lift the ban on %(name)s"
+
+msgid "Eliminar a %(name)s"
+msgstr "Delete %(name)s"
+
+msgid "Mascotas en adopción · las más recientes primero"
+msgstr "Pets up for adoption · newest first"
+
+msgid "Foto de %(name)s"
+msgstr "Photo of %(name)s"
+
+msgid "Chat abierto por la postulación a"
+msgstr "Chat opened by the application for"
+
+msgid "Ver a %(name)s"
+msgstr "See %(name)s"
+
+msgid "¿Cancelar tu postulación para adoptar a %(name)s?"
+msgstr "Cancel your application to adopt %(name)s?"
+
+msgid "Mensajes con %(name)s"
+msgstr "Messages with %(name)s"
+
+msgid "%(name)s se postuló para adoptar a %(pet)s. Este chat se abrió automáticamente para que coordinen."
+msgstr "%(name)s applied to adopt %(pet)s. This chat opened automatically so you can arrange the details."
+
+msgid "La postulación para adoptar a %(pet)s fue cancelada."
+msgstr "The application to adopt %(pet)s was cancelled."
+
+msgid "Aún no tienes conversaciones"
+msgstr "You don't have any conversations yet"
+
+msgid "Adopción · %(name)s"
+msgstr "Adoption · %(name)s"
+
+msgid "Conversación"
+msgstr "Conversation"
+
+msgid "Elige una conversación para ver los mensajes"
+msgstr "Choose a conversation to see the messages"
+
+msgid "Aún no tienes publicaciones"
+msgstr "You don't have any posts yet"
+
+msgid "Aún no te has postulado para adoptar"
+msgstr "You haven't applied to adopt yet"
+
+msgid "Foto de perfil de %(name)s"
+msgstr "%(name)s's profile photo"
+
+msgid "Postulaciones · %(total)s"
+msgstr "Applications · %(total)s"
+
+msgid "%(species)s · %(age)s · de %(owner)s"
+msgstr "%(species)s · %(age)s · %(owner)s's"
+
+msgid "Se abrirá un chat con %(owner)s."
+msgstr "A chat with %(owner)s will open."
+
+msgid "Foto de la mascota"
+msgstr "Pet photo"
+
+msgid "Foto actual de la mascota"
+msgstr "Current pet photo"
+
+msgid "Perro"
+msgstr "Dog"
+
+msgid "Gato"
+msgstr "Cat"
+
+msgid "Juguetón"
+msgstr "Playful"
+
+msgid "Tímido"
+msgstr "Shy"
+
+msgid "Tranquilo"
+msgstr "Calm"
+
+msgid "Protector"
+msgstr "Protective"
+
+msgid "Aparecerá en el feed de Adopción para otras personas."
+msgstr "It will show up in the Adoption feed for other people."
+
+msgid "¿Quitar la mascota de adopción? Dejará de aparecer en el feed de Adopción."
+msgstr "Remove the pet from adoption? It will no longer show up in the Adoption feed."
+
+msgid "Cuéntanos qué familia buscas para tu mascota"
+msgstr "Tell us what kind of family you want for your pet"
+
+msgid "Volver al perfil de %(name)s"
+msgstr "Back to %(name)s's profile"
+
+msgid "Eliminar el perfil de %(name)s borra también sus postulaciones."
+msgstr "Deleting %(name)s's profile also deletes its applications."
+
+msgid "¿Eliminar el perfil de %(name)s? Esta acción no se puede deshacer."
+msgstr "Delete %(name)s's profile? This can't be undone."
+
+msgid "Aceptada"
+msgstr "Accepted"
+
+msgid "Rechazada"
+msgstr "Rejected"
+
+msgid "Cancelada"
+msgstr "Cancelled"
+
+msgid "Conversación con %(name)s"
+msgstr "Conversation with %(name)s"
+
+msgid "Nueva mascota"
+msgstr "New pet"
+
+msgid "%(count)d mes"
+msgid_plural "%(count)d meses"
+msgstr[0] "%(count)d month"
+msgstr[1] "%(count)d months"
+
+msgid "%(count)d año"
+msgid_plural "%(count)d años"
+msgstr[0] "%(count)d year"
+msgstr[1] "%(count)d years"

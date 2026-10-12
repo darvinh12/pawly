@@ -1,5 +1,5 @@
-# Imagen para el despliegue de demostración en Render.
-# El Dockerfile de la raíz sigue siendo el del entorno de desarrollo del equipo.
+# Solo para el repositorio personal (Render)
+# El Dockerfile de la raíz sigue siendo el del equipo
 FROM python:3.12.4
 WORKDIR /app
 COPY requirements.txt .

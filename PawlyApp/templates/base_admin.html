@@ -18,16 +18,16 @@
     </form>
     <div class="app-header__end">
       <div class="app-header__user desktop-only--flex">
-        <div><p class="text-strong">Gabriela Torres</p><p class="text-muted">{% trans "Administradora" %}</p></div>
+        <div><p class="text-strong">{{ user.display_name }}</p><p class="text-muted">{% trans "Administradora" %}</p></div>
       </div>
-      <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="Gabriela Torres, administradora">
+      <img class="avatar avatar--sm" src="{{ user.avatar_url }}" alt="">
       <a class="icon-btn mobile-only" href="{% url 'logout' %}" aria-label="{% trans 'Cerrar sesión' %}">
         <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/logout.svg' %}#icon"/></svg>
       </a>
     </div>
   </header>
 
-  <!-- Menú del administrador: pestañas en móvil, menú lateral en escritorio -->
+  <!-- Menú del administrador -->
   <nav class="app-nav" aria-label="{% trans 'Administración' %}">
     <ul class="app-nav__list">
       <li><a class="app-nav__item" href="{% url 'admin_panel' %}" aria-current="page"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/dashboard.svg' %}#icon"/></svg></span>{% trans "Panel" %}</a></li>

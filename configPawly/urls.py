@@ -10,18 +10,18 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
 
-from SecurityApp import views as security_views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('i18n/setlang/', security_views.set_language, name='set_language'),  # cambiar el idioma
+    path('i18n/', include('django.conf.urls.i18n')),
     path('', include('SecurityApp.urls')),
     path('', include('PawlyApp.urls')),
 ]
 
 
-# Las fotos que suben los usuarios las sirve Django solo mientras se desarrolla
+# Fotos de los usuarios mientras se desarrolla
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Solo para el repositorio personal (Render)
 elif settings.SERVE_MEDIA:
     urlpatterns += [re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})]

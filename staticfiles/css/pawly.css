@@ -425,7 +425,7 @@ textarea.input { height: auto; min-height: 96px; padding: 12px 14px; line-height
   }
 }
 
-/* ===== Pantallas del resto de la aplicación (inicio, mensajes, notificaciones, perfiles, ajustes, administración) ===== */
+/* Resto de las pantallas */
 h3, ol, figure { margin: 0; }
 h3 { font-size: inherit; font-weight: inherit; }
 ol { padding: 0; list-style: none; }
@@ -534,7 +534,7 @@ table { border-collapse: collapse; }
 .has-header-mobile .app-header { display: flex; }
 .brand__suffix { font-size: 13px; font-weight: 600; color: var(--color-text-muted); }
 .search-box--page { display: flex; flex: 1 1 auto; }
-.chat-list .search-box--page { flex: 0 0 auto; margin: 4px 0 8px; }
+.chat-list .search-box--page { flex: 0 0 auto; width: auto; margin: 4px 0 8px; }
 .app-header__user { display: flex; align-items: center; gap: 10px; text-align: right; font-size: 12px; }
 .app-nav__footer { display: none; }
 .sheet--full { top: 0; max-height: none; padding-top: 0; border-radius: 0; box-shadow: none; }
@@ -799,3 +799,6 @@ table { border-collapse: collapse; }
 @media (prefers-reduced-motion: reduce) {
   .switch::after { transition: none; }
 }
+
+/* Formularios de un solo botón dentro de una fila */
+.inline-form { display: contents; }

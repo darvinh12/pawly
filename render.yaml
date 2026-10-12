@@ -1,4 +1,4 @@
-# Despliegue de demostración en Render con Docker (plan gratuito)
+# Solo para el repositorio personal (Render) con Docker en el plan gratuito
 services:
   - type: web
     name: pawly

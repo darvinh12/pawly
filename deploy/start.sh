@@ -1,10 +1,11 @@
 #!/bin/sh
-# Arranque en Render: crea las tablas y los roles, crea el administrador y levanta gunicorn.
-# El plan gratuito no guarda archivos entre despliegues, así que la base SQLite empieza vacía cada vez.
+# Solo para el repositorio personal (Render)
+# La base de datos empieza vacía en cada despliegue, por eso se migra y se cargan los datos de ejemplo
 set -e
 python manage.py migrate --noinput
+python manage.py loaddata demo
 
-# Usa DJANGO_SUPERUSER_USERNAME, DJANGO_SUPERUSER_EMAIL y DJANGO_SUPERUSER_PASSWORD; si ya existe, sigue
+# Crea el administrador con las variables DJANGO_SUPERUSER del servicio
 python manage.py createsuperuser --noinput || true
 
 exec gunicorn configPawly.wsgi --bind "0.0.0.0:${PORT:-8000}" --workers 2

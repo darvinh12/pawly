@@ -5,10 +5,10 @@
     <div class="page-bar">
       <div class="page-bar__titles">
         <h1 class="page-bar__title">{% trans "Panel" %}</h1>
-        <p class="page-bar__sub">{% trans "Resumen de la comunidad ·" %} <time datetime="2026-09-22">22 sep 2026</time></p>
+        <p class="page-bar__sub">{% trans "Resumen de la comunidad ·" %} <time datetime="{% now 'Y-m-d' %}">{% now 'j b Y' %}</time></p>
       </div>
       <div class="page-bar__end">
-        <a class="btn btn--primary btn--collapse" href="{% url 'register' %}">
+        <a class="btn btn--primary btn--collapse" href="{% url 'admin:SecurityApp_user_add' %}">
           <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/plus.svg' %}#icon"/></svg>
           <span class="btn__label">{% trans "Agregar usuario" %}</span>
         </a>
@@ -17,10 +17,10 @@
 
     <div class="page-content">
       <ul class="stat-grid" aria-label="{% trans 'Resumen' %}">
-        <li class="stat card"><span class="stat__value">1 248</span><span class="stat__label">{% trans "Usuarios activos" %}</span><span class="stat__delta">{% trans "+64 este mes" %}</span></li>
-        <li class="stat card"><span class="stat__value">2 913</span><span class="stat__label">{% trans "Mascotas registradas" %}</span><span class="stat__delta">{% trans "+180 este mes" %}</span></li>
-        <li class="stat card"><span class="stat__value">37</span><span class="stat__label">{% trans "Adopciones concretadas" %}</span><span class="stat__delta">{% trans "+9 vs. agosto" %}</span></li>
-        <li class="stat card"><span class="stat__value stat__value--alert">4</span><span class="stat__label">{% trans "Reportes pendientes" %}</span><span class="stat__delta stat__delta--warn">{% trans "2 con más de 48 h" %}</span></li>
+        <li class="stat card"><span class="stat__value">{{ active_users }}</span><span class="stat__label">{% trans "Usuarios activos" %}</span></li>
+        <li class="stat card"><span class="stat__value">{{ pets_count }}</span><span class="stat__label">{% trans "Mascotas registradas" %}</span></li>
+        <li class="stat card"><span class="stat__value">{{ adoption_count }}</span><span class="stat__label">{% trans "Mascotas en adopción" %}</span></li>
+        <li class="stat card"><span class="stat__value">{{ applications_count }}</span><span class="stat__label">{% trans "Postulaciones" %}</span></li>
       </ul>
 
       <div class="admin-grid">
@@ -44,61 +44,28 @@
               <tr><th scope="col">{% trans "Usuario" %}</th><th scope="col">{% trans "Correo" %}</th><th scope="col">{% trans "Mascotas" %}</th><th scope="col">{% trans "Estado" %}</th><th scope="col">{% trans "Acciones" %}</th></tr>
             </thead>
             <tbody>
+              {% for account in users %}
               <tr>
-                <td class="users-table__user"><span class="row"><img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt=""><span class="text-strong">Andrea Salas</span></span></td>
-                <td class="users-table__email">andrea.salas@gmail.com</td>
-                <td class="users-table__pets">1</td>
-                <td class="users-table__status"><span class="tag tag--green">{% trans "Activa" %}</span></td>
+                <td class="users-table__user"><span class="row"><img class="avatar avatar--sm" src="{{ account.avatar_url }}" alt=""><span class="text-strong">{{ account.display_name }}</span></span></td>
+                <td class="users-table__email">{{ account.email }}</td>
+                <td class="users-table__pets">{{ account.pets_count }}</td>
+                <td class="users-table__status">{% if account.is_active %}<span class="tag tag--green">{% trans "Activo" %}</span>{% else %}<span class="tag tag--red">{% trans "Vetado" %}</span>{% endif %}</td>
                 <td class="users-table__actions">
-                  <a class="icon-btn" href="{% url 'profile_form' %}" aria-label="{% trans 'Editar a Andrea Salas' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Vetar la cuenta de Andrea Salas?' %}" aria-label="{% trans 'Vetar a Andrea Salas' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/ban.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Eliminar la cuenta de Andrea Salas? Esta acción no se puede deshacer.' %}" aria-label="{% trans 'Eliminar a Andrea Salas' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/trash.svg' %}#icon"/></svg></a>
+                  <a class="icon-btn" href="{% url 'admin:SecurityApp_user_change' account.id %}" aria-label="{% blocktrans with name=account.display_name %}Editar a {{ name }}{% endblocktrans %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg></a>
+                  {% if account != user %}
+                  <form class="inline-form" method="post" action="{% url 'user_ban' account.id %}">
+                    {% csrf_token %}
+                    {% if account.is_active %}
+                    <button class="icon-btn" type="submit" data-confirm="{% blocktrans with name=account.display_name %}¿Vetar la cuenta de {{ name }}?{% endblocktrans %}" aria-label="{% blocktrans with name=account.display_name %}Vetar a {{ name }}{% endblocktrans %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/ban.svg' %}#icon"/></svg></button>
+                    {% else %}
+                    <button class="icon-btn" type="submit" data-confirm="{% blocktrans with name=account.display_name %}¿Quitar el veto a {{ name }}?{% endblocktrans %}" aria-label="{% blocktrans with name=account.display_name %}Quitar el veto a {{ name }}{% endblocktrans %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/check.svg' %}#icon"/></svg></button>
+                    {% endif %}
+                  </form>
+                  <a class="icon-btn" href="{% url 'admin:SecurityApp_user_delete' account.id %}" aria-label="{% blocktrans with name=account.display_name %}Eliminar a {{ name }}{% endblocktrans %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/trash.svg' %}#icon"/></svg></a>
+                  {% endif %}
                 </td>
               </tr>
-              <tr>
-                <td class="users-table__user"><span class="row"><img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt=""><span class="text-strong">Luis García</span></span></td>
-                <td class="users-table__email">luis.garcia@gmail.com</td>
-                <td class="users-table__pets">3</td>
-                <td class="users-table__status"><span class="tag tag--green">{% trans "Activo" %}</span></td>
-                <td class="users-table__actions">
-                  <a class="icon-btn" href="{% url 'profile_form' %}" aria-label="{% trans 'Editar a Luis García' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Vetar la cuenta de Luis García?' %}" aria-label="{% trans 'Vetar a Luis García' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/ban.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Eliminar la cuenta de Luis García? Esta acción no se puede deshacer.' %}" aria-label="{% trans 'Eliminar a Luis García' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/trash.svg' %}#icon"/></svg></a>
-                </td>
-              </tr>
-              <tr>
-                <td class="users-table__user"><span class="row"><img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt=""><span class="text-strong">Pedro Ramírez</span></span></td>
-                <td class="users-table__email">pramirez88@gmail.com</td>
-                <td class="users-table__pets">2</td>
-                <td class="users-table__status"><span class="tag tag--amber">{% trans "3 reportes" %}</span></td>
-                <td class="users-table__actions">
-                  <a class="icon-btn" href="{% url 'profile_form' %}" aria-label="{% trans 'Editar a Pedro Ramírez' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Vetar la cuenta de Pedro Ramírez?' %}" aria-label="{% trans 'Vetar a Pedro Ramírez' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/ban.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Eliminar la cuenta de Pedro Ramírez? Esta acción no se puede deshacer.' %}" aria-label="{% trans 'Eliminar a Pedro Ramírez' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/trash.svg' %}#icon"/></svg></a>
-                </td>
-              </tr>
-              <tr>
-                <td class="users-table__user"><span class="row"><img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt=""><span class="text-strong">Darvin Hernández</span></span></td>
-                <td class="users-table__email">darvin.hernandez@gmail.com</td>
-                <td class="users-table__pets">2</td>
-                <td class="users-table__status"><span class="tag tag--green">{% trans "Activo" %}</span></td>
-                <td class="users-table__actions">
-                  <a class="icon-btn" href="{% url 'profile_form' %}" aria-label="{% trans 'Editar a Darvin Hernández' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Vetar la cuenta de Darvin Hernández?' %}" aria-label="{% trans 'Vetar a Darvin Hernández' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/ban.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Eliminar la cuenta de Darvin Hernández? Esta acción no se puede deshacer.' %}" aria-label="{% trans 'Eliminar a Darvin Hernández' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/trash.svg' %}#icon"/></svg></a>
-                </td>
-              </tr>
-              <tr>
-                <td class="users-table__user"><span class="row"><img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt=""><span class="text-strong">Daniela Bracho</span></span></td>
-                <td class="users-table__email">dbracho@gmail.com</td>
-                <td class="users-table__pets">0</td>
-                <td class="users-table__status"><span class="tag tag--red">{% trans "Vetada" %}</span></td>
-                <td class="users-table__actions">
-                  <a class="icon-btn" href="{% url 'profile_form' %}" aria-label="{% trans 'Editar a Daniela Bracho' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Quitar el veto a Daniela Bracho?' %}" aria-label="{% trans 'Quitar el veto a Daniela Bracho' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/check.svg' %}#icon"/></svg></a>
-                  <a class="icon-btn" href="{% url 'admin_panel' %}" data-confirm="{% trans '¿Eliminar la cuenta de Daniela Bracho? Esta acción no se puede deshacer.' %}" aria-label="{% trans 'Eliminar a Daniela Bracho' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/trash.svg' %}#icon"/></svg></a>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </section>

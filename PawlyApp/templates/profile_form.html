@@ -4,7 +4,7 @@
 {% block body_class %}layout-access{% endblock %}
 
 {% block body %}
-  <!-- Este mismo formulario se usa para "Editar perfil" (sin la barra de pasos) -->
+  <!-- Este formulario también sirve para editar el perfil -->
   <header class="access-header">
     <a class="icon-btn mobile-only" href="{% url 'register' %}" aria-label="{% trans 'Volver al paso 1' %}">
       <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>
@@ -30,10 +30,11 @@
 
       <h1 class="title-1">{% trans "Cuéntanos quién eres" %}</h1>
 
-      <form class="form-stack" data-validate data-next="{% url 'home' %}" novalidate>
+      <form class="form-stack" method="post" enctype="multipart/form-data" data-validate novalidate>
+        {% csrf_token %}
         <div class="profile-form">
           <div class="avatar-upload">
-            <img class="avatar avatar--xl" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="{% trans 'Tu foto de perfil' %}">
+            <img class="avatar avatar--xl" src="{{ user.avatar_url }}" alt="{% trans 'Tu foto de perfil' %}">
             <label class="btn btn--primary btn--icon btn--sm avatar-upload__button">
               <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/camera.svg' %}#icon"/></svg>
               <span class="visually-hidden">{% trans "Subir foto" %}</span>
@@ -45,20 +46,22 @@
             <div class="field">
               <label class="field__label" for="profile-name">{% trans "Nombre completo" %}</label>
               <input class="input" id="profile-name" name="full_name" type="text" autocomplete="name" placeholder="Laura Barreto"
+                value="{{ form.full_name.value|default_if_none:'' }}"
                 required data-error="{% trans 'Escribe tu nombre completo' %}" aria-describedby="profile-name-error">
-              <p class="field__error" id="profile-name-error" data-error-for="profile-name" role="alert" hidden></p>
+              <p class="field__error" id="profile-name-error" data-error-for="profile-name" role="alert"{% if not form.full_name.errors %} hidden{% endif %}>{{ form.full_name.errors.0 }}</p>
             </div>
 
             <div class="form-row form-row--2">
               <div class="field">
                 <label class="field__label" for="profile-id">{% trans "Cédula" %}</label>
                 <input class="input" id="profile-id" name="national_id" type="text" placeholder="V-12.345.678"
+                  value="{{ form.national_id.value|default_if_none:'' }}"
                   required data-error="{% trans 'Escribe tu cédula' %}" aria-describedby="profile-id-error">
-                <p class="field__error" id="profile-id-error" data-error-for="profile-id" role="alert" hidden></p>
+                <p class="field__error" id="profile-id-error" data-error-for="profile-id" role="alert"{% if not form.national_id.errors %} hidden{% endif %}>{{ form.national_id.errors.0 }}</p>
               </div>
               <div class="field">
                 <label class="field__label" for="profile-birth">{% trans "Fecha de nacimiento" %}</label>
-                <input class="input" id="profile-birth" name="birth_date" type="date" value="2000-07-02">
+                <input class="input" id="profile-birth" name="birth_date" type="date" value="{% if form.birth_date.value %}{{ form.birth_date.value|stringformat:'s' }}{% endif %}">
               </div>
             </div>
 
@@ -66,23 +69,23 @@
               <fieldset class="field">
                 <legend class="field__label">{% trans "Género" %}</legend>
                 <div class="segmented">
-                  <input type="radio" id="gender-f" name="gender" value="f" checked><label for="gender-f">{% trans "Femenino" %}</label>
-                  <input type="radio" id="gender-m" name="gender" value="m"><label for="gender-m">{% trans "Masculino" %}</label>
-                  <input type="radio" id="gender-o" name="gender" value="o"><label for="gender-o">{% trans "Otro" %}</label>
+                  <input type="radio" id="gender-f" name="gender" value="f"{% if form.gender.value == 'f' %} checked{% endif %}><label for="gender-f">{% trans "Femenino" %}</label>
+                  <input type="radio" id="gender-m" name="gender" value="m"{% if form.gender.value == 'm' %} checked{% endif %}><label for="gender-m">{% trans "Masculino" %}</label>
+                  <input type="radio" id="gender-o" name="gender" value="o"{% if form.gender.value == 'o' %} checked{% endif %}><label for="gender-o">{% trans "Otro" %}</label>
                 </div>
               </fieldset>
               <div class="field">
                 <label class="field__label" for="profile-city">{% trans "Ciudad" %}</label>
                 <div class="field__control">
                   <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="{% static 'img/icons/pin.svg' %}#icon"/></svg>
-                  <input class="input input--with-icon" id="profile-city" name="city" type="text" value="Los Teques, Miranda" autocomplete="address-level2">
+                  <input class="input input--with-icon" id="profile-city" name="city" type="text" value="{{ form.city.value|default_if_none:'' }}" placeholder="Los Teques, Miranda" autocomplete="address-level2">
                 </div>
               </div>
             </div>
 
             <div class="field">
               <label class="field__label" for="profile-about">{% trans "Descripción" %}</label>
-              <textarea class="input" id="profile-about" name="about">Amante de los gatos, tengo dos y quiero adoptar un tercero 🐱</textarea>
+              <textarea class="input" id="profile-about" name="about">{{ form.about.value|default_if_none:'' }}</textarea>
             </div>
           </div>
         </div>

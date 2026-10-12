@@ -2,21 +2,26 @@
 {% load static i18n %}
 
 {% block content %}
-    <a class="back-link pet-page__back desktop-only--inline" href="{% url 'pet_profile' 1 %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>{% trans "Volver al perfil de Mía" %}</a>
+    {% if pet.id %}
+    <a class="back-link pet-page__back desktop-only--inline" href="{% url 'pet_profile' pet.id %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>{% blocktrans with name=pet.name %}Volver al perfil de {{ name }}{% endblocktrans %}</a>
+    {% else %}
+    <a class="back-link pet-page__back desktop-only--inline" href="{% url 'my_profile' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>{% trans "Volver a mi perfil" %}</a>
+    {% endif %}
 
-    <form data-validate data-next="{% url 'pet_profile' 1 %}" novalidate>
+    <form method="post" enctype="multipart/form-data" data-validate novalidate>
+      {% csrf_token %}
       <div class="page-bar">
-        <a class="icon-btn mobile-only" href="{% url 'pet_profile' 1 %}" aria-label="{% trans 'Cancelar y volver al perfil de Mía' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></a>
-        <h1 class="page-bar__title">{% trans "Editar a Mía" %}</h1>
+        <a class="icon-btn mobile-only" href="{% if pet.id %}{% url 'pet_profile' pet.id %}{% else %}{% url 'my_profile' %}{% endif %}" aria-label="{% trans 'Cancelar' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></a>
+        <h1 class="page-bar__title">{{ title }}</h1>
         <div class="page-bar__end">
-          <a class="btn btn--secondary desktop-only--inline" href="{% url 'pet_profile' 1 %}">{% trans "Cancelar" %}</a>
+          <a class="btn btn--secondary desktop-only--inline" href="{% if pet.id %}{% url 'pet_profile' pet.id %}{% else %}{% url 'my_profile' %}{% endif %}">{% trans "Cancelar" %}</a>
           <button class="btn btn--primary btn--sm-mobile" type="submit">{% trans "Guardar cambios" %}</button>
         </div>
       </div>
 
       <div class="page-content edit-grid">
-        <section class="card card--pad photo-card" aria-label="{% trans 'Foto de Mía' %}">
-          <img class="photo-card__img" src="{{ MEDIA_URL }}pets/d5.jpg" alt="Foto actual de Mía, pastora alemana">
+        <section class="card card--pad photo-card" aria-label="{% trans 'Foto de la mascota' %}">
+          <img class="photo-card__img" src="{{ pet.photo_url }}" alt="{% trans 'Foto actual de la mascota' %}">
           <label class="btn btn--secondary btn--sm btn--block">
             <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/camera.svg' %}#icon"/></svg>{% trans "Cambiar foto" %}
             <input class="visually-hidden" type="file" name="photo" accept="image/png, image/jpeg">
@@ -28,44 +33,44 @@
           <h2 class="card__title" id="basic-title">{% trans "Datos básicos" %}</h2>
           <div class="field">
             <label class="field__label" for="pet-name">{% trans "Nombre" %}</label>
-            <input class="input" id="pet-name" name="name" type="text" value="Mía"
+            <input class="input" id="pet-name" name="name" type="text" value="{{ form.name.value|default_if_none:'' }}"
               required data-error="{% trans 'Escribe el nombre de tu mascota' %}" aria-describedby="pet-name-error">
-            <p class="field__error" id="pet-name-error" data-error-for="pet-name" role="alert" hidden></p>
+            <p class="field__error" id="pet-name-error" data-error-for="pet-name" role="alert"{% if not form.name.errors %} hidden{% endif %}>{{ form.name.errors.0 }}</p>
           </div>
           <div class="form-row form-row--2">
             <fieldset class="field">
               <legend class="field__label">{% trans "Especie" %}</legend>
               <div class="segmented">
-                <input type="radio" id="species-dog" name="species" value="dog" checked><label for="species-dog">Perro</label>
-                <input type="radio" id="species-cat" name="species" value="cat"><label for="species-cat">Gato</label>
+                <input type="radio" id="species-dog" name="species" value="dog"{% if form.species.value != 'cat' %} checked{% endif %}><label for="species-dog">{% trans "Perro" %}</label>
+                <input type="radio" id="species-cat" name="species" value="cat"{% if form.species.value == 'cat' %} checked{% endif %}><label for="species-cat">{% trans "Gato" %}</label>
               </div>
             </fieldset>
             <fieldset class="field">
               <legend class="field__label">{% trans "Sexo" %}</legend>
               <div class="segmented">
-                <input type="radio" id="sex-m" name="sex" value="m"><label for="sex-m">{% trans "Macho" %}</label>
-                <input type="radio" id="sex-f" name="sex" value="f" checked><label for="sex-f">{% trans "Hembra" %}</label>
+                <input type="radio" id="sex-m" name="sex" value="m"{% if form.sex.value != 'f' %} checked{% endif %}><label for="sex-m">{% trans "Macho" %}</label>
+                <input type="radio" id="sex-f" name="sex" value="f"{% if form.sex.value == 'f' %} checked{% endif %}><label for="sex-f">{% trans "Hembra" %}</label>
               </div>
             </fieldset>
           </div>
           <div class="field">
             <label class="field__label" for="pet-birth">{% trans "Fecha de nacimiento" %}</label>
-            <input class="input" id="pet-birth" name="birth_date" type="date" value="2021-03-14" aria-describedby="pet-birth-hint">
-            <p class="field__hint" id="pet-birth-hint">5 años y 6 meses</p>
+            <input class="input" id="pet-birth" name="birth_date" type="date" value="{% if form.birth_date.value %}{{ form.birth_date.value|stringformat:'s' }}{% endif %}" aria-describedby="pet-birth-hint">
+            <p class="field__hint" id="pet-birth-hint">{{ pet.age }}</p>
           </div>
           <fieldset class="field">
             <legend class="field__label">{% trans "Temperamento" %}</legend>
             <div class="chip-group">
-              <label class="chip"><input type="checkbox" name="temperament" value="playful" checked><span>{% trans "Juguetona" %}</span></label>
-              <label class="chip"><input type="checkbox" name="temperament" value="sociable" checked><span>{% trans "Sociable" %}</span></label>
-              <label class="chip"><input type="checkbox" name="temperament" value="shy"><span>{% trans "Tímida" %}</span></label>
-              <label class="chip"><input type="checkbox" name="temperament" value="calm"><span>{% trans "Tranquila" %}</span></label>
-              <label class="chip"><input type="checkbox" name="temperament" value="protective"><span>{% trans "Protectora" %}</span></label>
+              <label class="chip"><input type="checkbox" name="temperament" value="playful"{% if 'playful' in temperament %} checked{% endif %}><span>{% trans "Juguetón" %}</span></label>
+              <label class="chip"><input type="checkbox" name="temperament" value="sociable"{% if 'sociable' in temperament %} checked{% endif %}><span>{% trans "Sociable" %}</span></label>
+              <label class="chip"><input type="checkbox" name="temperament" value="shy"{% if 'shy' in temperament %} checked{% endif %}><span>{% trans "Tímido" %}</span></label>
+              <label class="chip"><input type="checkbox" name="temperament" value="calm"{% if 'calm' in temperament %} checked{% endif %}><span>{% trans "Tranquilo" %}</span></label>
+              <label class="chip"><input type="checkbox" name="temperament" value="protective"{% if 'protective' in temperament %} checked{% endif %}><span>{% trans "Protector" %}</span></label>
             </div>
           </fieldset>
           <div class="field">
             <label class="field__label" for="pet-about">{% trans "Descripción" %}</label>
-            <textarea class="input" id="pet-about" name="about">Pastor alemán de 5 años muy cariñosa y acostumbrada a niños 🐕 le encanta el parque y dormir en el sofá</textarea>
+            <textarea class="input" id="pet-about" name="about">{{ form.about.value|default_if_none:'' }}</textarea>
           </div>
         </section>
 
@@ -74,36 +79,42 @@
             <div class="switch-row">
               <div class="switch-row__text">
                 <h2 class="switch-row__label" id="adoption-title"><label for="pet-adoption">{% trans "Poner en adopción" %}</label></h2>
-                <p class="text-xs text-muted" id="pet-adoption-hint">{% trans "Mía aparecerá en el feed de Adopción para personas cercanas." %}</p>
+                <p class="text-xs text-muted" id="pet-adoption-hint">{% trans "Aparecerá en el feed de Adopción para otras personas." %}</p>
               </div>
-              <input class="switch" id="pet-adoption" name="for_adoption" type="checkbox" role="switch" checked
+              <input class="switch" id="pet-adoption" name="for_adoption" type="checkbox" role="switch"{% if form.for_adoption.value %} checked{% endif %}
                 aria-describedby="pet-adoption-hint" data-reveals="adoption-fields"
-                data-confirm-off="{% trans '¿Quitar a Mía de adopción? Dejará de aparecer en el feed de Adopción.' %}">
+                data-confirm-off="{% trans '¿Quitar la mascota de adopción? Dejará de aparecer en el feed de Adopción.' %}">
             </div>
             <div class="form-stack" id="adoption-fields">
               <div class="field">
                 <label class="field__label" for="pet-family">{% trans "Características que busca en su familia" %}</label>
                 <textarea class="input" id="pet-family" name="family" required
-                  data-error="Cuéntanos qué familia buscas para tu mascota" aria-describedby="pet-family-error">Familia con tiempo para pasear y sin niños muy pequeños, preferiblemente en Caracas o los Valles del Tuy</textarea>
-                <p class="field__error" id="pet-family-error" data-error-for="pet-family" role="alert" hidden></p>
+                  data-error="{% trans 'Cuéntanos qué familia buscas para tu mascota' %}" aria-describedby="pet-family-error">{{ form.family.value|default_if_none:'' }}</textarea>
+                <p class="field__error" id="pet-family-error" data-error-for="pet-family" role="alert"{% if not form.family.errors %} hidden{% endif %}>{{ form.family.errors.0 }}</p>
               </div>
               <div class="field">
                 <label class="field__label" for="pet-location">{% trans "Ubicación de la mascota" %}</label>
                 <div class="field__control">
                   <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="{% static 'img/icons/pin.svg' %}#icon"/></svg>
-                  <input class="input input--with-icon" id="pet-location" name="location" type="text" value="Ocumare del Tuy, Miranda">
+                  <input class="input input--with-icon" id="pet-location" name="location" type="text" value="{{ form.location.value|default_if_none:'' }}" placeholder="Ocumare del Tuy, Miranda">
                 </div>
               </div>
             </div>
           </section>
 
+          {% if pet.id %}
           <section class="card card--pad card--danger stack" aria-labelledby="danger-title">
             <h2 class="card__title" id="danger-title">{% trans "Zona de peligro" %}</h2>
-            <p class="text-xs text-muted">{% trans "Eliminar el perfil de Mía borra sus publicaciones etiquetadas y sus postulaciones." %}</p>
-            <a class="btn btn--danger btn--sm" href="{% url 'my_profile' %}"
-              data-confirm="{% trans '¿Eliminar el perfil de Mía? Esta acción no se puede deshacer.' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/trash.svg' %}#icon"/></svg>{% trans "Eliminar mascota" %}</a>
+            <p class="text-xs text-muted">{% blocktrans with name=pet.name %}Eliminar el perfil de {{ name }} borra también sus postulaciones.{% endblocktrans %}</p>
+            <button class="btn btn--danger btn--sm" type="submit" form="delete-form"
+              data-confirm="{% blocktrans with name=pet.name %}¿Eliminar el perfil de {{ name }}? Esta acción no se puede deshacer.{% endblocktrans %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/trash.svg' %}#icon"/></svg>{% trans "Eliminar mascota" %}</button>
           </section>
+          {% endif %}
         </div>
       </div>
     </form>
+
+    {% if pet.id %}
+    <form id="delete-form" method="post" action="{% url 'pet_delete' pet.id %}">{% csrf_token %}</form>
+    {% endif %}
 {% endblock %}

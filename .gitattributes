@@ -1,2 +1,2 @@
-# Los scripts de arranque de Docker deben tener saltos de línea de Linux
+# Solo para el repositorio personal: los scripts de Render deben tener saltos de línea de Linux
 *.sh text eol=lf

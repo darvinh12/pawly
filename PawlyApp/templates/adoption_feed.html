@@ -9,7 +9,7 @@
         <h1 class="page-bar__title">{% trans "Adopción" %}</h1>
         <p class="page-bar__sub">
           <svg class="icon icon--xs" aria-hidden="true"><use href="{% static 'img/icons/pin.svg' %}#icon"/></svg>
-          {% trans "Mascotas cerca de Chacao, Caracas · ordenadas por distancia" %}
+          {% trans "Mascotas en adopción · las más recientes primero" %}
         </p>
       </div>
       <div class="page-bar__end">
@@ -41,12 +41,11 @@
       <ul class="pet-grid">
         {% for pet in pets %}
         <li class="pet-card card">
-          <img class="pet-card__photo" src="{{ MEDIA_URL }}{{ pet.photo }}" alt="{{ pet.alt }}">
-          <span class="tag tag--green pet-card__tag">{{ pet.distance }} km</span>
+          <img class="pet-card__photo" src="{{ pet.photo_url }}" alt="{% blocktrans with name=pet.name %}Foto de {{ name }}{% endblocktrans %}">
           <div class="pet-card__body">
             <h2 class="pet-card__name"><a class="pet-card__link" href="{% url 'pet_detail' pet.id %}">{{ pet.name }}</a></h2>
-            <p class="pet-card__meta">{{ pet.breed }} · {{ pet.age }} · {{ pet.sex }}</p>
-            <p class="pet-card__owner">{{ pet.place }} · {{ pet.owner }}</p>
+            <p class="pet-card__meta">{{ pet.get_species_display }} · {{ pet.age }} · {{ pet.get_sex_display }}</p>
+            <p class="pet-card__owner">{{ pet.location }} · {{ pet.owner.display_name }}</p>
           </div>
         </li>
         {% empty %}
