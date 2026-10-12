@@ -1,0 +1,71 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <!-- El inicio queda de fondo, oscurecido -->
+    <div class="overlay-context feed-layout" inert>
+      <div class="feed-layout__main">
+        <div class="composer">
+          <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+          <span class="composer__prompt">{% trans "¿Qué está haciendo tu mascota hoy?" %}</span>
+        </div>
+      </div>
+    </div>
+    <div class="overlay-backdrop"></div>
+
+    <form class="sheet sheet--full sheet--wide" aria-labelledby="create-title" data-validate data-next="{% url 'home' %}" novalidate>
+      <div class="sheet__head">
+        <h1 class="title-2" id="create-title">{% trans "Nueva publicación" %}</h1>
+        <a class="icon-btn" href="{% url 'home' %}" data-close aria-label="{% trans 'Cerrar sin publicar' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></a>
+      </div>
+
+      <div class="row">
+        <img class="avatar" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+        <div><p class="text-strong">Darvin Hernández</p><p class="text-xs text-muted">{% trans "Publica en tu muro" %}</p></div>
+      </div>
+
+      <div class="field">
+        <label class="visually-hidden" for="post-text">{% trans "¿Qué está haciendo tu mascota hoy?" %}</label>
+        <textarea class="input" id="post-text" name="text" placeholder="¿Qué está haciendo tu mascota hoy?"
+          required data-error="Escribe algo o agrega una foto antes de publicar" aria-describedby="post-text-error">Mía y Simón por fin se llevan bien 🐶🐱 después de dos semanas durmiendo juntos @laurabarreto tenías razón</textarea>
+        <p class="field__error" id="post-text-error" data-error-for="post-text" role="alert" hidden></p>
+      </div>
+
+      <div class="post-create__media">
+        <div class="post-create__photo">
+          <img src="{{ MEDIA_URL }}pets/d5.jpg" alt="Foto adjunta: Mía, pastora alemana, echada en el pasto">
+          <button class="icon-btn icon-btn--bordered" type="button" aria-label="{% trans 'Quitar la foto' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></button>
+        </div>
+        <div class="stack stack--sm grow">
+          <p class="eyebrow">{% trans "Etiquetados" %}</p>
+          <ul class="token-list">
+            <li class="token"><img class="avatar avatar--xs" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">Laura Barreto<button class="token__remove" type="button" aria-label="{% trans 'Quitar a Laura Barreto' %}"><svg class="icon icon--xs" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></button></li>
+            <li class="token"><img class="avatar avatar--xs" src="{{ MEDIA_URL }}pets/d5.jpg" alt="">Mía<button class="token__remove" type="button" aria-label="{% trans 'Quitar a Mía' %}"><svg class="icon icon--xs" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></button></li>
+            <li class="token"><img class="avatar avatar--xs" src="{{ MEDIA_URL }}pets/c2.jpg" alt="">Simón<button class="token__remove" type="button" aria-label="{% trans 'Quitar a Simón' %}"><svg class="icon icon--xs" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></button></li>
+          </ul>
+          <div class="field">
+            <label class="visually-hidden" for="post-tag">{% trans "Etiquetar a una persona o mascota" %}</label>
+            <div class="field__control">
+              <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="{% static 'img/icons/search.svg' %}#icon"/></svg>
+              <input class="input input--with-icon" id="post-tag" name="tag" type="search" placeholder="{% trans 'Etiquetar a una persona o mascota' %}">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="post-create__footer">
+        <fieldset>
+          <legend class="eyebrow mobile-only">{% trans "Agregar a la publicación" %}</legend>
+          <div class="chip-group">
+            <label class="chip"><input type="file" name="photo" accept="image/*"><span><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/image.svg' %}#icon"/></svg>{% trans "Foto" %}</span></label>
+            <label class="chip"><input type="file" name="video" accept="video/*"><span><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/video.svg' %}#icon"/></svg>{% trans "Video" %}</span></label>
+            <label class="chip"><input type="file" name="audio" accept="audio/*"><span><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/mic.svg' %}#icon"/></svg>{% trans "Audio" %}</span></label>
+            <a class="chip" href="#post-text"><span><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/link.svg' %}#icon"/></svg>{% trans "Enlace" %}</span></a>
+            <a class="chip chip--active" href="#post-tag"><span><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/users.svg' %}#icon"/></svg>{% trans "Etiquetar" %}</span></a>
+          </div>
+        </fieldset>
+        <button class="btn btn--primary" type="submit">{% trans "Publicar" %}</button>
+      </div>
+    </form>
+{% endblock %}

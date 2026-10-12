@@ -1,0 +1,111 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block body_class %}layout-app has-tabbar{% endblock %}
+
+{% block content %}
+    <div class="page-bar mobile-only">
+      <p class="page-bar__title">{% trans "Mi perfil" %}</p>
+      <div class="page-bar__end">
+        <a class="icon-btn" href="{% url 'account_settings' %}" aria-label="{% trans 'Ajustes' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/settings.svg' %}#icon"/></svg></a>
+      </div>
+    </div>
+
+    <div class="profile-layout">
+      <div class="stack stack--lg">
+        <section class="profile" aria-labelledby="profile-name">
+          <div class="profile__head">
+            <img class="avatar avatar--xl avatar--profile" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="Foto de perfil de Darvin Hernández">
+            <div class="stack stack--sm">
+              <h1 class="profile__name" id="profile-name">Darvin Hernández</h1>
+              <p class="profile__meta">@darvinh · Ocumare del Tuy, Miranda</p>
+            </div>
+          </div>
+          <p class="text-small">Dueño de Mía y Simón 🐶🐱 voluntario en rescates los fines de semana</p>
+          <ul class="profile__stats">
+            <li><strong>128</strong> <span>{% trans "Seguidores" %}</span></li>
+            <li><strong>96</strong> <span>{% trans "Siguiendo" %}</span></li>
+            <li><strong>2</strong> <span>{% trans "Mascotas" %}</span></li>
+          </ul>
+          <div class="profile__actions">
+            <a class="btn btn--secondary btn--sm" href="{% url 'profile_form' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg>{% trans "Editar perfil" %}</a>
+            <a class="btn btn--secondary btn--sm mobile-only" href="{% url 'my_profile' %}">{% trans "Compartir" %}</a>
+            <a class="btn btn--secondary btn--sm desktop-only--inline" href="{% url 'account_settings' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/settings.svg' %}#icon"/></svg>{% trans "Ajustes" %}</a>
+          </div>
+        </section>
+
+        <section class="card card--pad desktop-only" aria-labelledby="profile-data-title">
+          <h2 class="card__title" id="profile-data-title">{% trans "Datos del perfil" %}</h2>
+          <dl class="data-list">
+            <div><dt>{% trans "Nombre" %}</dt><dd>Darvin Hernández</dd></div>
+            <div><dt>{% trans "Cédula" %}</dt><dd>V-27.455.120</dd></div>
+            <div><dt>{% trans "Nacimiento" %}</dt><dd><time datetime="1998-11-21">21 nov 1998</time></dd></div>
+            <div><dt>{% trans "Género" %}</dt><dd>{% trans "Masculino" %}</dd></div>
+            <div><dt>{% trans "Ciudad" %}</dt><dd>Ocumare del Tuy</dd></div>
+          </dl>
+        </section>
+      </div>
+
+      <div class="stack stack--lg">
+        <section class="profile-section" aria-labelledby="my-pets-title">
+          <div class="section-head">
+            <h2 class="title-2" id="my-pets-title">{% trans "Mis mascotas" %}</h2>
+            <a class="btn btn--primary btn--sm" href="{% url 'pet_edit' 1 %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/plus.svg' %}#icon"/></svg>{% trans "Agregar mascota" %}</a>
+          </div>
+          <ul class="pet-row">
+            <li class="pet-card card">
+              <img class="pet-card__photo" src="{{ MEDIA_URL }}pets/d5.jpg" alt="Mía, pastora alemana, echada en el pasto">
+              <span class="tag tag--green pet-card__tag">{% trans "En adopción" %}</span>
+              <div class="pet-card__body">
+                <h3 class="pet-card__name"><a class="pet-card__link" href="{% url 'pet_profile' 1 %}">Mía</a></h3>
+                <p class="pet-card__meta">Pastor alemán · 5 años · Hembra</p>
+              </div>
+            </li>
+            <li class="pet-card card">
+              <img class="pet-card__photo" src="{{ MEDIA_URL }}pets/c2.jpg" alt="Simón, gatito atigrado, asomado en un túnel de tela">
+              <div class="pet-card__body">
+                <h3 class="pet-card__name"><a class="pet-card__link" href="{% url 'pet_profile' 1 %}">Simón</a></h3>
+                <p class="pet-card__meta">Gato · 8 meses · Macho</p>
+              </div>
+            </li>
+            <li class="pet-card card pet-card--add">
+              <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/plus.svg' %}#icon"/></svg>
+              <a class="pet-card__link" href="{% url 'pet_edit' 1 %}">{% trans "Registrar una mascota" %}</a>
+            </li>
+          </ul>
+        </section>
+
+        <nav class="tabs" aria-label="{% trans 'Contenido del perfil' %}">
+          <a class="tabs__link" href="#posts" aria-current="true">{% trans "Publicaciones · 24" %}</a>
+          <a class="tabs__link" href="#applications">{% trans "Postulaciones · 1" %}</a>
+          <a class="tabs__link desktop-only--inline" href="#saved">{% trans "Guardados" %}</a>
+        </nav>
+
+        <section class="profile-section" id="posts" aria-label="{% trans 'Publicaciones' %}">
+          <article class="post card">
+            <header class="post__head">
+              <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+              <p class="post__meta"><time datetime="2026-10-05">{% trans "hace 3 días" %}</time></p>
+            </header>
+            <p class="post__text">Simón se apropió de la caja del televisor nuevo y no la suelta 😹</p>
+            <footer class="post__actions">
+              <button class="like-btn" type="button" aria-pressed="false"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/heart.svg' %}#icon"/></svg>31 <span class="visually-hidden">{% trans "me gusta" %}</span></button>
+              <a class="post__action" href="{% url 'post_detail' 1 %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/chat.svg' %}#icon"/></svg>5 <span class="visually-hidden">{% trans "comentarios" %}</span></a>
+            </footer>
+          </article>
+        </section>
+
+        <section class="profile-section" id="applications" aria-labelledby="applications-title">
+          <h2 class="eyebrow" id="applications-title">{% trans "Mis postulaciones" %}</h2>
+          <div class="mini-row card card--pad">
+            <img class="mini-row__photo" src="{{ MEDIA_URL }}pets/d1.jpg" alt="">
+            <div class="grow">
+              <a class="mini-row__link text-strong" href="{% url 'pet_detail' 1 %}?postulacion=enviada">Toby</a>
+              <p class="text-xs text-muted">Mestizo · 2 años · de Luis García</p>
+            </div>
+            <span class="tag tag--amber">{% trans "Pendiente" %}</span>
+          </div>
+        </section>
+      </div>
+    </div>
+{% endblock %}

@@ -1,69 +1,65 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Iniciar sesión · Pawly</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
-  <link rel="stylesheet" href="../../staticfiles/css/pawly.css">
-  <link rel="icon" href="../../staticfiles/img/logo-mark.png">
-  <script src="../../staticfiles/js/pawly.js" defer></script>
-</head>
-<body class="layout-access">
-  <a class="skip-link" href="#main">Saltar al contenido</a>
+{% extends "base.html" %}
+{% load static i18n %}
 
+{% block body_class %}layout-access{% endblock %}
+
+{% block body %}
   <div class="login-page">
     <!-- Foto y eslogan (solo escritorio) -->
-    <aside class="login__hero" aria-label="Sobre Pawly">
-      <img class="login__hero-photo" src="../../staticfiles/img/hero.jpg" alt="">
-      <p class="login__slogan">Cada mascota merece una familia. Cada familia, una mascota.</p>
-      <p class="login__hero-text">Pawly conecta a dueños, rescatistas y personas que quieren adoptar en Caracas y sus alrededores.</p>
+    <aside class="login__hero" aria-label="{% trans 'Sobre Pawly' %}">
+      <img class="login__hero-photo" src="{% static 'img/hero.jpg' %}" alt="">
+      <p class="login__slogan">{% trans "Cada mascota merece una familia. Cada familia, una mascota." %}</p>
+      <p class="login__hero-text">{% trans "Pawly conecta a dueños, rescatistas y personas que quieren adoptar en Caracas y sus alrededores." %}</p>
     </aside>
 
     <main id="main" class="login">
       <div class="login__brand">
-        <img class="login__logo" src="../../staticfiles/img/logo-full.png" alt="Pawly">
-        <h1 class="title-2">Bienvenido de vuelta</h1>
-        <p class="text-muted text-small">Entra para ver las novedades de tu comunidad.</p>
+        <img class="login__logo" src="{% static 'img/logo-full.png' %}" alt="Pawly">
+        <h1 class="title-2">{% trans "Bienvenido de vuelta" %}</h1>
+        <p class="text-muted text-small">{% trans "Entra para ver las novedades de tu comunidad." %}</p>
       </div>
 
-      <form class="form-stack" data-validate data-next="#" novalidate>
+      <form class="form-stack" method="post" data-validate novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
         <div class="field">
-          <label class="field__label" for="login-user">Usuario o correo</label>
+          <label class="field__label" for="login-user">{% trans "Usuario o correo" %}</label>
           <div class="field__control">
-            <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="../../staticfiles/img/icons/mail.svg#icon"/></svg>
+            <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="{% static 'img/icons/mail.svg' %}#icon"/></svg>
             <input class="input input--with-icon" id="login-user" name="username" type="text" autocomplete="username" placeholder="darvin.hernandez"
-              required data-error="Escribe tu usuario o correo" aria-describedby="login-user-error">
+              value="{{ form.username.value|default_if_none:'' }}"
+              required data-error="{% trans 'Escribe tu usuario o correo' %}" aria-describedby="login-user-error">
           </div>
           <p class="field__error" id="login-user-error" data-error-for="login-user" role="alert" hidden></p>
         </div>
 
         <div class="field">
-          <label class="field__label" for="login-password">Contraseña</label>
+          <label class="field__label" for="login-password">{% trans "Contraseña" %}</label>
           <div class="field__control">
-            <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="../../staticfiles/img/icons/lock.svg#icon"/></svg>
+            <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="{% static 'img/icons/lock.svg' %}#icon"/></svg>
             <input class="input input--with-icon input--with-action" id="login-password" name="password" type="password" autocomplete="current-password"
-              required data-error="Escribe tu contraseña" aria-describedby="login-password-error">
-            <button class="icon-btn field__action" type="button" data-toggle-password="login-password" aria-pressed="false" aria-label="Mostrar contraseña">
-              <svg class="icon icon--sm" aria-hidden="true"><use href="../../staticfiles/img/icons/eye.svg#icon"/></svg>
+              required data-error="{% trans 'Escribe tu contraseña' %}" aria-describedby="login-password-error">
+            <button class="icon-btn field__action" type="button" data-toggle-password="login-password" aria-pressed="false" aria-label="{% trans 'Mostrar contraseña' %}">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/eye.svg' %}#icon"/></svg>
             </button>
           </div>
           <p class="field__error" id="login-password-error" data-error-for="login-password" role="alert" hidden></p>
         </div>
 
+        {% if form.non_field_errors %}
+        <p class="field__error" role="alert">{{ form.non_field_errors.0 }}</p>
+        {% endif %}
+
         <div class="row row--between row--wrap">
-          <label class="check"><input type="checkbox" name="remember">Recordarme en este equipo</label>
-          <a class="link text-small" href="#">¿Olvidaste tu contraseña?</a>
+          <label class="check"><input type="checkbox" name="remember">{% trans "Recordarme en este equipo" %}</label>
+          <a class="link text-small" href="{% url 'password_reset' %}">{% trans "¿Olvidaste tu contraseña?" %}</a>
         </div>
 
-        <button class="btn btn--primary btn--block" type="submit">Entrar</button>
+        <button class="btn btn--primary btn--block" type="submit">{% trans "Entrar" %}</button>
       </form>
 
       <hr class="divider mobile-only">
-      <p class="text-small text-muted text-center">¿Nuevo en Pawly? <a class="link" href="register.html">Crea tu cuenta</a></p>
+      <p class="text-small text-muted text-center">{% trans "¿Nuevo en Pawly?" %} <a class="link" href="{% url 'register' %}">{% trans "Crea tu cuenta" %}</a></p>
     </main>
   </div>
-</body>
-</html>
+{% endblock %}

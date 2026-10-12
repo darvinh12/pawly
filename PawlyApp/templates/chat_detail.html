@@ -1,0 +1,103 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <div class="chat-layout">
+      <section class="chat-list desktop-only--flex" aria-labelledby="chat-list-title">
+        <div class="section-head">
+          <h2 class="title-2" id="chat-list-title">{% trans "Mensajes" %}</h2>
+          <a class="icon-btn icon-btn--bordered" href="{% url 'user_profile' 1 %}" aria-label="{% trans 'Nueva conversación' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg></a>
+        </div>
+        <form class="search-box search-box--page" action="{% url 'chat_list' %}" role="search" aria-label="{% trans 'Buscar conversación' %}">
+          <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/search.svg' %}#icon"/></svg>
+          <label class="visually-hidden" for="chat-search">{% trans "Buscar conversación" %}</label>
+          <input id="chat-search" name="q" type="search" placeholder="{% trans 'Buscar conversación' %}">
+        </form>
+
+        <h3 class="eyebrow">{% trans "Peticiones · 1" %}</h3>
+        <ul>
+          <li class="convo">
+            <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+            <div class="convo__text"><a class="convo__name" href="{% url 'user_profile' 1 %}">Luna Martínez</a><span class="convo__last">{% trans "Quiere chatear contigo" %}</span></div>
+            <div class="convo__actions">
+              <a class="btn btn--success btn--icon btn--sm" href="{% url 'chat_list' %}" aria-label="{% trans 'Aceptar la petición de Luna Martínez' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/check.svg' %}#icon"/></svg></a>
+              <a class="btn btn--secondary btn--icon btn--sm" href="{% url 'chat_list' %}" aria-label="{% trans 'Rechazar la petición de Luna Martínez' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></a>
+            </div>
+          </li>
+        </ul>
+
+        <h3 class="eyebrow">{% trans "Chats" %}</h3>
+        <ul>
+          <li class="convo convo--active">
+            <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+            <div class="convo__text">
+              <p class="row row--between"><a class="convo__name convo__link" href="{% url 'chat_detail' 1 %}">Luis García</a><time class="convo__time" datetime="2026-10-08T10:45">10:45</time></p>
+              <span class="convo__last">Claro!! a las 10 de la mañana te sirve?</span>
+              <span><span class="tag tag--green">{% trans "Adopción · Toby" %}</span></span>
+            </div>
+          </li>
+          <li class="convo">
+            <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+            <div class="convo__text">
+              <p class="row row--between"><a class="convo__name convo__link" href="{% url 'chat_detail' 1 %}">Valentina Ochoa</a><time class="convo__time" datetime="2026-10-07">ayer</time></p>
+              <span class="convo__last">Te mando la foto de Mía en el parque</span>
+            </div>
+            <span class="badge">2<span class="visually-hidden"> {% trans "mensajes sin leer" %}</span></span>
+          </li>
+          <li class="convo">
+            <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+            <div class="convo__text">
+              <p class="row row--between"><a class="convo__name convo__link" href="{% url 'chat_detail' 1 %}">José Gutiérrez</a><time class="convo__time" datetime="2026-10-05">lun</time></p>
+              <span class="convo__last">Gracias por el dato del veterinario</span>
+            </div>
+          </li>
+          <li class="convo">
+            <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+            <div class="convo__text">
+              <p class="row row--between"><a class="convo__name convo__link" href="{% url 'chat_detail' 1 %}">Andrea Salas</a><time class="convo__time" datetime="2026-09-08">8 sep</time></p>
+              <span class="convo__last">Nos vemos en la caminata del sábado</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="chat-panel" aria-labelledby="chat-title">
+        <div class="chat-panel__head">
+          <a class="icon-btn mobile-only" href="{% url 'chat_list' %}" aria-label="{% trans 'Volver a Mensajes' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg></a>
+          <img class="avatar" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+          <div class="grow">
+            <h1 class="text-strong" id="chat-title">Luis García</h1>
+            <p class="text-xs text-muted">{% trans "Chat abierto por tu postulación a" %} <strong>Toby</strong></p>
+          </div>
+          <div class="row">
+            <a class="btn btn--secondary btn--sm" href="{% url 'pet_detail' 1 %}">{% trans "Ver a Toby" %}</a>
+            <button class="btn btn--secondary btn--sm" type="button" data-hide-when="postulacion=cancelada"
+              data-confirm="{% trans '¿Cancelar tu postulación para adoptar a Toby? Le avisaremos a Luis.' %}" data-next="{% url 'chat_detail' 1 %}?postulacion=cancelada">{% trans "Cancelar postulación" %}</button>
+          </div>
+        </div>
+
+        <ol class="chat-panel__messages" aria-label="{% trans 'Mensajes con Luis García' %}">
+          <li class="sysmsg">{% trans "Te postulaste para adoptar a" %} <strong>Toby</strong> {% trans "el" %} <time datetime="2026-09-12">12 sep 2026</time>{% trans ". Este chat se abrió automáticamente para que coordinen." %}</li>
+          <li class="bubble bubble--own">Hola Luis, vivo en Ocumare del Tuy tengo patio y salgo a caminar todas las mañanas, me encantaría conocer a Toby este fin de semana<time class="bubble__time" datetime="2026-10-08T10:30">10:30</time></li>
+          <li class="bubble bubble--other">Hola Darvin, qué bueno. Toby necesita justamente eso mucho paseo<time class="bubble__time" datetime="2026-10-08T10:38">10:38</time></li>
+          <li class="bubble bubble--other">Puedes venir este sábado a conocerlo? estamos en Chacao cerca del metro<time class="bubble__time" datetime="2026-10-08T10:42">10:42</time></li>
+          <li class="bubble bubble--own">Claro!! a las 10 de la mañana te sirve?<time class="bubble__time" datetime="2026-10-08T10:45">10:45</time></li>
+          <li class="sysmsg" data-show-when="postulacion=cancelada" hidden>{% trans "Cancelaste tu postulación para adoptar a" %} <strong>Toby</strong>{% trans ". Le avisamos a Luis." %}</li>
+        </ol>
+
+        <form class="chat-form" data-validate data-next="{% url 'chat_detail' 1 %}" novalidate>
+          <label class="icon-btn icon-btn--bordered">
+            <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/image.svg' %}#icon"/></svg>
+            <span class="visually-hidden">{% trans "Adjuntar foto" %}</span>
+            <input class="visually-hidden" type="file" name="photo" accept="image/*">
+          </label>
+          <div class="field grow">
+            <label class="visually-hidden" for="chat-message">{% trans "Escribe un mensaje" %}</label>
+            <input class="input" id="chat-message" name="message" type="text" placeholder="{% trans 'Escribe un mensaje…' %}"
+              required data-error="{% trans 'Escribe un mensaje antes de enviarlo' %}" aria-describedby="chat-message-error">
+            <p class="field__error" id="chat-message-error" data-error-for="chat-message" role="alert" hidden></p>
+          </div>
+          <button class="btn btn--primary btn--collapse" type="submit"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/send.svg' %}#icon"/></svg><span class="btn__label">{% trans "Enviar" %}</span></button>
+        </form>
+      </section>
+    </div>
+{% endblock %}

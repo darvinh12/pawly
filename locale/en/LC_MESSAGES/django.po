@@ -1,0 +1,1726 @@
+# English translation of the Pawly screens.
+# The Spanish text is the msgid, because Spanish is the main language of the application.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pawly\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: PawlyApp/templates/account_settings.html
+#: PawlyApp/templates/pet_profile.html
+msgid "Volver a mi perfil"
+msgstr "Back to my profile"
+
+#: PawlyApp/templates/account_settings.html
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/views.py:176
+msgid "Ajustes"
+msgstr "Settings"
+
+#: PawlyApp/templates/account_settings.html
+#: PawlyApp/templates/admin_panel.html
+msgid "Cuenta"
+msgstr "Account"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Tu contraseña se guardó."
+msgstr "Your password was saved."
+
+#: PawlyApp/templates/account_settings.html
+#: PawlyApp/templates/password_reset.html
+#: PawlyApp/templates/register.html
+msgid "Correo electrónico"
+msgstr "Email"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Contraseña actual"
+msgstr "Current password"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Escribe tu contraseña actual"
+msgstr "Enter your current password"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Si entraste con tu cédula como contraseña, debes cambiarla aquí antes de seguir."
+msgstr "If you logged in with your ID number as the password, you must change it here before continuing."
+
+#: PawlyApp/templates/account_settings.html
+msgid "Nueva contraseña"
+msgstr "New password"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Mínimo 8 caracteres"
+msgstr "At least 8 characters"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Escribe la nueva contraseña"
+msgstr "Enter the new password"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Confirmar"
+msgstr "Confirm"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Repite la contraseña"
+msgstr "Repeat the password"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Repite la nueva contraseña"
+msgstr "Repeat the new password"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Guardar contraseña"
+msgstr "Save password"
+
+#: PawlyApp/templates/account_settings.html
+#: PawlyApp/templates/base_app.html
+#: PawlyApp/templates/notifications.html
+#: PawlyApp/views.py:164
+msgid "Notificaciones"
+msgstr "Notifications"
+
+#: PawlyApp/templates/account_settings.html
+msgid "En la app"
+msgstr "In the app"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Chats, comentarios y postulaciones"
+msgstr "Chats, comments and applications"
+
+#: PawlyApp/templates/account_settings.html
+msgid "También por correo"
+msgstr "Also by email"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Te llega un resumen a tu email"
+msgstr "You get a summary in your email"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Apariencia e idioma"
+msgstr "Appearance and language"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Idioma"
+msgstr "Language"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Tema"
+msgstr "Theme"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Claro"
+msgstr "Light"
+
+#: PawlyApp/templates/account_settings.html
+msgid "Oscuro"
+msgstr "Dark"
+
+#: PawlyApp/templates/account_settings.html
+#: PawlyApp/templates/base_admin.html
+msgid "Cerrar sesión"
+msgstr "Log out"
+
+#: PawlyApp/templates/admin_panel.html
+#: PawlyApp/templates/base_admin.html
+msgid "Panel"
+msgstr "Dashboard"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Resumen de la comunidad ·"
+msgstr "Community summary ·"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Agregar usuario"
+msgstr "Add user"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Resumen"
+msgstr "Summary"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Usuarios activos"
+msgstr "Active users"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "+64 este mes"
+msgstr "+64 this month"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Mascotas registradas"
+msgstr "Registered pets"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "+180 este mes"
+msgstr "+180 this month"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Adopciones concretadas"
+msgstr "Completed adoptions"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "+9 vs. agosto"
+msgstr "+9 vs. August"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Reportes pendientes"
+msgstr "Pending reports"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "2 con más de 48 h"
+msgstr "2 for more than 48 h"
+
+#: PawlyApp/templates/admin_panel.html
+#: PawlyApp/templates/base_admin.html
+#: PawlyApp/templates/search.html
+msgid "Usuarios"
+msgstr "Users"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Filtrar usuarios"
+msgstr "Filter users"
+
+#: PawlyApp/templates/admin_panel.html
+#: PawlyApp/templates/adoption_feed.html
+msgid "Todos"
+msgstr "All"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Activos"
+msgstr "Active"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Reportados"
+msgstr "Reported"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Vetados"
+msgstr "Banned"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Usuarios de Pawly"
+msgstr "Pawly users"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Usuario"
+msgstr "User"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Correo"
+msgstr "Email"
+
+#: PawlyApp/templates/admin_panel.html
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/search.html
+#: PawlyApp/templates/user_profile.html
+msgid "Mascotas"
+msgstr "Pets"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Estado"
+msgstr "Status"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Acciones"
+msgstr "Actions"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Activa"
+msgstr "Active"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Editar a Andrea Salas"
+msgstr "Edit Andrea Salas"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Vetar la cuenta de Andrea Salas?"
+msgstr "Ban Andrea Salas's account?"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Vetar a Andrea Salas"
+msgstr "Ban Andrea Salas"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Eliminar la cuenta de Andrea Salas? Esta acción no se puede deshacer."
+msgstr "Delete Andrea Salas's account? This action cannot be undone."
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Eliminar a Andrea Salas"
+msgstr "Delete Andrea Salas"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Activo"
+msgstr "Active"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Editar a Luis García"
+msgstr "Edit Luis García"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Vetar la cuenta de Luis García?"
+msgstr "Ban Luis García's account?"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Vetar a Luis García"
+msgstr "Ban Luis García"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Eliminar la cuenta de Luis García? Esta acción no se puede deshacer."
+msgstr "Delete Luis García's account? This action cannot be undone."
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Eliminar a Luis García"
+msgstr "Delete Luis García"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "3 reportes"
+msgstr "3 reports"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Editar a Pedro Ramírez"
+msgstr "Edit Pedro Ramírez"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Vetar la cuenta de Pedro Ramírez?"
+msgstr "Ban Pedro Ramírez's account?"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Vetar a Pedro Ramírez"
+msgstr "Ban Pedro Ramírez"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Eliminar la cuenta de Pedro Ramírez? Esta acción no se puede deshacer."
+msgstr "Delete Pedro Ramírez's account? This action cannot be undone."
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Eliminar a Pedro Ramírez"
+msgstr "Delete Pedro Ramírez"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Editar a Darvin Hernández"
+msgstr "Edit Darvin Hernández"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Vetar la cuenta de Darvin Hernández?"
+msgstr "Ban Darvin Hernández's account?"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Vetar a Darvin Hernández"
+msgstr "Ban Darvin Hernández"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Eliminar la cuenta de Darvin Hernández? Esta acción no se puede deshacer."
+msgstr "Delete Darvin Hernández's account? This action cannot be undone."
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Eliminar a Darvin Hernández"
+msgstr "Delete Darvin Hernández"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Vetada"
+msgstr "Banned"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Editar a Daniela Bracho"
+msgstr "Edit Daniela Bracho"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Quitar el veto a Daniela Bracho?"
+msgstr "Lift the ban on Daniela Bracho?"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Quitar el veto a Daniela Bracho"
+msgstr "Lift the ban on Daniela Bracho"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Eliminar la cuenta de Daniela Bracho? Esta acción no se puede deshacer."
+msgstr "Delete Daniela Bracho's account? This action cannot be undone."
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Eliminar a Daniela Bracho"
+msgstr "Delete Daniela Bracho"
+
+#: PawlyApp/templates/admin_panel.html
+#: PawlyApp/templates/post_detail.html
+msgid "Publicación"
+msgstr "Post"
+
+#: PawlyApp/templates/admin_panel.html
+#: PawlyApp/templates/my_profile.html
+msgid "hace 3 días"
+msgstr "3 days ago"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "3 reportes · Motivo: venta de animales"
+msgstr "3 reports · Reason: sale of animals"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Bloquear la publicación de Pedro Ramírez?"
+msgstr "Block Pedro Ramírez's post?"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Bloquear publicación"
+msgstr "Block post"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Descartar el reporte de la publicación de Pedro Ramírez"
+msgstr "Dismiss the report of Pedro Ramírez's post"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Descartar"
+msgstr "Dismiss"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Comentario"
+msgstr "Comment"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "hace 1 día"
+msgstr "1 day ago"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "1 reporte · Motivo: acoso"
+msgstr "1 report · Reason: harassment"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Bloquear el comentario de anónimo_22?"
+msgstr "Block anónimo_22's comment?"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Bloquear comentario"
+msgstr "Block comment"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Descartar el reporte del comentario de anónimo_22"
+msgstr "Dismiss the report of anónimo_22's comment"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "hace 5 h"
+msgstr "5 h ago"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "2 reportes · Motivo: spam"
+msgstr "2 reports · Reason: spam"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "¿Vetar la cuenta promo_mascotas_ve?"
+msgstr "Ban the account promo_mascotas_ve?"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Vetar cuenta"
+msgstr "Ban account"
+
+#: PawlyApp/templates/admin_panel.html
+msgid "Descartar el reporte de la cuenta promo_mascotas_ve"
+msgstr "Dismiss the report of the account promo_mascotas_ve"
+
+#: PawlyApp/templates/adoption_feed.html
+#: PawlyApp/templates/base_app.html
+#: PawlyApp/templates/notifications.html
+#: PawlyApp/views.py:110
+#: PawlyApp/views.py:118
+msgid "Adopción"
+msgstr "Adoption"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "Mascotas cerca de Chacao, Caracas · ordenadas por distancia"
+msgstr "Pets near Chacao, Caracas · sorted by distance"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "Cambiar ubicación"
+msgstr "Change location"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "Filtros"
+msgstr "Filters"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "Filtrar mascotas en adopción"
+msgstr "Filter pets for adoption"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "Perros"
+msgstr "Dogs"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "Gatos"
+msgstr "Cats"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "Cachorros"
+msgstr "Puppies"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "Adultos"
+msgstr "Adults"
+
+#: PawlyApp/templates/adoption_feed.html
+msgid "No hay mascotas en adopción cerca de ti por ahora"
+msgstr "There are no pets for adoption near you right now"
+
+#: PawlyApp/templates/application_form.html
+#: PawlyApp/views.py:139
+msgid "Escribe un mensaje para el dueño"
+msgstr "Write a message for the owner"
+
+#: PawlyApp/templates/application_form.html
+msgid "Opciones rápidas sobre tu hogar"
+msgstr "Quick options about your home"
+
+#: PawlyApp/templates/application_form.html
+msgid "Tengo patio"
+msgstr "I have a yard"
+
+#: PawlyApp/templates/application_form.html
+msgid "Sin otras mascotas"
+msgstr "No other pets"
+
+#: PawlyApp/templates/application_form.html
+msgid "Tengo niños"
+msgstr "I have children"
+
+#: PawlyApp/templates/application_form.html
+msgid "Vivo en apartamento"
+msgstr "I live in an apartment"
+
+#: PawlyApp/templates/application_form.html
+msgid "Puedes cancelar la postulación desde el chat."
+msgstr "You can cancel the application from the chat."
+
+#: PawlyApp/templates/application_form.html
+#: PawlyApp/templates/pet_edit.html
+#: PawlyApp/templates/report.html
+#: PawlyApp/templates/search.html
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: PawlyApp/templates/application_form.html
+msgid "Enviar postulación"
+msgstr "Send application"
+
+#: PawlyApp/templates/application_form.html
+#: PawlyApp/templates/pet_detail.html
+#, python-format
+msgid "%(location)s · a %(distance)s km de ti"
+msgstr "%(location)s · %(distance)s km from you"
+
+#: PawlyApp/templates/application_form.html
+#, python-format
+msgid "Postularte para adoptar a %(name)s"
+msgstr "Apply to adopt %(name)s"
+
+#: PawlyApp/templates/application_form.html
+#, python-format
+msgid "Cerrar y volver a la ficha de %(name)s"
+msgstr "Close and go back to the page of %(name)s"
+
+#: PawlyApp/templates/application_form.html
+#, python-format
+msgid "Publicado por %(owner)s"
+msgstr "Posted by %(owner)s"
+
+#: PawlyApp/templates/application_form.html
+#, python-format
+msgid "Se abrirá un chat con %(owner)s para que coordinen la visita. Cuéntale por qué quieres adoptar a %(name)s."
+msgstr "A chat with %(owner)s will open so you can arrange the visit. Tell them why you want to adopt %(name)s."
+
+#: PawlyApp/templates/application_form.html
+#, python-format
+msgid "Mensaje para %(owner)s"
+msgstr "Message for %(owner)s"
+
+#: PawlyApp/templates/base.html
+msgid "Saltar al contenido"
+msgstr "Skip to content"
+
+#: PawlyApp/templates/base_admin.html
+msgid "Buscar en la administración"
+msgstr "Search in the administration"
+
+#: PawlyApp/templates/base_admin.html
+msgid "Buscar usuario, publicación o reporte"
+msgstr "Search user, post or report"
+
+#: PawlyApp/templates/base_admin.html
+msgid "Administradora"
+msgstr "Administrator"
+
+#: PawlyApp/templates/base_admin.html
+msgid "Administración"
+msgstr "Administration"
+
+#: PawlyApp/templates/base_admin.html
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/search.html
+msgid "Publicaciones"
+msgstr "Posts"
+
+#: PawlyApp/templates/base_admin.html
+#: PawlyApp/templates/notifications.html
+msgid "Comentarios"
+msgstr "Comments"
+
+#: PawlyApp/templates/base_admin.html
+msgid "Reportes"
+msgstr "Reports"
+
+#: PawlyApp/templates/base_admin.html
+msgid "pendientes"
+msgstr "pending"
+
+#: PawlyApp/templates/base_app.html
+msgid "Pawly, ir a Inicio"
+msgstr "Pawly, go to Home"
+
+#: PawlyApp/templates/base_app.html
+msgid "Buscar en Pawly"
+msgstr "Search in Pawly"
+
+#: PawlyApp/templates/base_app.html
+#: PawlyApp/templates/search.html
+msgid "Buscar personas, mascotas o publicaciones"
+msgstr "Search people, pets or posts"
+
+#: PawlyApp/templates/base_app.html
+msgid "Notificaciones, 3 sin leer"
+msgstr "Notifications, 3 unread"
+
+#: PawlyApp/templates/base_app.html
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/views.py:170
+msgid "Mi perfil"
+msgstr "My profile"
+
+#: PawlyApp/templates/base_app.html
+msgid "Principal"
+msgstr "Main"
+
+#: PawlyApp/templates/base_app.html
+#: PawlyApp/templates/home.html
+#: PawlyApp/views.py:98
+msgid "Inicio"
+msgstr "Home"
+
+#: PawlyApp/templates/base_app.html
+msgid "Buscar"
+msgstr "Search"
+
+#: PawlyApp/templates/base_app.html
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+#: PawlyApp/views.py:151
+msgid "Mensajes"
+msgstr "Messages"
+
+#: PawlyApp/templates/base_app.html
+msgid "sin leer"
+msgstr "unread"
+
+#: PawlyApp/templates/base_app.html
+msgid "Perfil"
+msgstr "Profile"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Nueva conversación"
+msgstr "New conversation"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Buscar conversación"
+msgstr "Search conversation"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Peticiones · 1"
+msgstr "Requests · 1"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Quiere chatear contigo"
+msgstr "Wants to chat with you"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+#: PawlyApp/templates/notifications.html
+msgid "Aceptar la petición de Luna Martínez"
+msgstr "Accept Luna Martínez's request"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+#: PawlyApp/templates/notifications.html
+msgid "Rechazar la petición de Luna Martínez"
+msgstr "Decline Luna Martínez's request"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+#: PawlyApp/templates/notifications.html
+msgid "Chats"
+msgstr "Chats"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Adopción · Toby"
+msgstr "Adoption · Toby"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "mensajes sin leer"
+msgstr "unread messages"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Volver a Mensajes"
+msgstr "Back to Messages"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Chat abierto por tu postulación a"
+msgstr "Chat opened by your application to"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+#: PawlyApp/templates/home.html
+msgid "Ver a Toby"
+msgstr "See Toby"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "¿Cancelar tu postulación para adoptar a Toby? Le avisaremos a Luis."
+msgstr "Cancel your application to adopt Toby? We will let Luis know."
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Cancelar postulación"
+msgstr "Cancel application"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Mensajes con Luis García"
+msgstr "Messages with Luis García"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Te postulaste para adoptar a"
+msgstr "You applied to adopt"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "el"
+msgstr "on"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid ". Este chat se abrió automáticamente para que coordinen."
+msgstr ". This chat was opened automatically so you can coordinate."
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Cancelaste tu postulación para adoptar a"
+msgstr "You cancelled your application to adopt"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid ". Le avisamos a Luis."
+msgstr ". We let Luis know."
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Adjuntar foto"
+msgstr "Attach photo"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Escribe un mensaje"
+msgstr "Write a message"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Escribe un mensaje…"
+msgstr "Write a message…"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Escribe un mensaje antes de enviarlo"
+msgstr "Write a message before sending it"
+
+#: PawlyApp/templates/chat_detail.html
+#: PawlyApp/templates/chat_list.html
+msgid "Enviar"
+msgstr "Send"
+
+#: PawlyApp/templates/home.html
+#: PawlyApp/templates/post_create.html
+msgid "¿Qué está haciendo tu mascota hoy?"
+msgstr "What is your pet doing today?"
+
+#: PawlyApp/templates/home.html
+#: PawlyApp/templates/post_create.html
+msgid "Publicar"
+msgstr "Post"
+
+#: PawlyApp/templates/home.html
+msgid "hace 2 h"
+msgstr "2 h ago"
+
+#: PawlyApp/templates/home.html
+msgid "Más opciones de la publicación de Andrea Salas"
+msgstr "More options for Andrea Salas's post"
+
+#: PawlyApp/templates/home.html
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/user_profile.html
+msgid "me gusta"
+msgstr "likes"
+
+#: PawlyApp/templates/home.html
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/user_profile.html
+msgid "comentarios"
+msgstr "comments"
+
+#: PawlyApp/templates/home.html
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/pet_detail.html
+#: PawlyApp/templates/pet_profile.html
+#: PawlyApp/templates/user_profile.html
+msgid "En adopción"
+msgstr "For adoption"
+
+#: PawlyApp/templates/home.html
+msgid "Sugerencias"
+msgstr "Suggestions"
+
+#: PawlyApp/templates/home.html
+msgid "En adopción cerca de ti"
+msgstr "For adoption near you"
+
+#: PawlyApp/templates/home.html
+msgid "Ver todas"
+msgstr "See all"
+
+#: PawlyApp/templates/home.html
+msgid "Personas que quizá conoces"
+msgstr "People you may know"
+
+#: PawlyApp/templates/home.html
+#: PawlyApp/templates/search.html
+#: PawlyApp/templates/user_profile.html
+msgid "Seguir"
+msgstr "Follow"
+
+#: PawlyApp/templates/home.html
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/notifications.html
+#: PawlyApp/templates/search.html
+#: PawlyApp/templates/user_profile.html
+msgid "Siguiendo"
+msgstr "Following"
+
+#: PawlyApp/templates/home.html
+#: PawlyApp/templates/search.html
+msgid "a Luna Martínez"
+msgstr "Luna Martínez"
+
+#: PawlyApp/templates/home.html
+msgid "a Pedro Ramírez"
+msgstr "Pedro Ramírez"
+
+#: PawlyApp/templates/login.html
+msgid "Sobre Pawly"
+msgstr "About Pawly"
+
+#: PawlyApp/templates/login.html
+msgid "Cada mascota merece una familia. Cada familia, una mascota."
+msgstr "Every pet deserves a family. Every family, a pet."
+
+#: PawlyApp/templates/login.html
+msgid "Pawly conecta a dueños, rescatistas y personas que quieren adoptar en Caracas y sus alrededores."
+msgstr "Pawly connects owners, rescuers and people who want to adopt in Caracas and the surrounding area."
+
+#: PawlyApp/templates/login.html
+msgid "Bienvenido de vuelta"
+msgstr "Welcome back"
+
+#: PawlyApp/templates/login.html
+msgid "Entra para ver las novedades de tu comunidad."
+msgstr "Log in to see what's new in your community."
+
+#: PawlyApp/templates/login.html
+msgid "Usuario o correo"
+msgstr "Username or email"
+
+#: PawlyApp/templates/login.html
+msgid "Escribe tu usuario o correo"
+msgstr "Enter your username or email"
+
+#: PawlyApp/templates/login.html
+#: PawlyApp/templates/register.html
+msgid "Contraseña"
+msgstr "Password"
+
+#: PawlyApp/templates/login.html
+msgid "Escribe tu contraseña"
+msgstr "Enter your password"
+
+#: PawlyApp/templates/login.html
+#: PawlyApp/templates/register.html
+msgid "Mostrar contraseña"
+msgstr "Show password"
+
+#: PawlyApp/templates/login.html
+msgid "Recordarme en este equipo"
+msgstr "Remember me on this device"
+
+#: PawlyApp/templates/login.html
+msgid "¿Olvidaste tu contraseña?"
+msgstr "Forgot your password?"
+
+#: PawlyApp/templates/login.html
+msgid "Entrar"
+msgstr "Log in"
+
+#: PawlyApp/templates/login.html
+msgid "¿Nuevo en Pawly?"
+msgstr "New to Pawly?"
+
+#: PawlyApp/templates/login.html
+#: PawlyApp/templates/register.html
+msgid "Crea tu cuenta"
+msgstr "Create your account"
+
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/user_profile.html
+msgid "Seguidores"
+msgstr "Followers"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Editar perfil"
+msgstr "Edit profile"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Compartir"
+msgstr "Share"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Datos del perfil"
+msgstr "Profile details"
+
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/pet_edit.html
+msgid "Nombre"
+msgstr "Name"
+
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/profile_form.html
+msgid "Cédula"
+msgstr "ID number"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Nacimiento"
+msgstr "Birth"
+
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/profile_form.html
+msgid "Género"
+msgstr "Gender"
+
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/profile_form.html
+msgid "Masculino"
+msgstr "Male"
+
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/profile_form.html
+msgid "Ciudad"
+msgstr "City"
+
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/views.py:183
+msgid "Mis mascotas"
+msgstr "My pets"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Agregar mascota"
+msgstr "Add pet"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Registrar una mascota"
+msgstr "Register a pet"
+
+#: PawlyApp/templates/my_profile.html
+#: PawlyApp/templates/user_profile.html
+msgid "Contenido del perfil"
+msgstr "Profile content"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Publicaciones · 24"
+msgstr "Posts · 24"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Postulaciones · 1"
+msgstr "Applications · 1"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Guardados"
+msgstr "Saved"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Mis postulaciones"
+msgstr "My applications"
+
+#: PawlyApp/templates/my_profile.html
+msgid "Pendiente"
+msgstr "Pending"
+
+#: PawlyApp/templates/notifications.html
+#: PawlyApp/templates/post_detail.html
+msgid "Volver a Inicio"
+msgstr "Back to Home"
+
+#: PawlyApp/templates/notifications.html
+msgid "Marcar todas como leídas"
+msgstr "Mark all as read"
+
+#: PawlyApp/templates/notifications.html
+msgid "Filtrar notificaciones"
+msgstr "Filter notifications"
+
+#: PawlyApp/templates/notifications.html
+msgid "Todas"
+msgstr "All"
+
+#: PawlyApp/templates/notifications.html
+msgid "Hoy"
+msgstr "Today"
+
+#: PawlyApp/templates/notifications.html
+msgid "respondió a tu postulación para adoptar a"
+msgstr "replied to your application to adopt"
+
+#: PawlyApp/templates/notifications.html
+msgid "hace 12 min"
+msgstr "12 min ago"
+
+#: PawlyApp/templates/notifications.html
+msgid "Abrir chat"
+msgstr "Open chat"
+
+#: PawlyApp/templates/notifications.html
+msgid "Sin leer"
+msgstr "Unread"
+
+#: PawlyApp/templates/notifications.html
+msgid "comentó tu publicación: \"Feliz cumpleaños Luna 🎂🐾 qué linda se ve\""
+msgstr "commented on your post: \"Feliz cumpleaños Luna 🎂🐾 qué linda se ve\""
+
+#: PawlyApp/templates/notifications.html
+#: PawlyApp/templates/post_detail.html
+msgid "hace 1 h"
+msgstr "1 h ago"
+
+#: PawlyApp/templates/notifications.html
+msgid "Ver el comentario de Valentina Ochoa"
+msgstr "See Valentina Ochoa's comment"
+
+#: PawlyApp/templates/notifications.html
+msgid "Ver"
+msgstr "View"
+
+#: PawlyApp/templates/notifications.html
+msgid "te envió una petición de chat."
+msgstr "sent you a chat request."
+
+#: PawlyApp/templates/notifications.html
+msgid "hace 3 h"
+msgstr "3 h ago"
+
+#: PawlyApp/templates/notifications.html
+msgid "Aceptar"
+msgstr "Accept"
+
+#: PawlyApp/templates/notifications.html
+msgid "Rechazar"
+msgstr "Decline"
+
+#: PawlyApp/templates/notifications.html
+msgid "Ayer"
+msgstr "Yesterday"
+
+#: PawlyApp/templates/notifications.html
+msgid "empezó a seguirte."
+msgstr "started following you."
+
+#: PawlyApp/templates/notifications.html
+msgid "ayer, 6:20 p. m."
+msgstr "yesterday, 6:20 p.m."
+
+#: PawlyApp/templates/notifications.html
+msgid "Seguir también"
+msgstr "Follow back"
+
+#: PawlyApp/templates/notifications.html
+msgid "a José Gutiérrez"
+msgstr "José Gutiérrez"
+
+#: PawlyApp/templates/notifications.html
+msgid "Hay"
+msgstr "There are"
+
+#: PawlyApp/templates/notifications.html
+msgid "3 mascotas nuevas"
+msgstr "3 new pets"
+
+#: PawlyApp/templates/notifications.html
+msgid "en adopción cerca de ti: Bruno, Coco y Max."
+msgstr "for adoption near you: Bruno, Coco and Max."
+
+#: PawlyApp/templates/notifications.html
+msgid "ayer, 9:05 a. m."
+msgstr "yesterday, 9:05 a.m."
+
+#: PawlyApp/templates/notifications.html
+msgid "Ver las mascotas nuevas en adopción"
+msgstr "See the new pets for adoption"
+
+#: PawlyApp/templates/notifications.html
+msgid "respondió a tu comentario en la publicación de Andrea."
+msgstr "replied to your comment on Andrea's post."
+
+#: PawlyApp/templates/notifications.html
+msgid "ayer, 8:12 a. m."
+msgstr "yesterday, 8:12 a.m."
+
+#: PawlyApp/templates/password_reset.html
+#: PawlyApp/templates/register.html
+msgid "Volver a iniciar sesión"
+msgstr "Back to log in"
+
+#: PawlyApp/templates/password_reset.html
+#: SecurityApp/views.py:61
+msgid "Recuperar contraseña"
+msgstr "Recover password"
+
+#: PawlyApp/templates/password_reset.html
+#: PawlyApp/templates/profile_form.html
+#: PawlyApp/templates/register.html
+msgid "Pawly, ir a iniciar sesión"
+msgstr "Pawly, go to log in"
+
+#: PawlyApp/templates/password_reset.html
+msgid "¿Ya la recordaste?"
+msgstr "Did you remember it?"
+
+#: PawlyApp/templates/password_reset.html
+#: PawlyApp/templates/register.html
+msgid "Inicia sesión"
+msgstr "Log in"
+
+#: PawlyApp/templates/password_reset.html
+msgid "Escribe el correo con el que te registraste y te enviamos un enlace para crear una contraseña nueva."
+msgstr "Enter the email you registered with and we will send you a link to create a new password."
+
+#: PawlyApp/templates/password_reset.html
+msgid "Te enviamos un enlace a tu correo."
+msgstr "We sent a link to your email."
+
+#: PawlyApp/templates/password_reset.html
+msgid "Escribe el correo con el que te registraste"
+msgstr "Enter the email you registered with"
+
+#: PawlyApp/templates/password_reset.html
+msgid "Enviar enlace"
+msgstr "Send link"
+
+#: PawlyApp/templates/password_reset.html
+msgid "El enlace vence en 30 minutos. Si no lo ves, revisa la carpeta de spam."
+msgstr "The link expires in 30 minutes. If you do not see it, check your spam folder."
+
+#: PawlyApp/templates/pet_detail.html
+msgid "Volver a Adopción"
+msgstr "Back to Adoption"
+
+#: PawlyApp/templates/pet_detail.html
+msgid "Postulación enviada"
+msgstr "Application sent"
+
+#: PawlyApp/templates/pet_detail.html
+#: PawlyApp/templates/pet_edit.html
+#: PawlyApp/templates/pet_profile.html
+msgid "Especie"
+msgstr "Species"
+
+#: PawlyApp/templates/pet_detail.html
+#: PawlyApp/templates/pet_profile.html
+msgid "Edad"
+msgstr "Age"
+
+#: PawlyApp/templates/pet_detail.html
+#: PawlyApp/templates/pet_edit.html
+#: PawlyApp/templates/pet_profile.html
+msgid "Sexo"
+msgstr "Sex"
+
+#: PawlyApp/templates/pet_detail.html
+#: PawlyApp/templates/pet_edit.html
+#: PawlyApp/templates/pet_profile.html
+msgid "Temperamento"
+msgstr "Temperament"
+
+#: PawlyApp/templates/pet_detail.html
+#: PawlyApp/templates/pet_profile.html
+msgid "Busca una familia que"
+msgstr "Looking for a family that"
+
+#: PawlyApp/templates/pet_detail.html
+msgid "Publicado el"
+msgstr "Posted on"
+
+#: PawlyApp/templates/pet_detail.html
+msgid "Ver perfil"
+msgstr "View profile"
+
+#: PawlyApp/templates/pet_detail.html
+msgid "Postularme para adoptar"
+msgstr "Apply to adopt"
+
+#: PawlyApp/templates/pet_detail.html
+msgid "Ir al chat"
+msgstr "Go to chat"
+
+#: PawlyApp/templates/pet_detail.html
+#, python-format
+msgid "Guardar a %(name)s en favoritos"
+msgstr "Save %(name)s to favorites"
+
+#: PawlyApp/templates/pet_detail.html
+#: PawlyApp/templates/pet_profile.html
+#, python-format
+msgid "Foto 1 de %(name)s"
+msgstr "Photo 1 of %(name)s"
+
+#: PawlyApp/templates/pet_detail.html
+#, python-format
+msgid "Foto 2 de %(name)s"
+msgstr "Photo 2 of %(name)s"
+
+#: PawlyApp/templates/pet_detail.html
+#, python-format
+msgid "Foto 3 de %(name)s"
+msgstr "Photo 3 of %(name)s"
+
+#: PawlyApp/templates/pet_detail.html
+#: PawlyApp/templates/pet_profile.html
+#, python-format
+msgid "Sobre %(name)s"
+msgstr "About %(name)s"
+
+#: PawlyApp/templates/pet_detail.html
+#, python-format
+msgid "· %(owner_adoptions)s"
+msgstr "· %(owner_adoptions)s"
+
+#: PawlyApp/templates/pet_detail.html
+#, python-format
+msgid "Ver perfil de %(owner)s"
+msgstr "View the profile of %(owner)s"
+
+#: PawlyApp/templates/pet_detail.html
+#, python-format
+msgid "Se abrirá un chat con %(owner_first_name)s."
+msgstr "A chat with %(owner_first_name)s will open."
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Volver al perfil de Mía"
+msgstr "Back to the profile of Mía"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Cancelar y volver al perfil de Mía"
+msgstr "Cancel and go back to the profile of Mía"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Editar a Mía"
+msgstr "Edit Mía"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Guardar cambios"
+msgstr "Save changes"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Foto de Mía"
+msgstr "Photo of Mía"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Cambiar foto"
+msgstr "Change photo"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "JPG o PNG, máximo 5 MB."
+msgstr "JPG or PNG, 5 MB maximum."
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Datos básicos"
+msgstr "Basic details"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Escribe el nombre de tu mascota"
+msgstr "Enter your pet's name"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Macho"
+msgstr "Male"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Hembra"
+msgstr "Female"
+
+#: PawlyApp/templates/pet_edit.html
+#: PawlyApp/templates/profile_form.html
+msgid "Fecha de nacimiento"
+msgstr "Date of birth"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Juguetona"
+msgstr "Playful"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Sociable"
+msgstr "Sociable"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Tímida"
+msgstr "Shy"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Tranquila"
+msgstr "Calm"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Protectora"
+msgstr "Protective"
+
+#: PawlyApp/templates/pet_edit.html
+#: PawlyApp/templates/profile_form.html
+msgid "Descripción"
+msgstr "Description"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Poner en adopción"
+msgstr "Put up for adoption"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Mía aparecerá en el feed de Adopción para personas cercanas."
+msgstr "Mía will appear in the Adoption feed for people nearby."
+
+#: PawlyApp/templates/pet_edit.html
+msgid "¿Quitar a Mía de adopción? Dejará de aparecer en el feed de Adopción."
+msgstr "Take Mía off adoption? She will stop appearing in the Adoption feed."
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Características que busca en su familia"
+msgstr "Traits it looks for in its family"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Ubicación de la mascota"
+msgstr "Pet's location"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Zona de peligro"
+msgstr "Danger zone"
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Eliminar el perfil de Mía borra sus publicaciones etiquetadas y sus postulaciones."
+msgstr "Deleting the profile of Mía removes her tagged posts and her applications."
+
+#: PawlyApp/templates/pet_edit.html
+msgid "¿Eliminar el perfil de Mía? Esta acción no se puede deshacer."
+msgstr "Delete the profile of Mía? This action cannot be undone."
+
+#: PawlyApp/templates/pet_edit.html
+msgid "Eliminar mascota"
+msgstr "Delete pet"
+
+#: PawlyApp/templates/pet_profile.html
+msgid "Editar"
+msgstr "Edit"
+
+#: PawlyApp/templates/post_create.html
+#: PawlyApp/views.py:203
+msgid "Nueva publicación"
+msgstr "New post"
+
+#: PawlyApp/templates/post_create.html
+msgid "Cerrar sin publicar"
+msgstr "Close without posting"
+
+#: PawlyApp/templates/post_create.html
+msgid "Publica en tu muro"
+msgstr "Post on your wall"
+
+#: PawlyApp/templates/post_create.html
+msgid "Quitar la foto"
+msgstr "Remove the photo"
+
+#: PawlyApp/templates/post_create.html
+msgid "Etiquetados"
+msgstr "Tagged"
+
+#: PawlyApp/templates/post_create.html
+msgid "Quitar a Laura Barreto"
+msgstr "Remove Laura Barreto"
+
+#: PawlyApp/templates/post_create.html
+msgid "Quitar a Mía"
+msgstr "Remove Mía"
+
+#: PawlyApp/templates/post_create.html
+msgid "Quitar a Simón"
+msgstr "Remove Simón"
+
+#: PawlyApp/templates/post_create.html
+msgid "Etiquetar a una persona o mascota"
+msgstr "Tag a person or pet"
+
+#: PawlyApp/templates/post_create.html
+msgid "Agregar a la publicación"
+msgstr "Add to the post"
+
+#: PawlyApp/templates/post_create.html
+msgid "Foto"
+msgstr "Photo"
+
+#: PawlyApp/templates/post_create.html
+msgid "Video"
+msgstr "Video"
+
+#: PawlyApp/templates/post_create.html
+msgid "Audio"
+msgstr "Audio"
+
+#: PawlyApp/templates/post_create.html
+msgid "Enlace"
+msgstr "Link"
+
+#: PawlyApp/templates/post_create.html
+msgid "Etiquetar"
+msgstr "Tag"
+
+#: PawlyApp/templates/post_detail.html
+msgid "Reportar esta publicación"
+msgstr "Report this post"
+
+#: PawlyApp/templates/post_detail.html
+msgid "Responder"
+msgstr "Reply"
+
+#: PawlyApp/templates/post_detail.html
+msgid "hace 50 min"
+msgstr "50 min ago"
+
+#: PawlyApp/templates/post_detail.html
+msgid "hace 40 min"
+msgstr "40 min ago"
+
+#: PawlyApp/templates/post_detail.html
+msgid "hace 15 min"
+msgstr "15 min ago"
+
+#: PawlyApp/templates/post_detail.html
+msgid "Escribe un comentario"
+msgstr "Write a comment"
+
+#: PawlyApp/templates/post_detail.html
+msgid "Escribe un comentario…"
+msgstr "Write a comment…"
+
+#: PawlyApp/templates/post_detail.html
+msgid "Escribe un comentario antes de enviarlo"
+msgstr "Write a comment before sending it"
+
+#: PawlyApp/templates/post_detail.html
+msgid "Comentar"
+msgstr "Comment"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Volver al paso 1"
+msgstr "Back to step 1"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Tu perfil"
+msgstr "Your profile"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Paso 2 de 2 · Tu perfil"
+msgstr "Step 2 of 2 · Your profile"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Último paso"
+msgstr "Last step"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Paso 2 de 2"
+msgstr "Step 2 of 2"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Cuéntanos quién eres"
+msgstr "Tell us who you are"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Tu foto de perfil"
+msgstr "Your profile photo"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Subir foto"
+msgstr "Upload photo"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Nombre completo"
+msgstr "Full name"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Escribe tu nombre completo"
+msgstr "Enter your full name"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Escribe tu cédula"
+msgstr "Enter your ID number"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Femenino"
+msgstr "Female"
+
+#: PawlyApp/templates/profile_form.html
+#: PawlyApp/templates/report.html
+msgid "Otro"
+msgstr "Other"
+
+#: PawlyApp/templates/profile_form.html
+msgid "Listo, entrar a Pawly"
+msgstr "Done, enter Pawly"
+
+#: PawlyApp/templates/register.html
+msgid "Crear cuenta"
+msgstr "Create account"
+
+#: PawlyApp/templates/register.html
+msgid "¿Ya tienes cuenta?"
+msgstr "Already have an account?"
+
+#: PawlyApp/templates/register.html
+msgid "Paso 1 de 2 · Datos de la cuenta"
+msgstr "Step 1 of 2 · Account details"
+
+#: PawlyApp/templates/register.html
+msgid "Luego: tu perfil"
+msgstr "Next: your profile"
+
+#: PawlyApp/templates/register.html
+msgid "Paso 1 de 2"
+msgstr "Step 1 of 2"
+
+#: PawlyApp/templates/register.html
+msgid "Nombre de usuario"
+msgstr "Username"
+
+#: PawlyApp/templates/register.html
+msgid "Elige un nombre de usuario"
+msgstr "Choose a username"
+
+#: PawlyApp/templates/register.html
+msgid "Así te encontrarán otras personas."
+msgstr "This is how other people will find you."
+
+#: PawlyApp/templates/register.html
+msgid "Escribe tu correo electrónico"
+msgstr "Enter your email"
+
+#: PawlyApp/templates/register.html
+msgid "Crea una contraseña"
+msgstr "Create a password"
+
+#: PawlyApp/templates/register.html
+msgid "Mínimo 8 caracteres, con un número."
+msgstr "At least 8 characters, with a number."
+
+#: PawlyApp/templates/register.html
+msgid "Confirmar contraseña"
+msgstr "Confirm password"
+
+#: PawlyApp/templates/register.html
+msgid "Repite tu contraseña"
+msgstr "Repeat your password"
+
+#: PawlyApp/templates/register.html
+msgid "Al continuar aceptas las reglas de la comunidad."
+msgstr "By continuing you accept the community rules."
+
+#: PawlyApp/templates/register.html
+msgid "Continuar"
+msgstr "Continue"
+
+#: PawlyApp/templates/report.html
+#: PawlyApp/views.py:217
+msgid "Reportar publicación"
+msgstr "Report post"
+
+#: PawlyApp/templates/report.html
+msgid "Cerrar sin reportar"
+msgstr "Close without reporting"
+
+#: PawlyApp/templates/report.html
+msgid "Cuéntanos qué está mal. El equipo de Pawly lo revisa y no se le avisa a la persona."
+msgstr "Tell us what is wrong. The Pawly team reviews it and the person is not notified."
+
+#: PawlyApp/templates/report.html
+msgid "Motivo del reporte"
+msgstr "Reason for the report"
+
+#: PawlyApp/templates/report.html
+msgid "Venta de animales"
+msgstr "Sale of animals"
+
+#: PawlyApp/templates/report.html
+msgid "Spam o publicidad"
+msgstr "Spam or advertising"
+
+#: PawlyApp/templates/report.html
+msgid "Acoso o lenguaje ofensivo"
+msgstr "Harassment or offensive language"
+
+#: PawlyApp/templates/report.html
+msgid "Maltrato animal"
+msgstr "Animal abuse"
+
+#: PawlyApp/templates/report.html
+msgid "Detalles (opcional)"
+msgstr "Details (optional)"
+
+#: PawlyApp/templates/report.html
+msgid "Los reportes son anónimos."
+msgstr "Reports are anonymous."
+
+#: PawlyApp/templates/report.html
+msgid "Enviar reporte"
+msgstr "Send report"
+
+#: PawlyApp/templates/search.html
+msgid "Nueva búsqueda"
+msgstr "New search"
+
+#: PawlyApp/templates/search.html
+#: PawlyApp/views.py:104
+msgid "Resultados para «luna»"
+msgstr "Results for «luna»"
+
+#: PawlyApp/templates/search.html
+msgid "3 personas · 2 mascotas · 8 publicaciones"
+msgstr "3 people · 2 pets · 8 posts"
+
+#: PawlyApp/templates/search.html
+msgid "Tipo de resultado"
+msgstr "Type of result"
+
+#: PawlyApp/templates/search.html
+msgid "a Luna Delgado"
+msgstr "Luna Delgado"
+
+#: PawlyApp/templates/search.html
+msgid "a Lunita Rescates"
+msgstr "Lunita Rescates"
+
+#: PawlyApp/templates/search.html
+msgid "Mascotas con ese nombre"
+msgstr "Pets with that name"
+
+#: PawlyApp/templates/search.html
+msgid "Ver las 2"
+msgstr "See all 2"
+
+#: PawlyApp/templates/user_profile.html
+msgid "Volver a Buscar"
+msgstr "Back to Search"
+
+#: PawlyApp/templates/user_profile.html
+msgid "Reportar la cuenta de Laura Barreto"
+msgstr "Report Laura Barreto's account"
+
+#: PawlyApp/templates/user_profile.html
+msgid "a Laura Barreto"
+msgstr "Laura Barreto"
+
+#: PawlyApp/templates/user_profile.html
+msgid "Petición de chat"
+msgstr "Chat request"
+
+#: PawlyApp/templates/user_profile.html
+msgid "Reportar cuenta"
+msgstr "Report account"
+
+#: PawlyApp/templates/user_profile.html
+msgid "Sus mascotas"
+msgstr "Their pets"
+
+#: PawlyApp/templates/user_profile.html
+msgid "Publicaciones · 12"
+msgstr "Posts · 12"
+
+#: PawlyApp/templates/user_profile.html
+msgid "Publicaciones de Laura Barreto"
+msgstr "Posts by Laura Barreto"
+
+#: PawlyApp/templates/user_profile.html
+msgid "hace 2 días"
+msgstr "2 days ago"
+
+#: PawlyApp/templates/user_profile.html
+msgid "Ver a Nala"
+msgstr "See Nala"
+
+#: PawlyApp/views.py:128
+#, python-format
+msgid "Hola %(owner)s, vivo en Ocumare del Tuy tengo patio y salgo a caminar todas las mañanas, me encantaría conocer a %(pet)s este fin de semana"
+msgstr "Hi %(owner)s, I live in Ocumare del Tuy, I have a yard and I go for a walk every morning, I would love to meet %(pet)s this weekend"
+
+#: PawlyApp/views.py:158
+msgid "Conversación con Luis García"
+msgstr "Conversation with Luis García"
+
+#: PawlyApp/views.py:210
+msgid "Publicación de Andrea Salas"
+msgstr "Post by Andrea Salas"
+
+#: PawlyApp/views.py:225
+msgid "Panel de administración"
+msgstr "Administration panel"
+
+#: PawlyApp/views.py:142
+#, python-format
+msgid "Postularte para adoptar a %(pet)s"
+msgstr "Apply to adopt %(pet)s"
+
+#: PawlyApp/views.py:190
+#, python-format
+msgid "Editar a %(name)s"
+msgstr "Edit %(name)s"
+
+#: SecurityApp/validators.py:13
+msgid "Tu contraseña debe tener al menos un número."
+msgstr "Your password must have at least one number."
+
+#: SecurityApp/validators.py:10
+msgid "La contraseña debe tener al menos un número."
+msgstr "The password must have at least one number."
+
+#: SecurityApp/views.py:18
+msgid "Iniciar sesión"
+msgstr "Log in"
+
+#: SecurityApp/views.py:44
+msgid "Crear cuenta · Paso 1 de 2"
+msgstr "Create account · Step 1 of 2"
+
+#: SecurityApp/views.py:56
+msgid "Tu perfil · Paso 2 de 2"
+msgstr "Your profile · Step 2 of 2"

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block body_class %}layout-app{% endblock %}
+
+{% block body %}
+  <!-- Barra superior (escritorio). Con la ventana abierta (modal) queda detrás: inert la saca del teclado -->
+  <header class="app-header"{% if modal %} inert{% endif %}>
+    <a class="brand" href="{% url 'home' %}">
+      <img class="brand__mark" src="{% static 'img/logo-mark.png' %}" alt="">
+      <img class="brand__word" src="{% static 'img/logo-word.png' %}" alt="{% trans 'Pawly, ir a Inicio' %}">
+    </a>
+    <form class="search-box" action="{% url 'search' %}" role="search" aria-label="{% trans 'Buscar en Pawly' %}">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/search.svg' %}#icon"/></svg>
+      <label class="visually-hidden" for="global-search">{% trans "Buscar personas, mascotas o publicaciones" %}</label>
+      <input id="global-search" name="q" type="search" placeholder="{% trans 'Buscar personas, mascotas o publicaciones' %}"{% if query %} value="{{ query }}"{% endif %}>
+    </form>
+    <div class="app-header__end">
+      <a class="icon-btn icon-btn--bordered" href="{% url 'notifications' %}" aria-label="{% trans 'Notificaciones, 3 sin leer' %}">
+        <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/bell.svg' %}#icon"/></svg>
+        <span class="badge" aria-hidden="true">3</span>
+      </a>
+      <a href="{% url 'my_profile' %}"><img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="{% trans 'Mi perfil' %}"></a>
+    </div>
+  </header>
+
+  <!-- Menú principal: barra inferior en móvil, menú lateral en escritorio -->
+  <nav class="app-nav" aria-label="{% trans 'Principal' %}"{% if modal %} inert{% endif %}>
+    <ul class="app-nav__list">
+      <li><a class="app-nav__item" href="{% url 'home' %}"{% if section == 'home' %} aria-current="page"{% endif %}><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/home.svg' %}#icon"/></svg></span>{% trans "Inicio" %}</a></li>
+      <li><a class="app-nav__item" href="{% url 'search' %}"{% if section == 'search' %} aria-current="page"{% endif %}><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/search.svg' %}#icon"/></svg></span>{% trans "Buscar" %}</a></li>
+      <li><a class="app-nav__item app-nav__item--featured" href="{% url 'adoption_feed' %}"{% if section == 'adoption' %} aria-current="page"{% endif %}><span class="app-nav__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="{% static 'img/icons/paw.svg' %}#icon"/></svg></span>{% trans "Adopción" %}</a></li>
+      <li><a class="app-nav__item" href="{% url 'chat_list' %}"{% if section == 'messages' %} aria-current="page"{% endif %}><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/chat.svg' %}#icon"/></svg></span>{% trans "Mensajes" %}<span class="badge">2<span class="visually-hidden"> {% trans "sin leer" %}</span></span></a></li>
+      <li class="app-nav__desktop"><a class="app-nav__item" href="{% url 'notifications' %}"{% if section == 'notifications' %} aria-current="page"{% endif %}><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/bell.svg' %}#icon"/></svg></span>{% trans "Notificaciones" %}<span class="badge">3<span class="visually-hidden"> {% trans "sin leer" %}</span></span></a></li>
+      <li><a class="app-nav__item" href="{% url 'my_profile' %}"{% if section == 'profile' %} aria-current="page"{% endif %}><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/user.svg' %}#icon"/></svg></span><span class="app-nav__short">{% trans "Perfil" %}</span><span class="app-nav__long">{% trans "Mi perfil" %}</span></a></li>
+    </ul>
+  </nav>
+
+  <main id="main" class="app-main">
+    {% block content %}{% endblock %}
+  </main>
+{% endblock %}

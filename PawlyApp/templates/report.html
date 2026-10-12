@@ -1,0 +1,49 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <!-- La publicación reportada queda de fondo, oscurecida -->
+    <div class="overlay-context feed-layout" inert>
+      <div class="feed-layout__main">
+        <article class="post card">
+          <header class="post__head">
+            <img class="avatar" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+            <div class="post__who"><p class="post__author">Pedro Ramírez</p><p class="post__meta">@pramirez · El Hatillo · hace 5 h</p></div>
+          </header>
+          <p class="post__text">Vendo cachorros de raza escríbeme al 0412…</p>
+        </article>
+      </div>
+    </div>
+    <div class="overlay-backdrop"></div>
+
+    <form class="sheet" aria-labelledby="report-title" data-validate data-next="{% url 'home' %}?reporte=enviado" novalidate>
+      <div class="sheet__handle"></div>
+      <div class="sheet__head">
+        <h1 class="title-2" id="report-title">{% trans "Reportar publicación" %}</h1>
+        <a class="icon-btn" href="{% url 'home' %}" data-close aria-label="{% trans 'Cerrar sin reportar' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/close.svg' %}#icon"/></svg></a>
+      </div>
+      <p class="text-small text-muted">{% trans "Cuéntanos qué está mal. El equipo de Pawly lo revisa y no se le avisa a la persona." %}</p>
+
+      <fieldset class="stack stack--sm">
+        <legend class="visually-hidden">{% trans "Motivo del reporte" %}</legend>
+        <label class="option"><input type="radio" name="reason" value="sale" checked><span>{% trans "Venta de animales" %}</span></label>
+        <label class="option"><input type="radio" name="reason" value="spam"><span>{% trans "Spam o publicidad" %}</span></label>
+        <label class="option"><input type="radio" name="reason" value="harassment"><span>{% trans "Acoso o lenguaje ofensivo" %}</span></label>
+        <label class="option"><input type="radio" name="reason" value="abuse"><span>{% trans "Maltrato animal" %}</span></label>
+        <label class="option"><input type="radio" name="reason" value="other"><span>{% trans "Otro" %}</span></label>
+      </fieldset>
+
+      <div class="field">
+        <label class="field__label" for="report-details">{% trans "Detalles (opcional)" %}</label>
+        <textarea class="input" id="report-details" name="details" placeholder="Agrega contexto si quieres"></textarea>
+      </div>
+
+      <div class="sheet__footer">
+        <p class="sheet__note">{% trans "Los reportes son anónimos." %}</p>
+        <div class="sheet__actions">
+          <a class="btn btn--secondary" href="{% url 'home' %}">{% trans "Cancelar" %}</a>
+          <button class="btn btn--primary" type="submit">{% trans "Enviar reporte" %}</button>
+        </div>
+      </div>
+    </form>
+{% endblock %}

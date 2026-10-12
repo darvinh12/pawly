@@ -1,91 +1,83 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Crear cuenta · Paso 1 de 2 · Pawly</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
-  <link rel="stylesheet" href="../../staticfiles/css/pawly.css">
-  <link rel="icon" href="../../staticfiles/img/logo-mark.png">
-  <script src="../../staticfiles/js/pawly.js" defer></script>
-</head>
-<body class="layout-access">
-  <a class="skip-link" href="#main">Saltar al contenido</a>
+{% extends "base.html" %}
+{% load static i18n %}
 
+{% block body_class %}layout-access{% endblock %}
+
+{% block body %}
   <header class="access-header">
-    <a class="icon-btn mobile-only" href="login.html" aria-label="Volver a iniciar sesión">
-      <svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/back.svg#icon"/></svg>
+    <a class="icon-btn mobile-only" href="{% url 'login' %}" aria-label="{% trans 'Volver a iniciar sesión' %}">
+      <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>
     </a>
-    <p class="access-header__title mobile-only">Crear cuenta</p>
-    <a class="brand desktop-only--inline" href="login.html">
-      <img class="brand__mark" src="../../staticfiles/img/logo-mark.png" alt="">
-      <img class="brand__word" src="../../staticfiles/img/logo-word.png" alt="Pawly, ir a iniciar sesión">
+    <p class="access-header__title mobile-only">{% trans "Crear cuenta" %}</p>
+    <a class="brand desktop-only--inline" href="{% url 'login' %}">
+      <img class="brand__mark" src="{% static 'img/logo-mark.png' %}" alt="">
+      <img class="brand__word" src="{% static 'img/logo-word.png' %}" alt="{% trans 'Pawly, ir a iniciar sesión' %}">
     </a>
-    <p class="access-header__aside desktop-only">¿Ya tienes cuenta? <a class="link" href="login.html">Inicia sesión</a></p>
+    <p class="access-header__aside desktop-only">{% trans "¿Ya tienes cuenta?" %} <a class="link" href="{% url 'login' %}">{% trans "Inicia sesión" %}</a></p>
   </header>
 
   <main id="main" class="access-main">
     <div class="access-card">
       <div class="steps">
         <p class="row row--between">
-          <span class="eyebrow">Paso 1 de 2 · Datos de la cuenta</span>
-          <span class="text-xs text-muted">Luego: tu perfil</span>
+          <span class="eyebrow">{% trans "Paso 1 de 2 · Datos de la cuenta" %}</span>
+          <span class="text-xs text-muted">{% trans "Luego: tu perfil" %}</span>
         </p>
-        <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1" aria-label="Paso 1 de 2">
+        <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1" aria-label="{% trans 'Paso 1 de 2' %}">
           <div class="progress__fill progress__fill--half"></div>
         </div>
       </div>
 
-      <h1 class="title-1">Crea tu cuenta</h1>
+      <h1 class="title-1">{% trans "Crea tu cuenta" %}</h1>
 
-      <form class="form-stack" data-validate data-next="#" novalidate>
+      <form class="form-stack" method="post" data-validate novalidate>
+        {% csrf_token %}
         <div class="form-row form-row--2">
           <div class="field">
-            <label class="field__label" for="register-username">Nombre de usuario</label>
+            <label class="field__label" for="register-username">{% trans "Nombre de usuario" %}</label>
             <input class="input" id="register-username" name="username" type="text" autocomplete="username" placeholder="laura.barreto"
-              required data-error="Elige un nombre de usuario" aria-describedby="register-username-hint register-username-error">
-            <p class="field__hint" id="register-username-hint">Así te encontrarán otras personas.</p>
-            <p class="field__error" id="register-username-error" data-error-for="register-username" role="alert" hidden></p>
+              value="{{ form.username.value|default_if_none:'' }}"
+              required data-error="{% trans 'Elige un nombre de usuario' %}" aria-describedby="register-username-hint register-username-error">
+            <p class="field__hint" id="register-username-hint">{% trans "Así te encontrarán otras personas." %}</p>
+            <p class="field__error" id="register-username-error" data-error-for="register-username" role="alert"{% if not form.username.errors %} hidden{% endif %}>{{ form.username.errors|join:" " }}</p>
           </div>
           <div class="field">
-            <label class="field__label" for="register-email">Correo electrónico</label>
+            <label class="field__label" for="register-email">{% trans "Correo electrónico" %}</label>
             <input class="input" id="register-email" name="email" type="email" autocomplete="email" placeholder="laura.barreto@gmail.com"
-              required data-error="Escribe tu correo electrónico" aria-describedby="register-email-error">
-            <p class="field__error" id="register-email-error" data-error-for="register-email" role="alert" hidden></p>
+              value="{{ form.email.value|default_if_none:'' }}"
+              required data-error="{% trans 'Escribe tu correo electrónico' %}" aria-describedby="register-email-error">
+            <p class="field__error" id="register-email-error" data-error-for="register-email" role="alert"{% if not form.email.errors %} hidden{% endif %}>{{ form.email.errors|join:" " }}</p>
           </div>
         </div>
 
         <div class="form-row form-row--2">
           <div class="field">
-            <label class="field__label" for="register-password">Contraseña</label>
+            <label class="field__label" for="register-password">{% trans "Contraseña" %}</label>
             <div class="field__control">
-              <input class="input input--with-action" id="register-password" name="password" type="password" autocomplete="new-password" minlength="8"
-                required data-error="Crea una contraseña" aria-describedby="register-password-hint register-password-error">
-              <button class="icon-btn field__action" type="button" data-toggle-password="register-password" aria-pressed="false" aria-label="Mostrar contraseña">
-                <svg class="icon icon--sm" aria-hidden="true"><use href="../../staticfiles/img/icons/eye.svg#icon"/></svg>
+              <input class="input input--with-action" id="register-password" name="password1" type="password" autocomplete="new-password" minlength="8"
+                required data-error="{% trans 'Crea una contraseña' %}" aria-describedby="register-password-hint register-password-error">
+              <button class="icon-btn field__action" type="button" data-toggle-password="register-password" aria-pressed="false" aria-label="{% trans 'Mostrar contraseña' %}">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/eye.svg' %}#icon"/></svg>
               </button>
             </div>
-            <p class="field__hint" id="register-password-hint">Mínimo 8 caracteres, con un número.</p>
-            <p class="field__error" id="register-password-error" data-error-for="register-password" role="alert" hidden></p>
+            <p class="field__hint" id="register-password-hint">{% trans "Mínimo 8 caracteres, con un número." %}</p>
+            <p class="field__error" id="register-password-error" data-error-for="register-password" role="alert"{% if not form.password1.errors %} hidden{% endif %}>{{ form.password1.errors|join:" " }}</p>
           </div>
           <div class="field">
-            <label class="field__label" for="register-password2">Confirmar contraseña</label>
-            <input class="input" id="register-password2" name="password2" type="password" autocomplete="new-password" placeholder="Repite tu contraseña"
-              required data-error="Repite tu contraseña" aria-describedby="register-password2-error">
-            <p class="field__error" id="register-password2-error" data-error-for="register-password2" role="alert" hidden></p>
+            <label class="field__label" for="register-password2">{% trans "Confirmar contraseña" %}</label>
+            <input class="input" id="register-password2" name="password2" type="password" autocomplete="new-password" placeholder="{% trans 'Repite tu contraseña' %}"
+              required data-error="{% trans 'Repite tu contraseña' %}" aria-describedby="register-password2-error">
+            <p class="field__error" id="register-password2-error" data-error-for="register-password2" role="alert"{% if not form.password2.errors %} hidden{% endif %}>{{ form.password2.errors|join:" " }}</p>
           </div>
         </div>
 
         <div class="form-actions">
-          <p class="text-xs text-muted grow">Al continuar aceptas las reglas de la comunidad.</p>
-          <button class="btn btn--primary" type="submit">Continuar</button>
+          <p class="text-xs text-muted grow">{% trans "Al continuar aceptas las reglas de la comunidad." %}</p>
+          <button class="btn btn--primary" type="submit">{% trans "Continuar" %}</button>
         </div>
       </form>
 
-      <p class="text-small text-muted text-center mobile-only">¿Ya tienes cuenta? <a class="link" href="login.html">Inicia sesión</a></p>
+      <p class="text-small text-muted text-center mobile-only">{% trans "¿Ya tienes cuenta?" %} <a class="link" href="{% url 'login' %}">{% trans "Inicia sesión" %}</a></p>
     </div>
   </main>
-</body>
-</html>
+{% endblock %}

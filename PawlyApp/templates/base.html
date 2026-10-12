@@ -1,0 +1,21 @@
+{% load static i18n %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} · Pawly{% else %}Pawly{% endif %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="{% static 'css/pawly.css' %}">
+  <link rel="icon" href="{% static 'img/logo-mark.png' %}">
+  <script src="{% static 'js/pawly.js' %}" defer></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip-link" href="#main">{% trans "Saltar al contenido" %}</a>
+
+  {% block body %}{% endblock %}
+
+  {% block footer %}{% endblock %}
+</body>
+</html>

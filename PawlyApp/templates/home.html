@@ -1,0 +1,85 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block body_class %}layout-app has-tabbar has-header-mobile{% endblock %}
+
+{% block content %}
+    <h1 class="visually-hidden">{% trans "Inicio" %}</h1>
+    <div class="feed-layout">
+      <div class="feed-layout__main">
+        <a class="composer" href="{% url 'post_create' %}">
+          <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+          <span class="composer__prompt">{% trans "¿Qué está haciendo tu mascota hoy?" %}</span>
+          <span class="btn btn--soft btn--icon btn--sm" aria-hidden="true"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/image.svg' %}#icon"/></svg></span>
+          <span class="btn btn--primary btn--sm desktop-only--inline">{% trans "Publicar" %}</span>
+        </a>
+
+        <article class="post card">
+          <header class="post__head">
+            <img class="avatar" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+            <div class="post__who">
+              <a class="post__author" href="{% url 'user_profile' 1 %}">Andrea Salas</a>
+              <p class="post__meta">@andreasalas · Chacao · <time datetime="2026-10-08T14:10">{% trans "hace 2 h" %}</time></p>
+            </div>
+            <a class="icon-btn post__more" href="{% url 'report' 1 %}" aria-label="{% trans 'Más opciones de la publicación de Andrea Salas' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/more.svg' %}#icon"/></svg></a>
+          </header>
+          <p class="post__text">Luna cumplió 3 años hoy 🎉 le regalamos un juguete nuevo y no lo ha soltado en toda la tarde 🐶</p>
+          <img class="post__photo post__photo--wide" src="{{ MEDIA_URL }}pets/d2.jpg" alt="Luna, perrita de pelo blanco y rizado, echada en un sillón">
+          <footer class="post__actions">
+            <button class="like-btn" type="button" aria-pressed="false"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/heart.svg' %}#icon"/></svg>48 <span class="sr-only-mobile">{% trans "me gusta" %}</span></button>
+            <a class="post__action" href="{% url 'post_detail' 1 %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/chat.svg' %}#icon"/></svg>12 <span class="sr-only-mobile">{% trans "comentarios" %}</span></a>
+          </footer>
+        </article>
+
+        <article class="post card">
+          <header class="post__head">
+            <img class="avatar" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+            <div class="post__who">
+              <a class="post__author" href="{% url 'user_profile' 1 %}">Luis García</a>
+              <p class="post__meta">@luisgarcia · La Candelaria · <time datetime="2026-10-07">ayer</time></p>
+            </div>
+          </header>
+          <p class="post__text">Toby ya está listo para buscar familia 🏡 tiene 2 años vacunas al día y adora a los niños 🙏 si conocen a alguien compartan</p>
+          <div class="row">
+            <span class="tag tag--green"><svg class="icon icon--xs icon--fill" aria-hidden="true"><use href="{% static 'img/icons/paw.svg' %}#icon"/></svg>{% trans "En adopción" %}</span>
+            <a class="link text-small" href="{% url 'pet_detail' 1 %}">{% trans "Ver a Toby" %}</a>
+          </div>
+        </article>
+      </div>
+
+      <aside class="feed-layout__aside" aria-label="{% trans 'Sugerencias' %}">
+        <section class="aside-box card">
+          <div class="section-head">
+            <h2 class="aside-box__title">{% trans "En adopción cerca de ti" %}</h2>
+            <a class="link text-xs" href="{% url 'adoption_feed' %}">{% trans "Ver todas" %}</a>
+          </div>
+          <div class="mini-row">
+            <img class="mini-row__photo" src="{{ MEDIA_URL }}pets/d1.jpg" alt="">
+            <div><a class="mini-row__link text-strong" href="{% url 'pet_detail' 1 %}">Toby</a><p class="text-xs text-muted">Mestizo · 2 años · a 2 km</p></div>
+          </div>
+          <div class="mini-row">
+            <img class="mini-row__photo" src="{{ MEDIA_URL }}pets/c1.jpg" alt="">
+            <div><a class="mini-row__link text-strong" href="{% url 'pet_detail' 1 %}">Nala</a><p class="text-xs text-muted">Gata · 1 año · a 3 km</p></div>
+          </div>
+          <div class="mini-row">
+            <img class="mini-row__photo" src="{{ MEDIA_URL }}pets/d3.jpg" alt="">
+            <div><a class="mini-row__link text-strong" href="{% url 'pet_detail' 1 %}">Rocky</a><p class="text-xs text-muted">Beagle · 4 años · a 4 km</p></div>
+          </div>
+        </section>
+
+        <section class="aside-box card">
+          <h2 class="aside-box__title">{% trans "Personas que quizá conoces" %}</h2>
+          <div class="row">
+            <img class="avatar" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+            <div class="grow"><a class="text-strong text-small" href="{% url 'user_profile' 1 %}">Luna Martínez</a><p class="text-xs text-muted">Baruta</p></div>
+            <button class="btn btn--secondary btn--sm btn--follow" type="button" aria-pressed="false"><span class="when-off">{% trans "Seguir" %}</span><span class="when-on">{% trans "Siguiendo" %}</span><span class="visually-hidden"> {% trans "a Luna Martínez" %}</span></button>
+          </div>
+          <div class="row">
+            <img class="avatar" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+            <div class="grow"><a class="text-strong text-small" href="{% url 'user_profile' 1 %}">Pedro Ramírez</a><p class="text-xs text-muted">El Hatillo</p></div>
+            <button class="btn btn--secondary btn--sm btn--follow" type="button" aria-pressed="false"><span class="when-off">{% trans "Seguir" %}</span><span class="when-on">{% trans "Siguiendo" %}</span><span class="visually-hidden"> {% trans "a Pedro Ramírez" %}</span></button>
+          </div>
+        </section>
+      </aside>
+    </div>
+{% endblock %}

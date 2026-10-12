@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block body_class %}layout-access{% endblock %}
+
+{% block body %}
+  <!-- Este mismo formulario se usa para "Editar perfil" (sin la barra de pasos) -->
+  <header class="access-header">
+    <a class="icon-btn mobile-only" href="{% url 'register' %}" aria-label="{% trans 'Volver al paso 1' %}">
+      <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>
+    </a>
+    <p class="access-header__title mobile-only">{% trans "Tu perfil" %}</p>
+    <a class="brand desktop-only--inline" href="{% url 'login' %}">
+      <img class="brand__mark" src="{% static 'img/logo-mark.png' %}" alt="">
+      <img class="brand__word" src="{% static 'img/logo-word.png' %}" alt="{% trans 'Pawly, ir a iniciar sesión' %}">
+    </a>
+  </header>
+
+  <main id="main" class="access-main">
+    <div class="access-card access-card--wide">
+      <div class="steps">
+        <p class="row row--between">
+          <span class="eyebrow">{% trans "Paso 2 de 2 · Tu perfil" %}</span>
+          <span class="text-xs text-muted">{% trans "Último paso" %}</span>
+        </p>
+        <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="2" aria-valuenow="2" aria-label="{% trans 'Paso 2 de 2' %}">
+          <div class="progress__fill progress__fill--full"></div>
+        </div>
+      </div>
+
+      <h1 class="title-1">{% trans "Cuéntanos quién eres" %}</h1>
+
+      <form class="form-stack" data-validate data-next="{% url 'home' %}" novalidate>
+        <div class="profile-form">
+          <div class="avatar-upload">
+            <img class="avatar avatar--xl" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="{% trans 'Tu foto de perfil' %}">
+            <label class="btn btn--primary btn--icon btn--sm avatar-upload__button">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/camera.svg' %}#icon"/></svg>
+              <span class="visually-hidden">{% trans "Subir foto" %}</span>
+              <input type="file" name="photo" accept="image/png, image/jpeg">
+            </label>
+          </div>
+
+          <div class="form-stack grow">
+            <div class="field">
+              <label class="field__label" for="profile-name">{% trans "Nombre completo" %}</label>
+              <input class="input" id="profile-name" name="full_name" type="text" autocomplete="name" placeholder="Laura Barreto"
+                required data-error="{% trans 'Escribe tu nombre completo' %}" aria-describedby="profile-name-error">
+              <p class="field__error" id="profile-name-error" data-error-for="profile-name" role="alert" hidden></p>
+            </div>
+
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label class="field__label" for="profile-id">{% trans "Cédula" %}</label>
+                <input class="input" id="profile-id" name="national_id" type="text" placeholder="V-12.345.678"
+                  required data-error="{% trans 'Escribe tu cédula' %}" aria-describedby="profile-id-error">
+                <p class="field__error" id="profile-id-error" data-error-for="profile-id" role="alert" hidden></p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="profile-birth">{% trans "Fecha de nacimiento" %}</label>
+                <input class="input" id="profile-birth" name="birth_date" type="date" value="2000-07-02">
+              </div>
+            </div>
+
+            <div class="form-row form-row--2">
+              <fieldset class="field">
+                <legend class="field__label">{% trans "Género" %}</legend>
+                <div class="segmented">
+                  <input type="radio" id="gender-f" name="gender" value="f" checked><label for="gender-f">{% trans "Femenino" %}</label>
+                  <input type="radio" id="gender-m" name="gender" value="m"><label for="gender-m">{% trans "Masculino" %}</label>
+                  <input type="radio" id="gender-o" name="gender" value="o"><label for="gender-o">{% trans "Otro" %}</label>
+                </div>
+              </fieldset>
+              <div class="field">
+                <label class="field__label" for="profile-city">{% trans "Ciudad" %}</label>
+                <div class="field__control">
+                  <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="{% static 'img/icons/pin.svg' %}#icon"/></svg>
+                  <input class="input input--with-icon" id="profile-city" name="city" type="text" value="Los Teques, Miranda" autocomplete="address-level2">
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="profile-about">{% trans "Descripción" %}</label>
+              <textarea class="input" id="profile-about" name="about">Amante de los gatos, tengo dos y quiero adoptar un tercero 🐱</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a class="link text-small grow desktop-only--inline" href="{% url 'register' %}">{% trans "Volver al paso 1" %}</a>
+          <button class="btn btn--primary" type="submit">{% trans "Listo, entrar a Pawly" %}</button>
+        </div>
+      </form>
+    </div>
+  </main>
+{% endblock %}

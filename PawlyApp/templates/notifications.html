@@ -1,0 +1,89 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <div class="page-bar notifications">
+      <a class="icon-btn mobile-only" href="{% url 'home' %}" aria-label="{% trans 'Volver a Inicio' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg></a>
+      <h1 class="page-bar__title">{% trans "Notificaciones" %}</h1>
+      <div class="page-bar__end">
+        <a class="link text-small" href="{% url 'notifications' %}?leidas=si">{% trans "Marcar todas como leídas" %}</a>
+      </div>
+    </div>
+
+    <div class="page-content notifications">
+      <fieldset class="tabs">
+        <legend class="visually-hidden">{% trans "Filtrar notificaciones" %}</legend>
+        <input type="radio" id="tab-all" name="kind" value="all" checked><label for="tab-all">{% trans "Todas" %}</label>
+        <input type="radio" id="tab-adoption" name="kind" value="adoption"><label for="tab-adoption">{% trans "Adopción" %}</label>
+        <input type="radio" id="tab-comments" name="kind" value="comments"><label for="tab-comments">{% trans "Comentarios" %}</label>
+        <input type="radio" id="tab-chats" name="kind" value="chats"><label for="tab-chats">{% trans "Chats" %}</label>
+      </fieldset>
+
+      <section aria-labelledby="today-title">
+        <h2 class="eyebrow" id="today-title">{% trans "Hoy" %}</h2>
+        <ul>
+          <li class="notif notif--unread">
+            <span class="notif__icon notif__icon--green"><svg class="icon icon--sm icon--fill" aria-hidden="true"><use href="{% static 'img/icons/paw.svg' %}#icon"/></svg></span>
+            <div class="notif__body">
+              <p><strong>Luis García</strong> {% trans "respondió a tu postulación para adoptar a" %} <strong>Toby</strong>.</p>
+              <time class="notif__time" datetime="2026-10-08T10:42">{% trans "hace 12 min" %}</time>
+            </div>
+            <div class="notif__actions"><a class="btn btn--soft btn--sm" href="{% url 'chat_detail' 1 %}">{% trans "Abrir chat" %}</a></div>
+            <span class="dot" data-hide-when="leidas=si"><span class="visually-hidden">{% trans "Sin leer" %}</span></span>
+          </li>
+          <li class="notif notif--unread">
+            <span class="notif__icon notif__icon--blue"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/chat.svg' %}#icon"/></svg></span>
+            <div class="notif__body">
+              <p><strong>Valentina Ochoa</strong> {% trans 'comentó tu publicación: "Feliz cumpleaños Luna 🎂🐾 qué linda se ve"' %}</p>
+              <time class="notif__time" datetime="2026-10-08T09:54">{% trans "hace 1 h" %}</time>
+            </div>
+            <div class="notif__actions"><a class="btn btn--secondary btn--sm" href="{% url 'post_detail' 1 %}" aria-label="{% trans 'Ver el comentario de Valentina Ochoa' %}">{% trans "Ver" %}</a></div>
+            <span class="dot" data-hide-when="leidas=si"><span class="visually-hidden">{% trans "Sin leer" %}</span></span>
+          </li>
+          <li class="notif notif--unread">
+            <span class="notif__icon notif__icon--lilac"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/users.svg' %}#icon"/></svg></span>
+            <div class="notif__body">
+              <p><strong>Luna Martínez</strong> {% trans "te envió una petición de chat." %}</p>
+              <time class="notif__time" datetime="2026-10-08T07:54">{% trans "hace 3 h" %}</time>
+            </div>
+            <div class="notif__actions">
+              <a class="btn btn--dark btn--sm" href="{% url 'chat_list' %}" aria-label="{% trans 'Aceptar la petición de Luna Martínez' %}">{% trans "Aceptar" %}</a>
+              <a class="btn btn--secondary btn--sm" href="{% url 'notifications' %}" aria-label="{% trans 'Rechazar la petición de Luna Martínez' %}">{% trans "Rechazar" %}</a>
+            </div>
+            <span class="dot" data-hide-when="leidas=si"><span class="visually-hidden">{% trans "Sin leer" %}</span></span>
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="yesterday-title">
+        <h2 class="eyebrow" id="yesterday-title">{% trans "Ayer" %}</h2>
+        <ul>
+          <li class="notif">
+            <span class="notif__icon notif__icon--lilac"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/heart.svg' %}#icon"/></svg></span>
+            <div class="notif__body">
+              <p><strong>José Gutiérrez</strong> {% trans "empezó a seguirte." %}</p>
+              <time class="notif__time" datetime="2026-10-07T18:20">{% trans "ayer, 6:20 p. m." %}</time>
+            </div>
+            <div class="notif__actions">
+              <button class="btn btn--secondary btn--sm btn--follow" type="button" aria-pressed="false"><span class="when-off">{% trans "Seguir también" %}</span><span class="when-on">{% trans "Siguiendo" %}</span><span class="visually-hidden"> {% trans "a José Gutiérrez" %}</span></button>
+            </div>
+          </li>
+          <li class="notif">
+            <span class="notif__icon notif__icon--green"><svg class="icon icon--sm icon--fill" aria-hidden="true"><use href="{% static 'img/icons/paw.svg' %}#icon"/></svg></span>
+            <div class="notif__body">
+              <p>{% trans "Hay" %} <strong>{% trans "3 mascotas nuevas" %}</strong> {% trans "en adopción cerca de ti: Bruno, Coco y Max." %}</p>
+              <time class="notif__time" datetime="2026-10-07T09:05">{% trans "ayer, 9:05 a. m." %}</time>
+            </div>
+            <div class="notif__actions"><a class="btn btn--secondary btn--sm" href="{% url 'adoption_feed' %}" aria-label="{% trans 'Ver las mascotas nuevas en adopción' %}">{% trans "Ver" %}</a></div>
+          </li>
+          <li class="notif">
+            <span class="notif__icon notif__icon--blue"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/chat.svg' %}#icon"/></svg></span>
+            <div class="notif__body">
+              <p><strong>Pedro Ramírez</strong> {% trans "respondió a tu comentario en la publicación de Andrea." %}</p>
+              <time class="notif__time" datetime="2026-10-07T08:12">{% trans "ayer, 8:12 a. m." %}</time>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+{% endblock %}

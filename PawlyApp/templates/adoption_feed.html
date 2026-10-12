@@ -1,162 +1,57 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Adopción · Pawly</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
-  <link rel="stylesheet" href="../../staticfiles/css/pawly.css">
-  <link rel="icon" href="../../staticfiles/img/logo-mark.png">
-  <script src="../../staticfiles/js/pawly.js" defer></script>
-</head>
-<body class="layout-app has-tabbar">
-  <a class="skip-link" href="#main">Saltar al contenido</a>
+{% extends "base_app.html" %}
+{% load static i18n %}
 
+{% block body_class %}layout-app has-tabbar{% endblock %}
 
-  <!-- Barra superior (escritorio) -->
-  <header class="app-header">
-    <a class="brand" href="#">
-      <img class="brand__mark" src="../../staticfiles/img/logo-mark.png" alt="">
-      <img class="brand__word" src="../../staticfiles/img/logo-word.png" alt="Pawly, ir a Inicio">
-    </a>
-    <form class="search-box" action="#" role="search" aria-label="Buscar en Pawly">
-      <svg class="icon icon--sm" aria-hidden="true"><use href="../../staticfiles/img/icons/search.svg#icon"/></svg>
-      <label class="visually-hidden" for="global-search">Buscar personas, mascotas o publicaciones</label>
-      <input id="global-search" name="q" type="search" placeholder="Buscar personas, mascotas o publicaciones">
-    </form>
-    <div class="app-header__end">
-      <a class="icon-btn icon-btn--bordered" href="#" aria-label="Notificaciones, 3 sin leer">
-        <svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/bell.svg#icon"/></svg>
-        <span class="badge" aria-hidden="true">3</span>
-      </a>
-      <a href="#"><img class="avatar avatar--sm" src="../../media/avatars/avatar-h.svg" alt="Mi perfil"></a>
-    </div>
-  </header>
-
-  <!-- Menú principal: barra inferior en móvil, menú lateral en escritorio -->
-  <nav class="app-nav" aria-label="Principal">
-    <ul class="app-nav__list">
-      <li><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/home.svg#icon"/></svg></span>Inicio</a></li>
-      <li><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/search.svg#icon"/></svg></span>Buscar</a></li>
-      <li><a class="app-nav__item app-nav__item--featured" href="adoption_feed.html" aria-current="page"><span class="app-nav__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="../../staticfiles/img/icons/paw.svg#icon"/></svg></span>Adopción</a></li>
-      <li><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/chat.svg#icon"/></svg></span>Mensajes<span class="badge">2<span class="visually-hidden"> sin leer</span></span></a></li>
-      <li class="app-nav__desktop"><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/bell.svg#icon"/></svg></span>Notificaciones<span class="badge">3<span class="visually-hidden"> sin leer</span></span></a></li>
-      <li><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/user.svg#icon"/></svg></span><span class="app-nav__short">Perfil</span><span class="app-nav__long">Mi perfil</span></a></li>
-    </ul>
-  </nav>
-
-  <main id="main" class="app-main">
+{% block content %}
     <div class="page-bar">
       <div class="page-bar__titles">
-        <h1 class="page-bar__title">Adopción</h1>
+        <h1 class="page-bar__title">{% trans "Adopción" %}</h1>
         <p class="page-bar__sub">
-          <svg class="icon icon--xs" aria-hidden="true"><use href="../../staticfiles/img/icons/pin.svg#icon"/></svg>
-          Mascotas cerca de Chacao, Caracas · ordenadas por distancia
+          <svg class="icon icon--xs" aria-hidden="true"><use href="{% static 'img/icons/pin.svg' %}#icon"/></svg>
+          {% trans "Mascotas cerca de Chacao, Caracas · ordenadas por distancia" %}
         </p>
       </div>
       <div class="page-bar__end">
         <button class="btn btn--secondary btn--sm btn--collapse" type="button">
-          <svg class="icon icon--sm" aria-hidden="true"><use href="../../staticfiles/img/icons/pin.svg#icon"/></svg>
-          <span class="btn__label">Cambiar ubicación</span>
+          <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/pin.svg' %}#icon"/></svg>
+          <span class="btn__label">{% trans "Cambiar ubicación" %}</span>
         </button>
         <button class="btn btn--secondary btn--sm btn--collapse" type="button">
-          <svg class="icon icon--sm" aria-hidden="true"><use href="../../staticfiles/img/icons/filter.svg#icon"/></svg>
-          <span class="btn__label">Filtros</span>
+          <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/filter.svg' %}#icon"/></svg>
+          <span class="btn__label">{% trans "Filtros" %}</span>
         </button>
       </div>
     </div>
 
     <div class="page-content">
       <fieldset>
-        <legend class="visually-hidden">Filtrar mascotas en adopción</legend>
+        <legend class="visually-hidden">{% trans "Filtrar mascotas en adopción" %}</legend>
         <div class="chip-group chip-group--scroll">
-          <label class="chip"><input type="radio" name="filter" value="all" checked><span>Todos</span></label>
-          <label class="chip"><input type="radio" name="filter" value="dogs"><span>Perros</span></label>
-          <label class="chip"><input type="radio" name="filter" value="cats"><span>Gatos</span></label>
-          <label class="chip"><input type="radio" name="filter" value="puppies"><span>Cachorros</span></label>
-          <label class="chip"><input type="radio" name="filter" value="adults"><span>Adultos</span></label>
+          <label class="chip"><input type="radio" name="filter" value="all" checked><span>{% trans "Todos" %}</span></label>
+          <label class="chip"><input type="radio" name="filter" value="dogs"><span>{% trans "Perros" %}</span></label>
+          <label class="chip"><input type="radio" name="filter" value="cats"><span>{% trans "Gatos" %}</span></label>
+          <label class="chip"><input type="radio" name="filter" value="puppies"><span>{% trans "Cachorros" %}</span></label>
+          <label class="chip"><input type="radio" name="filter" value="adults"><span>{% trans "Adultos" %}</span></label>
           <label class="chip"><input type="radio" name="filter" value="5km"><span>&lt; 5 km</span></label>
           <label class="chip"><input type="radio" name="filter" value="15km"><span>&lt; 15 km</span></label>
         </div>
       </fieldset>
 
       <ul class="pet-grid">
+        {% for pet in pets %}
         <li class="pet-card card">
-          <img class="pet-card__photo" src="../../media/pets/d1.jpg" alt="Toby, perro mestizo de pelo gris, durmiendo en una cama">
-          <span class="tag tag--green pet-card__tag">2 km</span>
+          <img class="pet-card__photo" src="{{ MEDIA_URL }}{{ pet.photo }}" alt="{{ pet.alt }}">
+          <span class="tag tag--green pet-card__tag">{{ pet.distance }} km</span>
           <div class="pet-card__body">
-            <h2 class="pet-card__name"><a class="pet-card__link" href="#">Toby</a></h2>
-            <p class="pet-card__meta">Mestizo · 2 años · Macho</p>
-            <p class="pet-card__owner">Chacao · Luis García</p>
+            <h2 class="pet-card__name"><a class="pet-card__link" href="{% url 'pet_detail' pet.id %}">{{ pet.name }}</a></h2>
+            <p class="pet-card__meta">{{ pet.breed }} · {{ pet.age }} · {{ pet.sex }}</p>
+            <p class="pet-card__owner">{{ pet.place }} · {{ pet.owner }}</p>
           </div>
         </li>
-        <li class="pet-card card">
-          <img class="pet-card__photo" src="../../media/pets/c1.jpg" alt="Nala, gata atigrada gris, mirando a la cámara">
-          <span class="tag tag--green pet-card__tag">3 km</span>
-          <div class="pet-card__body">
-            <h2 class="pet-card__name"><a class="pet-card__link" href="#">Nala</a></h2>
-            <p class="pet-card__meta">Gata · 1 año · Hembra</p>
-            <p class="pet-card__owner">La Candelaria · Lunita Rescates</p>
-          </div>
-        </li>
-        <li class="pet-card card">
-          <img class="pet-card__photo" src="../../media/pets/d3.jpg" alt="Rocky, perro con collar rojo, sonriendo sobre el pasto">
-          <span class="tag tag--green pet-card__tag">4 km</span>
-          <div class="pet-card__body">
-            <h2 class="pet-card__name"><a class="pet-card__link" href="#">Rocky</a></h2>
-            <p class="pet-card__meta">Beagle · 4 años · Macho</p>
-            <p class="pet-card__owner">Los Palos Grandes · Daniela Bracho</p>
-          </div>
-        </li>
-        <li class="pet-card card">
-          <img class="pet-card__photo" src="../../media/pets/d4.jpg" alt="Kira, cachorra de pelo blanco, echada en la playa">
-          <span class="tag tag--green pet-card__tag">6 km</span>
-          <div class="pet-card__body">
-            <h2 class="pet-card__name"><a class="pet-card__link" href="#">Kira</a></h2>
-            <p class="pet-card__meta">Mestiza · 8 meses · Hembra</p>
-            <p class="pet-card__owner">Baruta · Luna Martínez</p>
-          </div>
-        </li>
-        <li class="pet-card card">
-          <img class="pet-card__photo" src="../../media/pets/d7.jpg" alt="Bruno, perro tricolor, echado en su cama">
-          <span class="tag tag--green pet-card__tag">7 km</span>
-          <div class="pet-card__body">
-            <h2 class="pet-card__name"><a class="pet-card__link" href="#">Bruno</a></h2>
-            <p class="pet-card__meta">Labrador · 3 años · Macho</p>
-            <p class="pet-card__owner">El Hatillo · Pedro Ramírez</p>
-          </div>
-        </li>
-        <li class="pet-card card">
-          <img class="pet-card__photo" src="../../media/pets/d8.jpg" alt="Coco, perro de pelo claro, sentado en el piso">
-          <span class="tag tag--green pet-card__tag">9 km</span>
-          <div class="pet-card__body">
-            <h2 class="pet-card__name"><a class="pet-card__link" href="#">Coco</a></h2>
-            <p class="pet-card__meta">Mestizo · 5 años · Macho</p>
-            <p class="pet-card__owner">Petare · José Gutiérrez</p>
-          </div>
-        </li>
-        <li class="pet-card card">
-          <img class="pet-card__photo" src="../../media/pets/c2.jpg" alt="Simón, gatito atigrado, asomado en un túnel de tela">
-          <span class="tag tag--green pet-card__tag">12 km</span>
-          <div class="pet-card__body">
-            <h2 class="pet-card__name"><a class="pet-card__link" href="#">Simón</a></h2>
-            <p class="pet-card__meta">Gato · 8 meses · Macho</p>
-            <p class="pet-card__owner">Los Teques · Luna Delgado</p>
-          </div>
-        </li>
-        <li class="pet-card card">
-          <img class="pet-card__photo" src="../../media/pets/d9.jpg" alt="Max, perro de pelo marrón, echado en el pasto">
-          <span class="tag tag--green pet-card__tag">18 km</span>
-          <div class="pet-card__body">
-            <h2 class="pet-card__name"><a class="pet-card__link" href="#">Max</a></h2>
-            <p class="pet-card__meta">Pastor alemán · 6 años · Macho</p>
-            <p class="pet-card__owner">Guarenas · Valentina Ochoa</p>
-          </div>
-        </li>
+        {% empty %}
+        <li class="text-small text-muted">{% trans "No hay mascotas en adopción cerca de ti por ahora" %}</li>
+        {% endfor %}
       </ul>
     </div>
-  </main>
-</body>
-</html>
+{% endblock %}

@@ -1,111 +1,64 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mía · Mis mascotas · Pawly</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
-  <link rel="stylesheet" href="../../staticfiles/css/pawly.css">
-  <link rel="icon" href="../../staticfiles/img/logo-mark.png">
-  <script src="../../staticfiles/js/pawly.js" defer></script>
-</head>
-<body class="layout-app">
-  <a class="skip-link" href="#main">Saltar al contenido</a>
+{% extends "base_app.html" %}
+{% load static i18n %}
 
-  <!-- Barra superior (escritorio) -->
-  <header class="app-header">
-    <a class="brand" href="#">
-      <img class="brand__mark" src="../../staticfiles/img/logo-mark.png" alt="">
-      <img class="brand__word" src="../../staticfiles/img/logo-word.png" alt="Pawly, ir a Inicio">
-    </a>
-    <form class="search-box" action="#" role="search" aria-label="Buscar en Pawly">
-      <svg class="icon icon--sm" aria-hidden="true"><use href="../../staticfiles/img/icons/search.svg#icon"/></svg>
-      <label class="visually-hidden" for="global-search">Buscar personas, mascotas o publicaciones</label>
-      <input id="global-search" name="q" type="search" placeholder="Buscar personas, mascotas o publicaciones">
-    </form>
-    <div class="app-header__end">
-      <a class="icon-btn icon-btn--bordered" href="#" aria-label="Notificaciones, 3 sin leer">
-        <svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/bell.svg#icon"/></svg>
-        <span class="badge" aria-hidden="true">3</span>
-      </a>
-      <a href="#"><img class="avatar avatar--sm" src="../../media/avatars/avatar-h.svg" alt="Mi perfil"></a>
-    </div>
-  </header>
-
-  <!-- Menú principal: barra inferior en móvil, menú lateral en escritorio -->
-  <nav class="app-nav" aria-label="Principal">
-    <ul class="app-nav__list">
-      <li><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/home.svg#icon"/></svg></span>Inicio</a></li>
-      <li><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/search.svg#icon"/></svg></span>Buscar</a></li>
-      <li><a class="app-nav__item app-nav__item--featured" href="adoption_feed.html"><span class="app-nav__icon"><svg class="icon icon--fill" aria-hidden="true"><use href="../../staticfiles/img/icons/paw.svg#icon"/></svg></span>Adopción</a></li>
-      <li><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/chat.svg#icon"/></svg></span>Mensajes<span class="badge">2<span class="visually-hidden"> sin leer</span></span></a></li>
-      <li class="app-nav__desktop"><a class="app-nav__item" href="#"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/bell.svg#icon"/></svg></span>Notificaciones<span class="badge">3<span class="visually-hidden"> sin leer</span></span></a></li>
-      <li><a class="app-nav__item" href="#" aria-current="page"><span class="app-nav__icon"><svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/user.svg#icon"/></svg></span><span class="app-nav__short">Perfil</span><span class="app-nav__long">Mi perfil</span></a></li>
-    </ul>
-  </nav>
-
-  <main id="main" class="app-main">
-    <a class="back-link pet-page__back desktop-only--inline" href="#">
-      <svg class="icon icon--sm" aria-hidden="true"><use href="../../staticfiles/img/icons/back.svg#icon"/></svg>
-      Volver a mi perfil
+{% block content %}
+    <a class="back-link pet-page__back desktop-only--inline" href="{% url 'my_profile' %}">
+      <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>
+      {% trans "Volver a mi perfil" %}
     </a>
 
     <div class="pet-layout">
       <div class="pet-gallery">
         <div class="pet-hero">
-          <img class="pet-hero__photo" src="../../media/pets/d5.jpg" alt="Mía, pastora alemana, echada en el pasto">
+          <img class="pet-hero__photo" src="{{ MEDIA_URL }}{{ pet.photo }}" alt="{{ pet.alt }}">
           <div class="pet-hero__actions">
-            <a class="icon-btn icon-btn--bordered" href="#" aria-label="Volver a mi perfil">
-              <svg class="icon" aria-hidden="true"><use href="../../staticfiles/img/icons/back.svg#icon"/></svg>
+            <a class="icon-btn icon-btn--bordered" href="{% url 'my_profile' %}" aria-label="{% trans 'Volver a mi perfil' %}">
+              <svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>
             </a>
           </div>
         </div>
         <div class="pet-thumbs">
-          <img src="../../media/pets/d5.jpg" alt="Foto 1 de Mía">
+          <img src="{{ MEDIA_URL }}{{ pet.photo }}" alt="{% blocktrans with name=pet.name %}Foto 1 de {{ name }}{% endblocktrans %}">
         </div>
       </div>
 
       <div class="pet-info">
         <div class="pet-info__head">
           <div class="stack stack--sm">
-            <h1 class="title-1">Mía</h1>
+            <h1 class="title-1">{{ pet.name }}</h1>
             <p class="row text-muted text-small">
-              <svg class="icon icon--xs" aria-hidden="true"><use href="../../staticfiles/img/icons/pin.svg#icon"/></svg>
-              Ocumare del Tuy, Miranda
+              <svg class="icon icon--xs" aria-hidden="true"><use href="{% static 'img/icons/pin.svg' %}#icon"/></svg>
+              {{ pet.location }}
             </p>
           </div>
           <div class="pet-info__head-end">
-            <span class="tag tag--green">En adopción</span>
+            <span class="tag tag--green">{% trans "En adopción" %}</span>
           </div>
         </div>
 
         <dl class="kv-grid">
-          <div class="kv"><dt>Especie</dt><dd>Perro · Pastor alemán</dd></div>
-          <div class="kv"><dt>Edad</dt><dd>5 años</dd></div>
-          <div class="kv"><dt>Sexo</dt><dd>Hembra</dd></div>
-          <div class="kv"><dt>Temperamento</dt><dd>Juguetona, sociable</dd></div>
+          <div class="kv"><dt>{% trans "Especie" %}</dt><dd>{{ pet.species }}</dd></div>
+          <div class="kv"><dt>{% trans "Edad" %}</dt><dd>{{ pet.age }}</dd></div>
+          <div class="kv"><dt>{% trans "Sexo" %}</dt><dd>{{ pet.sex }}</dd></div>
+          <div class="kv"><dt>{% trans "Temperamento" %}</dt><dd>{{ pet.temperament }}</dd></div>
         </dl>
 
         <section class="stack stack--sm">
-          <h2 class="eyebrow">Sobre Mía</h2>
-          <p>Pastor alemán de 5 años muy cariñosa y acostumbrada a niños 🐕 le encanta el parque y dormir en el sofá</p>
+          <h2 class="eyebrow">{% blocktrans with name=pet.name %}Sobre {{ name }}{% endblocktrans %}</h2>
+          <p>{{ pet.about }}</p>
         </section>
 
         <section class="stack stack--sm">
-          <h2 class="eyebrow">Busca una familia que</h2>
-          <p>Familia con tiempo para pasear y sin niños muy pequeños, preferiblemente en Caracas o los Valles del Tuy</p>
+          <h2 class="eyebrow">{% trans "Busca una familia que" %}</h2>
+          <p>{{ pet.wants }}</p>
         </section>
 
         <div class="cta-bar">
-          <a class="btn btn--primary btn--block" href="#">
-            <svg class="icon icon--sm" aria-hidden="true"><use href="../../staticfiles/img/icons/edit.svg#icon"/></svg>
-            Editar
+          <a class="btn btn--primary btn--block" href="{% url 'pet_edit' pet.id %}">
+            <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/edit.svg' %}#icon"/></svg>
+            {% trans "Editar" %}
           </a>
         </div>
       </div>
     </div>
-  </main>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <div class="page-bar">
+      <a class="icon-btn icon-btn--bordered" href="{% url 'home' %}" aria-label="{% trans 'Volver a Inicio' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg></a>
+      <h1 class="page-bar__title">{% trans "Publicación" %}</h1>
+      <div class="page-bar__end">
+        <a class="icon-btn" href="{% url 'report' 1 %}" aria-label="{% trans 'Reportar esta publicación' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/flag.svg' %}#icon"/></svg></a>
+      </div>
+    </div>
+
+    <div class="page-content split">
+      <article class="post card">
+        <header class="post__head">
+          <img class="avatar" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+          <div class="post__who">
+            <a class="post__author" href="{% url 'user_profile' 1 %}">Andrea Salas</a>
+            <p class="post__meta">@andreasalas · <time datetime="2026-09-12T16:10">12 sep 2026, 4:10 p. m.</time> · Chacao</p>
+          </div>
+        </header>
+        <p class="post__text">Luna cumplió 3 años hoy 🎉 le regalamos un juguete nuevo y no lo ha soltado en toda la tarde 🐶</p>
+        <img class="post__photo" src="{{ MEDIA_URL }}pets/d2.jpg" alt="Luna, perrita de pelo blanco y rizado, echada en un sillón">
+        <footer class="post__actions">
+          <button class="like-btn" type="button" aria-pressed="false"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/heart.svg' %}#icon"/></svg>48 me gusta</button>
+          <span class="post__action"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/chat.svg' %}#icon"/></svg>12 comentarios</span>
+        </footer>
+      </article>
+
+      <section class="stack" aria-labelledby="comments-title">
+        <h2 class="title-3" id="comments-title">12 comentarios</h2>
+        <ul class="stack">
+          <li class="comment">
+            <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+            <div class="comment__body">
+              <p class="comment__bubble"><span class="comment__author">Valentina Ochoa</span>Feliz cumpleaños Luna 🎂🐾 qué linda se ve</p>
+              <p class="comment__meta"><time datetime="2026-09-12T16:20">{% trans "hace 1 h" %}</time> · <a href="#comment-text">{% trans "Responder" %}</a></p>
+            </div>
+          </li>
+          <li class="comment comment--reply">
+            <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+            <div class="comment__body">
+              <p class="comment__bubble"><span class="comment__author">Andrea Salas</span>Gracias Vale ❤️ estaba muy contenta</p>
+              <p class="comment__meta"><time datetime="2026-09-12T16:30">{% trans "hace 50 min" %}</time> · <a href="#comment-text">{% trans "Responder" %}</a></p>
+            </div>
+          </li>
+          <li class="comment">
+            <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+            <div class="comment__body">
+              <p class="comment__bubble"><span class="comment__author">José Gutiérrez</span>Dónde compraron el juguete? Bruno cumple el mes que viene 🎁</p>
+              <p class="comment__meta"><time datetime="2026-09-12T16:40">{% trans "hace 40 min" %}</time> · <a href="#comment-text">{% trans "Responder" %}</a></p>
+            </div>
+          </li>
+          <li class="comment">
+            <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+            <div class="comment__body">
+              <p class="comment__bubble"><span class="comment__author">Pedro Ramírez</span>Se ve muy feliz 🥰 felicidades a las dos</p>
+              <p class="comment__meta"><time datetime="2026-09-12T17:05">{% trans "hace 15 min" %}</time> · <a href="#comment-text">{% trans "Responder" %}</a></p>
+            </div>
+          </li>
+        </ul>
+
+        <form class="comment-form comment-form--sticky" data-validate data-next="{% url 'post_detail' 1 %}" novalidate>
+          <img class="avatar avatar--sm" src="{{ MEDIA_URL }}avatars/avatar-h.svg" alt="">
+          <div class="field grow">
+            <label class="visually-hidden" for="comment-text">{% trans "Escribe un comentario" %}</label>
+            <input class="input" id="comment-text" name="comment" type="text" placeholder="{% trans 'Escribe un comentario…' %}"
+              required data-error="{% trans 'Escribe un comentario antes de enviarlo' %}" aria-describedby="comment-text-error">
+            <p class="field__error" id="comment-text-error" data-error-for="comment-text" role="alert" hidden></p>
+          </div>
+          <button class="btn btn--primary btn--collapse" type="submit"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/send.svg' %}#icon"/></svg><span class="btn__label">{% trans "Comentar" %}</span></button>
+        </form>
+      </section>
+    </div>
+{% endblock %}

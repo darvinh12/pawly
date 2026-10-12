@@ -1,0 +1,70 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block body_class %}layout-app has-tabbar{% endblock %}
+
+{% block content %}
+    <div class="page-bar mobile-only">
+      <form class="search-box search-box--page" action="{% url 'search' %}" role="search" aria-label="{% trans 'Nueva búsqueda' %}">
+        <svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/search.svg' %}#icon"/></svg>
+        <label class="visually-hidden" for="page-search">{% trans "Buscar personas, mascotas o publicaciones" %}</label>
+        <input id="page-search" name="q" type="search" value="luna" placeholder="{% trans 'Buscar personas, mascotas o publicaciones' %}">
+      </form>
+      <a class="link text-small" href="{% url 'home' %}">{% trans "Cancelar" %}</a>
+    </div>
+
+    <div class="page-content">
+      <div class="stack stack--sm">
+        <h1 class="title-1">{% trans "Resultados para «luna»" %}</h1>
+        <p class="text-muted text-small">{% trans "3 personas · 2 mascotas · 8 publicaciones" %}</p>
+      </div>
+
+      <fieldset class="tabs">
+        <legend class="visually-hidden">{% trans "Tipo de resultado" %}</legend>
+        <input type="radio" id="tab-users" name="type" value="users" checked><label for="tab-users">{% trans "Usuarios" %}</label>
+        <input type="radio" id="tab-pets" name="type" value="pets"><label for="tab-pets">{% trans "Mascotas" %}</label>
+        <input type="radio" id="tab-posts" name="type" value="posts"><label for="tab-posts">{% trans "Publicaciones" %}</label>
+      </fieldset>
+
+      <ul class="person-grid">
+        <li class="person">
+          <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+          <div class="person__text"><a class="person__name" href="{% url 'user_profile' 1 %}">Luna Martínez</a><p class="person__meta">@lunamtz · Baruta</p></div>
+          <button class="btn btn--secondary btn--sm btn--follow person__action" type="button" aria-pressed="false"><span class="when-off">{% trans "Seguir" %}</span><span class="when-on">{% trans "Siguiendo" %}</span><span class="visually-hidden"> {% trans "a Luna Martínez" %}</span></button>
+        </li>
+        <li class="person">
+          <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+          <div class="person__text"><a class="person__name" href="{% url 'user_profile' 1 %}">Luna Delgado</a><p class="person__meta">@ldelgado · Los Teques</p></div>
+          <button class="btn btn--secondary btn--sm btn--follow person__action" type="button" aria-pressed="true"><span class="when-off">{% trans "Seguir" %}</span><span class="when-on">{% trans "Siguiendo" %}</span><span class="visually-hidden"> {% trans "a Luna Delgado" %}</span></button>
+        </li>
+        <li class="person">
+          <img class="avatar avatar--lg" src="{{ MEDIA_URL }}avatars/avatar-m.svg" alt="">
+          <div class="person__text"><a class="person__name" href="{% url 'user_profile' 1 %}">Lunita Rescates</a><p class="person__meta">@lunitarescates · Chacao</p></div>
+          <button class="btn btn--secondary btn--sm btn--follow person__action" type="button" aria-pressed="false"><span class="when-off">{% trans "Seguir" %}</span><span class="when-on">{% trans "Siguiendo" %}</span><span class="visually-hidden"> {% trans "a Lunita Rescates" %}</span></button>
+        </li>
+      </ul>
+
+      <section class="stack">
+        <div class="section-head">
+          <h2 class="title-3">{% trans "Mascotas con ese nombre" %}</h2>
+          <a class="link text-small" href="#tab-pets">{% trans "Ver las 2" %}</a>
+        </div>
+        <ul class="pet-grid">
+          <li class="pet-card card">
+            <img class="pet-card__photo" src="{{ MEDIA_URL }}pets/d2.jpg" alt="Luna, perrita de pelo blanco y rizado, en un sillón">
+            <div class="pet-card__body">
+              <h3 class="pet-card__name"><a class="pet-card__link" href="{% url 'user_profile' 1 %}">Luna</a></h3>
+              <p class="pet-card__meta">Mestiza · de Andrea Salas</p>
+            </div>
+          </li>
+          <li class="pet-card card">
+            <img class="pet-card__photo" src="{{ MEDIA_URL }}pets/d6.jpg" alt="Luna, perra blanca con orejas marrones, echada">
+            <div class="pet-card__body">
+              <h3 class="pet-card__name"><a class="pet-card__link" href="{% url 'user_profile' 1 %}">Luna</a></h3>
+              <p class="pet-card__meta">Mestiza · de Pedro Ramírez</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+{% endblock %}

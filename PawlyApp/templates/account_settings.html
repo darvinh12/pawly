@@ -1,0 +1,96 @@
+{% extends "base_app.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <a class="back-link pet-page__back desktop-only--inline" href="{% url 'my_profile' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg>{% trans "Volver a mi perfil" %}</a>
+    <div class="page-bar">
+      <a class="icon-btn mobile-only" href="{% url 'my_profile' %}" aria-label="{% trans 'Volver a mi perfil' %}"><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/back.svg' %}#icon"/></svg></a>
+      <h1 class="page-bar__title">{% trans "Ajustes" %}</h1>
+    </div>
+
+    <div class="page-content settings-grid">
+      <form class="card card--pad form-stack" aria-labelledby="account-title" data-validate data-next="{% url 'account_settings' %}?contrasena=guardada" novalidate>
+        <h2 class="card__title" id="account-title">{% trans "Cuenta" %}</h2>
+        <p class="notice notice--success" role="status" data-show-when="contrasena=guardada" hidden><svg class="icon" aria-hidden="true"><use href="{% static 'img/icons/check.svg' %}#icon"/></svg>{% trans "Tu contraseña se guardó." %}</p>
+        <div class="field">
+          <label class="field__label" for="settings-email">{% trans "Correo electrónico" %}</label>
+          <div class="field__control">
+            <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="{% static 'img/icons/mail.svg' %}#icon"/></svg>
+            <input class="input input--with-icon" id="settings-email" name="email" type="email" value="darvin.hernandez@gmail.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="settings-current">{% trans "Contraseña actual" %}</label>
+          <div class="field__control">
+            <svg class="icon icon--sm field__icon" aria-hidden="true"><use href="{% static 'img/icons/lock.svg' %}#icon"/></svg>
+            <input class="input input--with-icon" id="settings-current" name="current_password" type="password" autocomplete="current-password"
+              required data-error="{% trans 'Escribe tu contraseña actual' %}" aria-describedby="settings-current-hint settings-current-error">
+          </div>
+          <p class="field__hint" id="settings-current-hint">{% trans "Si entraste con tu cédula como contraseña, debes cambiarla aquí antes de seguir." %}</p>
+          <p class="field__error" id="settings-current-error" data-error-for="settings-current" role="alert" hidden></p>
+        </div>
+        <div class="form-row form-row--2">
+          <div class="field">
+            <label class="field__label" for="settings-new">{% trans "Nueva contraseña" %}</label>
+            <input class="input" id="settings-new" name="new_password" type="password" autocomplete="new-password" placeholder="{% trans 'Mínimo 8 caracteres' %}"
+              required data-error="{% trans 'Escribe la nueva contraseña' %}" aria-describedby="settings-new-error">
+            <p class="field__error" id="settings-new-error" data-error-for="settings-new" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="settings-confirm">{% trans "Confirmar" %}</label>
+            <input class="input" id="settings-confirm" name="confirm_password" type="password" autocomplete="new-password" placeholder="{% trans 'Repite la contraseña' %}"
+              required data-error="{% trans 'Repite la nueva contraseña' %}" aria-describedby="settings-confirm-error">
+            <p class="field__error" id="settings-confirm-error" data-error-for="settings-confirm" role="alert" hidden></p>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn--primary btn--sm" type="submit">{% trans "Guardar contraseña" %}</button>
+        </div>
+      </form>
+
+      <div class="stack stack--lg">
+        <section class="card card--pad stack" aria-labelledby="notifications-title">
+          <h2 class="card__title" id="notifications-title">{% trans "Notificaciones" %}</h2>
+          <div class="switch-row">
+            <div class="switch-row__text">
+              <label class="switch-row__label" for="notify-app">{% trans "En la app" %}</label>
+              <span class="text-xs text-muted">{% trans "Chats, comentarios y postulaciones" %}</span>
+            </div>
+            <input class="switch" id="notify-app" type="checkbox" role="switch" checked>
+          </div>
+          <div class="switch-row">
+            <div class="switch-row__text">
+              <label class="switch-row__label" for="notify-email">{% trans "También por correo" %}</label>
+              <span class="text-xs text-muted">{% trans "Te llega un resumen a tu email" %}</span>
+            </div>
+            <input class="switch" id="notify-email" type="checkbox" role="switch" checked>
+          </div>
+        </section>
+
+        <section class="card card--pad stack" aria-labelledby="appearance-title">
+          <h2 class="card__title" id="appearance-title">{% trans "Apariencia e idioma" %}</h2>
+          <!-- Al elegir un idioma se envía a set_language y queda guardado en el usuario -->
+          <form action="{% url 'set_language' %}" method="post" data-autosubmit>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <fieldset class="settings-row">
+              <legend class="switch-row__label settings-row__legend">{% trans "Idioma" %}</legend>
+              <div class="segmented">
+                <input type="radio" id="lang-es" name="language" value="es"{% if LANGUAGE_CODE == 'es' %} checked{% endif %}><label for="lang-es">Español</label>
+                <input type="radio" id="lang-en" name="language" value="en" lang="en"{% if LANGUAGE_CODE == 'en' %} checked{% endif %}><label for="lang-en" lang="en">English</label>
+              </div>
+            </fieldset>
+          </form>
+          <fieldset class="settings-row">
+            <legend class="switch-row__label settings-row__legend">{% trans "Tema" %}</legend>
+            <div class="segmented">
+              <input type="radio" id="theme-light" name="theme" value="light" checked><label for="theme-light">{% trans "Claro" %}</label>
+              <input type="radio" id="theme-dark" name="theme" value="dark"><label for="theme-dark">{% trans "Oscuro" %}</label>
+            </div>
+          </fieldset>
+        </section>
+
+        <a class="btn btn--danger-outline btn--block-mobile" href="{% url 'logout' %}"><svg class="icon icon--sm" aria-hidden="true"><use href="{% static 'img/icons/logout.svg' %}#icon"/></svg>{% trans "Cerrar sesión" %}</a>
+      </div>
+    </div>
+{% endblock %}
