@@ -1,0 +1,22 @@
+# Despliegue de demostración en Render con Docker (plan gratuito)
+services:
+  - type: web
+    name: pawly
+    runtime: docker
+    plan: free
+    dockerfilePath: ./deploy/render.Dockerfile
+    dockerContext: .
+    healthCheckPath: /login/
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SERVE_MEDIA
+        value: "True"
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: "admin"
+      - key: DJANGO_SUPERUSER_EMAIL
+        value: "arondon33@gmail.com"
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false

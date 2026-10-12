@@ -118,6 +118,24 @@ Para ejecutar las pruebas:
 docker compose exec web python manage.py test
 ```
 
+## Despliegue de demostración en Render
+
+El archivo `render.yaml` despliega la aplicación en [Render](https://render.com) con Docker, usando
+`deploy/render.Dockerfile`. Esa imagen instala `gunicorn` y `whitenoise`, junta los archivos
+estáticos con `collectstatic` y al arrancar ejecuta `deploy/start.sh`, que aplica las migraciones,
+crea el administrador y levanta `gunicorn`.
+
+| Variable | Para qué sirve |
+|---|---|
+| `DJANGO_SECRET_KEY` | Clave secreta de Django (Render la genera) |
+| `DJANGO_DEBUG` | `False` en producción |
+| `DJANGO_ALLOWED_HOSTS` | Dominios permitidos. En Render se agrega solo el dominio del servicio |
+| `DJANGO_SERVE_MEDIA` | `True` para que Django sirva las fotos de ejemplo de `media/` |
+| `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_EMAIL`, `DJANGO_SUPERUSER_PASSWORD` | Administrador que se crea al arrancar |
+
+En el plan gratuito el servicio se duerme tras 15 minutos sin visitas y la base SQLite vuelve a
+empezar vacía en cada despliegue, así que es solo para demostración.
+
 ## Arquitectura
 
 El laboratorio plantea separar el servidor de aplicaciones del servidor de base de

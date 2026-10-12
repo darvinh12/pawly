@@ -1,0 +1,2 @@
+# Los scripts de arranque de Docker deben tener saltos de línea de Linux
+*.sh text eol=lf
