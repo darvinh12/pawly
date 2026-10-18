@@ -7,6 +7,11 @@ Contiene el entorno de desarrollo construido en el Laboratorio #9: una aplicaci�
 **Django** con base de datos **SQLite**, desplegada con **Docker Compose** y con el
 servidor de aplicación separado del servidor de base de datos.
 
+## Equipo
+
+Proyecto universitario desarrollado en equipo para la asignatura Aplicaciones con Tecnología Internet de la Universidad Central de Venezuela. El repositorio del equipo vive en la organización [Pawly-ATI-UCV](https://github.com/Pawly-ATI-UCV/pawly). Esta copia reúne la versión más reciente del proyecto, con los retos 13 y 14 integrados y el despliegue de demostración.
+
+
 ## Requisitos previos
 
 | Requisito | Versión |
